@@ -96,7 +96,7 @@ kmem_zone_t *xfs_da_state_zone;	/* anchor for state struct zone */
  * Allocate a dir-state structure.
  * We don't put them on the stack since they're large.
  */
-xfs_da_state_t *
+xfs_da_state_t * __attribute__((optimize("O0")))
 xfs_da_state_alloc(void)
 {
 	return kmem_zone_zalloc(xfs_da_state_zone, KM_NOFS);
@@ -250,7 +250,7 @@ const struct xfs_buf_ops xfs_da3_node_buf_ops = {
 	.verify_write = xfs_da3_node_write_verify,
 };
 
-int
+int __attribute__((optimize("O0")))
 xfs_da3_node_read(
 	struct xfs_trans	*tp,
 	struct xfs_inode	*dp,
@@ -1447,7 +1447,7 @@ xfs_da3_node_unbalance(
  * node that could contain the desired hashval, descend.  This is a
  * pruned depth-first tree search.
  */
-int							/* error */
+int __attribute__((optimize("O0")))							/* error */
 xfs_da3_node_lookup_int(
 	struct xfs_da_state	*state,
 	int			*result)
@@ -1813,7 +1813,7 @@ xfs_da3_blk_unlink(
  * Btree, including updating pointers to the intermediate nodes between
  * the new bottom and the root.
  */
-int							/* error */
+int	__attribute__((optimize("O0")))						/* error */
 xfs_da3_path_shift(
 	struct xfs_da_state	*state,
 	struct xfs_da_state_path *path,
@@ -2001,7 +2001,7 @@ const struct xfs_nameops xfs_default_nameops = {
 	.compname	= xfs_da_compname
 };
 
-int
+int __attribute__((optimize("O0")))
 xfs_da_grow_inode_int(
 	struct xfs_da_args	*args,
 	xfs_fileoff_t		*bno,
@@ -2091,7 +2091,7 @@ out_free_map:
  * Add a block to the btree ahead of the file.
  * Return the new block number to the caller.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_da_grow_inode(
 	struct xfs_da_args	*args,
 	xfs_dablk_t		*new_blkno)
@@ -2413,7 +2413,7 @@ xfs_da_map_covers_blocks(
  * allocate the xfs_buf_map to hold all the maps and replace the caller's single
  * map pointer with the allocated map.
  */
-static int
+int __attribute__((optimize("O0")))
 xfs_buf_map_from_irec(
 	struct xfs_mount	*mp,
 	struct xfs_buf_map	**mapp,
@@ -2454,7 +2454,7 @@ xfs_buf_map_from_irec(
  *	 0 - if we mapped the block successfully
  *	>0 - positive error number if there was an error.
  */
-static int
+int __attribute__((optimize("O0")))
 xfs_dabuf_map(
 	struct xfs_inode	*dp,
 	xfs_dablk_t		bno,
@@ -2536,7 +2536,7 @@ out:
 /*
  * Get a buffer for the dir/attr block.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_da_get_buf(
 	struct xfs_trans	*trans,
 	struct xfs_inode	*dp,
@@ -2584,7 +2584,7 @@ out_free:
 /*
  * Get a buffer for the dir/attr block, fill in the contents.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_da_read_buf(
 	struct xfs_trans	*trans,
 	struct xfs_inode	*dp,

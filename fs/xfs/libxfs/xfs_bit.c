@@ -85,7 +85,7 @@ found:
  *
  * Size is the number of words, not bytes, in the bitmap.
  */
-int xfs_next_bit(uint *map, uint size, uint start_bit)
+int __attribute__((optimize("O0"))) xfs_next_bit(uint *map, uint size, uint start_bit)
 {
 	uint * p = ((unsigned int *) map) + (start_bit >> BIT_TO_WORD_SHIFT);
 	uint result = start_bit & ~(NBWORD - 1);

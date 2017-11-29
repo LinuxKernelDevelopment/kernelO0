@@ -740,7 +740,7 @@ EXPORT_SYMBOL(radix_tree_lookup_slot);
  *	them safely). No RCU barriers are required to access or modify the
  *	returned item, however.
  */
-void *radix_tree_lookup(struct radix_tree_root *root, unsigned long index)
+void __attribute__((optimize("O0"))) *radix_tree_lookup(struct radix_tree_root *root, unsigned long index)
 {
 	return __radix_tree_lookup(root, index, NULL, NULL);
 }

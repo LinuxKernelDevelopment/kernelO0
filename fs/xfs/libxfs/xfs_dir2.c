@@ -189,7 +189,7 @@ xfs_dir_isempty(
 /*
  * Validate a given inode number.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir_ino_validate(
 	xfs_mount_t	*mp,
 	xfs_ino_t	ino)
@@ -223,7 +223,7 @@ xfs_dir_ino_validate(
 /*
  * Initialize a directory with its "." and ".." entries.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir_init(
 	xfs_trans_t	*tp,
 	xfs_inode_t	*dp,
@@ -253,7 +253,7 @@ xfs_dir_init(
  * Enter a name in a directory, or check for available space.
  * If inum is 0, only the available space test is performed.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir_createname(
 	xfs_trans_t		*tp,
 	xfs_inode_t		*dp,
@@ -557,7 +557,7 @@ out_free:
 /*
  * See if this entry can be added to the directory without allocating space.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir_canenter(
 	xfs_trans_t	*tp,
 	xfs_inode_t	*dp,
@@ -576,7 +576,7 @@ xfs_dir_canenter(
  * This routine is for data and free blocks, not leaf/node blocks which are
  * handled by xfs_da_grow_inode.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir2_grow_inode(
 	struct xfs_da_args	*args,
 	int			space,	/* v2 dir's space XFS_DIR2_xxx_SPACE */
@@ -620,7 +620,7 @@ xfs_dir2_grow_inode(
 /*
  * See if the directory is a single-block form directory.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir2_isblock(
 	struct xfs_da_args	*args,
 	int			*vp)	/* out: 1 is block, 0 is not block */

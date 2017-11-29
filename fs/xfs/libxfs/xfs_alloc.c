@@ -153,7 +153,7 @@ xfs_alloc_lookup_eq(
  * Lookup the first record greater than or equal to [bno, len]
  * in the btree given by cur.
  */
-int				/* error */
+int __attribute__((optimize("O0")))				/* error */
 xfs_alloc_lookup_ge(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	xfs_agblock_t		bno,	/* starting block of extent */
@@ -169,7 +169,7 @@ xfs_alloc_lookup_ge(
  * Lookup the first record less than or equal to [bno, len]
  * in the btree given by cur.
  */
-static int				/* error */
+int __attribute__((optimize("O0")))				/* error */
 xfs_alloc_lookup_le(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	xfs_agblock_t		bno,	/* starting block of extent */
@@ -186,7 +186,7 @@ xfs_alloc_lookup_le(
  * by [bno, len].
  * This either works (return 0) or gets an EFSCORRUPTED error.
  */
-STATIC int				/* error */
+int	__attribute__((optimize("O0")))			/* error */
 xfs_alloc_update(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	xfs_agblock_t		bno,	/* starting block of extent */
@@ -202,7 +202,7 @@ xfs_alloc_update(
 /*
  * Get the data from the pointed-to record.
  */
-int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_alloc_get_rec(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	xfs_agblock_t		*bno,	/* output: starting block of extent */
@@ -224,7 +224,7 @@ xfs_alloc_get_rec(
  * Compute aligned version of the found extent.
  * Takes alignment and min length into account.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_alloc_compute_aligned(
 	xfs_alloc_arg_t	*args,		/* allocation argument structure */
 	xfs_agblock_t	foundbno,	/* starting block in found extent */
@@ -268,7 +268,7 @@ xfs_alloc_compute_aligned(
  * Compute best start block and diff for "near" allocations.
  * freelen >= wantlen already checked by caller.
  */
-STATIC xfs_extlen_t			/* difference value (absolute) */
+xfs_extlen_t __attribute__((optimize("O0")))			/* difference value (absolute) */
 xfs_alloc_compute_diff(
 	xfs_agblock_t	wantbno,	/* target starting block */
 	xfs_extlen_t	wantlen,	/* target length */
@@ -339,7 +339,7 @@ xfs_alloc_compute_diff(
  * If len is too small it is returned unchanged.
  * If len hits maxlen it is left alone.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_alloc_fix_len(
 	xfs_alloc_arg_t	*args)		/* allocation argument structure */
 {
@@ -372,7 +372,7 @@ xfs_alloc_fix_len(
  * Fix up length if there is too little space left in the a.g.
  * Return 1 if ok, 0 if too little, should give up.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_alloc_fix_minleft(
 	xfs_alloc_arg_t	*args)		/* allocation argument structure */
 {
@@ -401,7 +401,7 @@ xfs_alloc_fix_minleft(
  * Flags are passed in indicating whether the cursors are set to the
  * relevant records.
  */
-STATIC int				/* error code */
+int __attribute__((optimize("O0")))				/* error code */
 xfs_alloc_fixup_trees(
 	xfs_btree_cur_t	*cnt_cur,	/* cursor for by-size btree */
 	xfs_btree_cur_t	*bno_cur,	/* cursor for by-block btree */
@@ -629,7 +629,7 @@ const struct xfs_buf_ops xfs_agfl_buf_ops = {
 /*
  * Read in the allocation group free block array.
  */
-STATIC int				/* error */
+int __attribute__((optimize("O0")))				/* error */
 xfs_alloc_read_agfl(
 	xfs_mount_t	*mp,		/* mount point structure */
 	xfs_trans_t	*tp,		/* transaction pointer */
@@ -684,7 +684,7 @@ xfs_alloc_update_counters(
  * and of the form k * prod + mod unless there's nothing that large.
  * Return the starting a.g. block, or NULLAGBLOCK if we can't do it.
  */
-STATIC int			/* error */
+int __attribute__((optimize("O0")))			/* error */
 xfs_alloc_ag_vextent(
 	xfs_alloc_arg_t	*args)	/* argument structure for allocation */
 {
@@ -885,7 +885,7 @@ error0:
  * Search the btree in a given direction via the search cursor and compare
  * the records found against the good extent we've already found.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_alloc_find_best_extent(
 	struct xfs_alloc_arg	*args,	/* allocation argument structure */
 	struct xfs_btree_cur	**gcur,	/* good cursor */
@@ -980,7 +980,7 @@ error0:
  * and of the form k * prod + mod unless there's nothing that large.
  * Return the starting a.g. block, or NULLAGBLOCK if we can't do it.
  */
-STATIC int				/* error */
+int __attribute__((optimize("O0")))				/* error */
 xfs_alloc_ag_vextent_near(
 	xfs_alloc_arg_t	*args)		/* allocation argument structure */
 {
@@ -1597,7 +1597,7 @@ out_nominleft:
  * Either return the contents of the last freespace record,
  * or allocate space from the freelist if there is nothing in the tree.
  */
-STATIC int			/* error */
+int	__attribute__((optimize("O0")))		/* error */
 xfs_alloc_ag_vextent_small(
 	xfs_alloc_arg_t	*args,	/* allocation argument structure */
 	xfs_btree_cur_t	*ccur,	/* by-size cursor */
@@ -1705,7 +1705,7 @@ error0:
 /*
  * Free the extent starting at agno/bno for length.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_free_ag_extent(
 	xfs_trans_t		*tp,
 	xfs_buf_t		*agbp,
@@ -1986,7 +1986,7 @@ xfs_alloc_compute_maxlevels(
  * 'reserved' parameter tells us how many blocks in this AG are reserved for
  * other callers.
  */
-xfs_extlen_t
+xfs_extlen_t __attribute__((optimize("O0")))
 xfs_alloc_longest_free_extent(
 	struct xfs_mount	*mp,
 	struct xfs_perag	*pag,
@@ -2021,7 +2021,7 @@ xfs_alloc_longest_free_extent(
 	return pag->pagf_flcount > 0 || pag->pagf_longest > 0;
 }
 
-unsigned int
+unsigned int __attribute__((optimize("O0")))
 xfs_alloc_min_freelist(
 	struct xfs_mount	*mp,
 	struct xfs_perag	*pag)
@@ -2049,7 +2049,7 @@ xfs_alloc_min_freelist(
  * is dependent on whether the size and shape of free space available will
  * permit the requested allocation to take place.
  */
-static bool
+bool __attribute__((optimize("O0")))
 xfs_alloc_space_available(
 	struct xfs_alloc_arg	*args,
 	xfs_extlen_t		min_free,
@@ -2084,7 +2084,7 @@ xfs_alloc_space_available(
  * Decide whether to use this allocation group for this allocation.
  * If so, fix up the btree freelist's size.
  */
-int			/* error */
+int __attribute__((optimize("O0")))			/* error */
 xfs_alloc_fix_freelist(
 	struct xfs_alloc_arg	*args,	/* allocation argument structure */
 	int			flags)	/* XFS_ALLOC_FLAG_... */
@@ -2248,7 +2248,7 @@ out_no_agbp:
  * Get a block from the freelist.
  * Returns with the buffer for the block gotten.
  */
-int				/* error */
+int __attribute__((optimize("O0")))				/* error */
 xfs_alloc_get_freelist(
 	xfs_trans_t	*tp,	/* transaction pointer */
 	xfs_buf_t	*agbp,	/* buffer containing the agf structure */
@@ -2355,7 +2355,7 @@ xfs_alloc_log_agf(
 /*
  * Interface for inode allocation to force the pag data to be initialized.
  */
-int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_alloc_pagf_init(
 	xfs_mount_t		*mp,	/* file system mount structure */
 	xfs_trans_t		*tp,	/* transaction pointer */
@@ -2537,7 +2537,7 @@ const struct xfs_buf_ops xfs_agf_buf_ops = {
 /*
  * Read in the allocation group header (free/alloc section).
  */
-int					/* error */
+int	__attribute__((optimize("O0")))				/* error */
 xfs_read_agf(
 	struct xfs_mount	*mp,	/* mount point structure */
 	struct xfs_trans	*tp,	/* transaction pointer */
@@ -2567,7 +2567,7 @@ xfs_read_agf(
 /*
  * Read in the allocation group header (free/alloc section).
  */
-int					/* error */
+int	__attribute__((optimize("O0")))	/* error */
 xfs_alloc_read_agf(
 	struct xfs_mount	*mp,	/* mount point structure */
 	struct xfs_trans	*tp,	/* transaction pointer */
@@ -2631,7 +2631,7 @@ xfs_alloc_read_agf(
  * Depending on the allocation type, we either look in a single allocation
  * group or loop over the allocation groups to find the result.
  */
-int				/* error */
+int __attribute__((optimize("O0")))				/* error */
 xfs_alloc_vextent(
 	xfs_alloc_arg_t	*args)	/* allocation argument structure */
 {

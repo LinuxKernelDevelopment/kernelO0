@@ -124,7 +124,7 @@ xfs_cleanup_inode(
 	xfs_remove(XFS_I(dir), &teardown, XFS_I(inode));
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_generic_create(
 	struct inode	*dir,
 	struct dentry	*dentry,
@@ -206,7 +206,7 @@ xfs_generic_create(
 	goto out_free_acl;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_vn_mknod(
 	struct inode	*dir,
 	struct dentry	*dentry,
@@ -226,7 +226,7 @@ xfs_vn_create(
 	return xfs_vn_mknod(dir, dentry, mode, 0);
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_vn_mkdir(
 	struct inode	*dir,
 	struct dentry	*dentry,
@@ -1173,7 +1173,7 @@ xfs_diflags_to_iflags(
  * inode. These callers have different criteria for clearing XFS_INEW, so leave
  * it up to the caller to deal with unlocking the inode appropriately.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_setup_inode(
 	struct xfs_inode	*ip)
 {

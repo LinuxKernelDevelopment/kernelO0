@@ -571,7 +571,7 @@ out_error:
 /*
  * Remove a reference to an extent in the rmap btree.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_rmap_free(
 	struct xfs_trans	*tp,
 	struct xfs_buf		*agbp,

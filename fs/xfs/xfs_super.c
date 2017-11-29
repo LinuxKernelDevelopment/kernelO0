@@ -1641,6 +1641,7 @@ xfs_fs_fill_super(
 		goto out_filestream_unmount;
 
 	root = igrab(VFS_I(mp->m_rootip));
+	printk(KERN_DEBUG "root inode number:0x%llx\n", mp->m_rootip->i_ino);
 	if (!root) {
 		error = -ENOENT;
 		goto out_unmount;

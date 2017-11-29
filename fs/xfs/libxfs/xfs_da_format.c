@@ -347,7 +347,7 @@ xfs_dir2_ftype_data_first_entry_p(
 				XFS_DIR3_DATA_ENTSIZE(2));
 }
 
-static struct xfs_dir2_data_entry *
+struct xfs_dir2_data_entry * __attribute__((optimize("O0")))
 xfs_dir3_data_dot_entry_p(
 	struct xfs_dir2_data_hdr *hdr)
 {
@@ -474,7 +474,7 @@ xfs_dir2_leaf_hdr_to_disk(
 	to->hdr.stale = cpu_to_be16(from->stale);
 }
 
-static void
+void __attribute__((optimize("O0")))
 xfs_dir3_leaf_hdr_from_disk(
 	struct xfs_dir3_icleaf_hdr	*to,
 	struct xfs_dir2_leaf		*from)
@@ -491,7 +491,7 @@ xfs_dir3_leaf_hdr_from_disk(
 	       to->magic == XFS_DIR3_LEAFN_MAGIC);
 }
 
-static void
+void __attribute__((optimize("O0")))
 xfs_dir3_leaf_hdr_to_disk(
 	struct xfs_dir2_leaf		*to,
 	struct xfs_dir3_icleaf_hdr	*from)

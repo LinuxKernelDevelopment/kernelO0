@@ -750,7 +750,7 @@ error_return:
  *	   XFS_TRANS_DQ_RES_RTBLKS reserves realtime disk blocks
  * dquots are unlocked on return, if they were not locked by caller.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_trans_reserve_quota_bydquots(
 	struct xfs_trans	*tp,
 	struct xfs_mount	*mp,

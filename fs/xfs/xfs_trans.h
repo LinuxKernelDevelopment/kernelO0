@@ -186,7 +186,7 @@ int		xfs_trans_read_buf_map(struct xfs_mount *mp,
 				       struct xfs_buf **bpp,
 				       const struct xfs_buf_ops *ops);
 
-static inline int
+static inline int 
 xfs_trans_read_buf(
 	struct xfs_mount	*mp,
 	struct xfs_trans	*tp,

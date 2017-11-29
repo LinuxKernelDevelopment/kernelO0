@@ -156,7 +156,7 @@ const struct xfs_buf_ops xfs_dir3_free_buf_ops = {
 };
 
 
-static int
+int __attribute__((optimize("O0")))
 __xfs_dir3_free_read(
 	struct xfs_trans	*tp,
 	struct xfs_inode	*dp,
@@ -175,7 +175,7 @@ __xfs_dir3_free_read(
 	return err;
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_dir2_free_read(
 	struct xfs_trans	*tp,
 	struct xfs_inode	*dp,
@@ -195,7 +195,7 @@ xfs_dir2_free_try_read(
 	return __xfs_dir3_free_read(tp, dp, fbno, -2, bpp);
 }
 
-static int
+int __attribute__((optimize("O0")))
 xfs_dir3_free_get_buf(
 	xfs_da_args_t		*args,
 	xfs_dir2_db_t		fbno,
@@ -285,7 +285,7 @@ xfs_dir2_free_log_header(
  * We need to change the magic number of the leaf block, and copy
  * the freespace table out of the leaf block into its own block.
  */
-int						/* error */
+int	__attribute__((optimize("O0")))		/* error */
 xfs_dir2_leaf_to_node(
 	xfs_da_args_t		*args,		/* operation arguments */
 	struct xfs_buf		*lbp)		/* leaf buffer */
@@ -480,7 +480,7 @@ xfs_dir2_free_hdr_check(
  * Return the last hash value in the leaf.
  * Stale entries are ok.
  */
-xfs_dahash_t					/* hash value */
+xfs_dahash_t __attribute__((optimize("O0")))					/* hash value */
 xfs_dir2_leafn_lasthash(
 	struct xfs_inode *dp,
 	struct xfs_buf	*bp,			/* leaf buffer */
@@ -508,7 +508,7 @@ xfs_dir2_leafn_lasthash(
  * Look up a leaf entry for space to add a name in a node-format leaf block.
  * The extrablk in state is a freespace block.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_dir2_leafn_lookup_for_addname(
 	struct xfs_buf		*bp,		/* leaf buffer */
 	xfs_da_args_t		*args,		/* operation arguments */
@@ -663,7 +663,7 @@ out:
  * Look up a leaf entry in a node-format leaf block.
  * The extrablk in state a data block.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_dir2_leafn_lookup_for_entry(
 	struct xfs_buf		*bp,		/* leaf buffer */
 	xfs_da_args_t		*args,		/* operation arguments */
@@ -816,7 +816,7 @@ xfs_dir2_leafn_lookup_for_entry(
  * If this is an addname then the extrablk in state is a freespace block,
  * otherwise it's a data block.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir2_leafn_lookup_int(
 	struct xfs_buf		*bp,		/* leaf buffer */
 	xfs_da_args_t		*args,		/* operation arguments */
@@ -1567,7 +1567,7 @@ xfs_dir2_leafn_unbalance(
 /*
  * Top-level node form directory addname routine.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_node_addname(
 	xfs_da_args_t		*args)		/* operation arguments */
 {

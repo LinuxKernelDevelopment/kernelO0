@@ -128,7 +128,7 @@ const struct xfs_buf_ops xfs_dir3_block_buf_ops = {
 	.verify_write = xfs_dir3_block_write_verify,
 };
 
-int
+int __attribute__((optimize("O0")))
 xfs_dir3_block_read(
 	struct xfs_trans	*tp,
 	struct xfs_inode	*dp,
@@ -144,7 +144,7 @@ xfs_dir3_block_read(
 	return err;
 }
 
-static void
+void __attribute__((optimize("O0")))
 xfs_dir3_block_init(
 	struct xfs_mount	*mp,
 	struct xfs_trans	*tp,
@@ -168,7 +168,7 @@ xfs_dir3_block_init(
 	hdr3->magic = cpu_to_be32(XFS_DIR2_BLOCK_MAGIC);
 }
 
-static void
+void __attribute__((optimize("O0")))
 xfs_dir2_block_need_space(
 	struct xfs_inode		*dp,
 	struct xfs_dir2_data_hdr	*hdr,
@@ -280,7 +280,7 @@ out:
  * Leave the highest-numbered stale entry stale.
  * XXX should be the one closest to mid but mid is not yet computed.
  */
-static void
+void __attribute__((optimize("O0")))
 xfs_dir2_block_compact(
 	struct xfs_da_args		*args,
 	struct xfs_buf			*bp,
@@ -331,7 +331,7 @@ xfs_dir2_block_compact(
 /*
  * Add an entry to a block directory.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_block_addname(
 	xfs_da_args_t		*args)		/* directory op arguments */
 {
@@ -568,7 +568,7 @@ xfs_dir2_block_addname(
 /*
  * Log leaf entries from the block.
  */
-static void
+void __attribute__((optimize("O0")))
 xfs_dir2_block_log_leaf(
 	xfs_trans_t		*tp,		/* transaction structure */
 	struct xfs_buf		*bp,		/* block buffer */
@@ -1043,7 +1043,7 @@ xfs_dir2_leaf_to_block(
 /*
  * Convert the shortform directory to block form.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_sf_to_block(
 	xfs_da_args_t		*args)		/* operation arguments */
 {

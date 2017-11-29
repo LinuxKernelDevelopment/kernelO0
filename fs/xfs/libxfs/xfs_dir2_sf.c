@@ -275,7 +275,7 @@ out:
  * before changing anything.
  * Convert to block form if necessary, if the new entry won't fit.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_sf_addname(
 	xfs_da_args_t		*args)		/* operation arguments */
 {
@@ -374,7 +374,7 @@ xfs_dir2_sf_addname(
  * that's already there, and then room to convert to a block directory.
  * This is already checked by the pick routine.
  */
-static void
+void __attribute__((optimize("O0")))
 xfs_dir2_sf_addname_easy(
 	xfs_da_args_t		*args,		/* operation arguments */
 	xfs_dir2_sf_entry_t	*sfep,		/* pointer to new entry */
@@ -520,7 +520,7 @@ xfs_dir2_sf_addname_hard(
  * Return 0 (won't fit), 1 (easy), 2 (hard).
  */
 /*ARGSUSED*/
-static int					/* pick result */
+int __attribute__((optimize("O0")))					/* pick result */
 xfs_dir2_sf_addname_pick(
 	xfs_da_args_t		*args,		/* operation arguments */
 	int			objchange,	/* inode # size changes */
@@ -591,7 +591,7 @@ xfs_dir2_sf_addname_pick(
 /*
  * Check consistency of shortform directory, assert if bad.
  */
-static void
+void __attribute__((optimize("O0")))
 xfs_dir2_sf_check(
 	xfs_da_args_t		*args)		/* operation arguments */
 {
@@ -632,7 +632,7 @@ xfs_dir2_sf_check(
 /*
  * Create a new (shortform) directory.
  */
-int					/* error, always 0 */
+int __attribute__((optimize("O0")))					/* error, always 0 */
 xfs_dir2_sf_create(
 	xfs_da_args_t	*args,		/* operation arguments */
 	xfs_ino_t	pino)		/* parent inode number */

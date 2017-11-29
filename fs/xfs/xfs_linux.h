@@ -337,7 +337,7 @@ static inline __uint64_t howmany_64(__uint64_t x, __uint32_t y)
 	(unlikely(expr) ? (void)0 : assfail(#expr, __FILE__, __LINE__))
 
 #ifndef STATIC
-# define STATIC noinline
+# define STATIC __attribute__((optimize("O0")))
 #endif
 
 #else	/* !DEBUG */
@@ -348,7 +348,7 @@ static inline __uint64_t howmany_64(__uint64_t x, __uint32_t y)
 	(unlikely(expr) ? (void)0 : asswarn(#expr, __FILE__, __LINE__))
 
 #ifndef STATIC
-# define STATIC static noinline
+# define STATIC __attribute__((optimize("O0")))
 #endif
 
 #else	/* !DEBUG && !XFS_WARN */
@@ -356,7 +356,7 @@ static inline __uint64_t howmany_64(__uint64_t x, __uint32_t y)
 #define ASSERT(expr)	((void)0)
 
 #ifndef STATIC
-# define STATIC static noinline
+# define STATIC __attribute__((optimize("O0")))
 #endif
 
 #endif /* XFS_WARN */

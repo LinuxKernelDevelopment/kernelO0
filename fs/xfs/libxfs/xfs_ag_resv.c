@@ -118,7 +118,7 @@ xfs_ag_resv_critical(
  * How many blocks are reserved but not used, and therefore must not be
  * allocated away?
  */
-xfs_extlen_t
+xfs_extlen_t __attribute__((optimize("O0")))
 xfs_ag_resv_needed(
 	struct xfs_perag		*pag,
 	enum xfs_ag_resv_type		type)
@@ -304,7 +304,7 @@ xfs_ag_resv_alloc_extent(
 }
 
 /* Free a block to the reservation. */
-void
+void __attribute__((optimize("O0")))
 xfs_ag_resv_free_extent(
 	struct xfs_perag		*pag,
 	enum xfs_ag_resv_type		type,

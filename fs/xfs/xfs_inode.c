@@ -767,7 +767,7 @@ out_unlock:
  * are not linked into the directory structure - they are attached
  * directly to the superblock - and so have no parent.
  */
-static int
+int __attribute__((optimize("O0")))
 xfs_ialloc(
 	xfs_trans_t	*tp,
 	xfs_inode_t	*pip,
@@ -971,7 +971,7 @@ xfs_ialloc(
  * xfs_create_dir.
  *
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir_ialloc(
 	xfs_trans_t	**tpp,		/* input: current transaction;
 					   output: may be a new transaction. */
@@ -1146,7 +1146,7 @@ xfs_bumplink(
 	return 0;
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_create(
 	xfs_inode_t		*dp,
 	struct xfs_name		*name,

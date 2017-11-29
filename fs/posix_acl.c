@@ -21,7 +21,7 @@
 #include <linux/export.h>
 #include <linux/user_namespace.h>
 
-static struct posix_acl **acl_by_type(struct inode *inode, int type)
+static struct posix_acl ** __attribute__((optimize("O0"))) acl_by_type(struct inode *inode, int type)
 {
 	switch (type) {
 	case ACL_TYPE_ACCESS:
@@ -33,7 +33,7 @@ static struct posix_acl **acl_by_type(struct inode *inode, int type)
 	}
 }
 
-struct posix_acl *get_cached_acl(struct inode *inode, int type)
+struct posix_acl * __attribute__((optimize("O0"))) get_cached_acl(struct inode *inode, int type)
 {
 	struct posix_acl **p = acl_by_type(inode, type);
 	struct posix_acl *acl;
@@ -58,7 +58,7 @@ struct posix_acl *get_cached_acl_rcu(struct inode *inode, int type)
 }
 EXPORT_SYMBOL(get_cached_acl_rcu);
 
-void set_cached_acl(struct inode *inode, int type, struct posix_acl *acl)
+void __attribute__((optimize("O0"))) set_cached_acl(struct inode *inode, int type, struct posix_acl *acl)
 {
 	struct posix_acl **p = acl_by_type(inode, type);
 	struct posix_acl *old;
@@ -91,7 +91,7 @@ void forget_all_cached_acls(struct inode *inode)
 }
 EXPORT_SYMBOL(forget_all_cached_acls);
 
-struct posix_acl *get_acl(struct inode *inode, int type)
+struct posix_acl * __attribute__((optimize("O0"))) get_acl(struct inode *inode, int type)
 {
 	void *sentinel;
 	struct posix_acl **p;
@@ -186,7 +186,7 @@ EXPORT_SYMBOL(posix_acl_alloc);
 /*
  * Clone an ACL.
  */
-static struct posix_acl *
+static struct posix_acl * __attribute__((optimize("O0")))
 posix_acl_clone(const struct posix_acl *acl, gfp_t flags)
 {
 	struct posix_acl *clone = NULL;
@@ -411,7 +411,7 @@ check_perm:
  * system calls. All permissions that are not granted by the acl are removed.
  * The permissions in the acl are changed to reflect the mode_p parameter.
  */
-static int posix_acl_create_masq(struct posix_acl *acl, umode_t *mode_p)
+int __attribute__((optimize("O0"))) posix_acl_create_masq(struct posix_acl *acl, umode_t *mode_p)
 {
 	struct posix_acl_entry *pa, *pe;
 	struct posix_acl_entry *group_obj = NULL, *mask_obj = NULL;
@@ -576,7 +576,7 @@ posix_acl_chmod(struct inode *inode, umode_t mode)
 }
 EXPORT_SYMBOL(posix_acl_chmod);
 
-int
+int __attribute__((optimize("O0")))
 posix_acl_create(struct inode *dir, umode_t *mode,
 		struct posix_acl **default_acl, struct posix_acl **acl)
 {

@@ -193,7 +193,7 @@ xfs_buf_free_maps(
 	}
 }
 
-struct xfs_buf *
+struct xfs_buf * __attribute__((optimize("O0")))
 _xfs_buf_alloc(
 	struct xfs_buftarg	*target,
 	struct xfs_buf_map	*map,
@@ -300,7 +300,7 @@ _xfs_buf_free_pages(
  * 	The buffer must not be on any hash - use xfs_buf_rele instead for
  * 	hashed and refcounted buffers
  */
-void
+void __attribute__((optimize("O0")))
 xfs_buf_free(
 	xfs_buf_t		*bp)
 {
@@ -330,7 +330,7 @@ xfs_buf_free(
 /*
  * Allocates all the pages for buffer in question and builds it's page list.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_buf_allocate_memory(
 	xfs_buf_t		*bp,
 	uint			flags)
@@ -429,7 +429,7 @@ out_free_pages:
 /*
  *	Map buffer into kernel address-space if necessary.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 _xfs_buf_map_pages(
 	xfs_buf_t		*bp,
 	uint			flags)
@@ -479,7 +479,7 @@ _xfs_buf_map_pages(
  *	a given range of an inode.  The buffer is returned
  *	locked.	No I/O is implied by this call.
  */
-xfs_buf_t *
+xfs_buf_t * __attribute__((optimize("O0")))
 _xfs_buf_find(
 	struct xfs_buftarg	*btp,
 	struct xfs_buf_map	*map,
@@ -607,7 +607,7 @@ found:
  * cache hits, as metadata intensive workloads will see 3 orders of magnitude
  * more hits than misses.
  */
-struct xfs_buf *
+struct xfs_buf * __attribute__((optimize("O0")))
 xfs_buf_get_map(
 	struct xfs_buftarg	*target,
 	struct xfs_buf_map	*map,
@@ -664,7 +664,7 @@ found:
 	return bp;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 _xfs_buf_read(
 	xfs_buf_t		*bp,
 	xfs_buf_flags_t		flags)
@@ -682,7 +682,7 @@ _xfs_buf_read(
 	return xfs_buf_submit_wait(bp);
 }
 
-xfs_buf_t *
+xfs_buf_t * __attribute__((optimize("O0")))
 xfs_buf_read_map(
 	struct xfs_buftarg	*target,
 	struct xfs_buf_map	*map,
@@ -722,7 +722,7 @@ xfs_buf_read_map(
  *	If we are not low on memory then do the readahead in a deadlock
  *	safe manner.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_buf_readahead_map(
 	struct xfs_buftarg	*target,
 	struct xfs_buf_map	*map,
@@ -1194,7 +1194,7 @@ xfs_buf_bio_end_io(
 	bio_put(bio);
 }
 
-static void
+void __attribute__((optimize("O0")))
 xfs_buf_ioapply_map(
 	struct xfs_buf	*bp,
 	int		map,
@@ -1277,7 +1277,7 @@ next_chunk:
 
 }
 
-STATIC void
+void __attribute__((optimize("O0")))
 _xfs_buf_ioapply(
 	struct xfs_buf	*bp)
 {
@@ -1434,7 +1434,7 @@ xfs_buf_submit(
 /*
  * Synchronous buffer IO submission path, read or write.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_buf_submit_wait(
 	struct xfs_buf	*bp)
 {

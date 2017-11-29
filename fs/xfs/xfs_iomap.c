@@ -149,7 +149,7 @@ xfs_alert_fsblock_zero(
 	return -EFSCORRUPTED;
 }
 
-int
+int __attribute__((optimize("00")))
 xfs_iomap_write_direct(
 	xfs_inode_t	*ip,
 	xfs_off_t	offset,

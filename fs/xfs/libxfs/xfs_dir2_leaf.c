@@ -256,7 +256,7 @@ const struct xfs_buf_ops xfs_dir3_leafn_buf_ops = {
 	.verify_write = xfs_dir3_leafn_write_verify,
 };
 
-static int
+int __attribute__((optimize("O0")))
 xfs_dir3_leaf_read(
 	struct xfs_trans	*tp,
 	struct xfs_inode	*dp,
@@ -293,7 +293,7 @@ xfs_dir3_leafn_read(
 /*
  * Initialize a new leaf block, leaf1 or leafn magic accepted.
  */
-static void
+void __attribute__((optimize("O0")))
 xfs_dir3_leaf_init(
 	struct xfs_mount	*mp,
 	struct xfs_trans	*tp,
@@ -338,7 +338,7 @@ xfs_dir3_leaf_init(
 	}
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_dir3_leaf_get_buf(
 	xfs_da_args_t		*args,
 	xfs_dir2_db_t		bno,
@@ -371,7 +371,7 @@ xfs_dir3_leaf_get_buf(
 /*
  * Convert a block form directory to a leaf form directory.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_block_to_leaf(
 	xfs_da_args_t		*args,		/* operation arguments */
 	struct xfs_buf		*dbp)		/* input block's buffer */
@@ -510,7 +510,7 @@ xfs_dir3_leaf_find_stale(
 	}
 }
 
-struct xfs_dir2_leaf_entry *
+struct xfs_dir2_leaf_entry * __attribute__((optimize("O0")))
 xfs_dir3_leaf_find_entry(
 	struct xfs_dir3_icleaf_hdr *leafhdr,
 	struct xfs_dir2_leaf_entry *ents,
@@ -603,7 +603,7 @@ xfs_dir3_leaf_find_entry(
 /*
  * Add an entry to a leaf form directory.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_leaf_addname(
 	xfs_da_args_t		*args)		/* operation arguments */
 {
@@ -1053,7 +1053,7 @@ xfs_dir3_leaf_compact_x1(
 /*
  * Log the bests entries indicated from a leaf1 block.
  */
-static void
+void __attribute__((optimize("O0")))
 xfs_dir3_leaf_log_bests(
 	struct xfs_da_args	*args,
 	struct xfs_buf		*bp,		/* leaf buffer */
@@ -1079,7 +1079,7 @@ xfs_dir3_leaf_log_bests(
 /*
  * Log the leaf entries indicated from a leaf1 or leafn block.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_dir3_leaf_log_ents(
 	struct xfs_da_args	*args,
 	struct xfs_buf		*bp,
@@ -1107,7 +1107,7 @@ xfs_dir3_leaf_log_ents(
 /*
  * Log the header of the leaf1 or leafn block.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_dir3_leaf_log_header(
 	struct xfs_da_args	*args,
 	struct xfs_buf		*bp)
@@ -1536,7 +1536,7 @@ xfs_dir2_leaf_replace(
  * one with this hash value, or if there are none, the insert point
  * for that hash value.
  */
-int						/* index value */
+int __attribute__((optimize("O0")))						/* index value */
 xfs_dir2_leaf_search_hash(
 	xfs_da_args_t		*args,		/* operation arguments */
 	struct xfs_buf		*lbp)		/* leaf buffer */

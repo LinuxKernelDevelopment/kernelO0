@@ -226,7 +226,7 @@ undo_blocks:
 	return error;
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_trans_alloc(
 	struct xfs_mount	*mp,
 	struct xfs_trans_res	*resp,

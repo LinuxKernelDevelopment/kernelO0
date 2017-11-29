@@ -1624,7 +1624,7 @@ xfs_qm_dqfree_one(
  * in	: inode (unlocked)
  * out	: udquot, gdquot with references taken and unlocked
  */
-int
+int __attribute__((optimize("O0")))
 xfs_qm_vop_dqalloc(
 	struct xfs_inode	*ip,
 	xfs_dqid_t		uid,

@@ -72,7 +72,7 @@ xfs_count_page_state(
 	} while ((bh = bh->b_this_page) != head);
 }
 
-struct block_device *
+struct block_device * __attribute__((optimize("00")))
 xfs_find_bdev_for_inode(
 	struct inode		*inode)
 {
@@ -609,7 +609,7 @@ xfs_add_to_ioend(
 	xfs_start_buffer_writeback(bh);
 }
 
-STATIC void
+void __attribute__((optimize("00")))
 xfs_map_buffer(
 	struct inode		*inode,
 	struct buffer_head	*bh,
@@ -1189,7 +1189,7 @@ xfs_vm_releasepage(
  * and the actual max write offset is communicated to the IO completion
  * routine.
  */
-static void
+void __attribute__((optimize("00")))
 xfs_map_direct(
 	struct inode		*inode,
 	struct buffer_head	*bh_result,
@@ -1228,7 +1228,7 @@ xfs_map_direct(
  * existing data with zeros. Hence we have to split the mapping into a range up
  * to and including EOF, and a second mapping for beyond EOF.
  */
-static void
+void __attribute__((optimize("00")))
 xfs_map_trim_size(
 	struct inode		*inode,
 	sector_t		iblock,
@@ -1258,7 +1258,7 @@ xfs_map_trim_size(
 }
 
 /* Bounce unaligned directio writes to the page cache. */
-static int
+int __attribute__((optimize("00")))
 xfs_bounce_unaligned_dio_write(
 	struct xfs_inode	*ip,
 	xfs_fileoff_t		offset_fsb,
@@ -1295,7 +1295,7 @@ xfs_bounce_unaligned_dio_write(
 	return 0;
 }
 
-STATIC int
+int __attribute__((optimize("00")))
 __xfs_get_blocks(
 	struct inode		*inode,
 	sector_t		iblock,

@@ -1554,7 +1554,7 @@ __xfs_refcount_cow_free(
 }
 
 /* Record a CoW staging extent in the refcount btree. */
-int
+int __attribute__((optimize("O0")))
 xfs_refcount_alloc_cow_extent(
 	struct xfs_mount		*mp,
 	struct xfs_defer_ops		*dfops,

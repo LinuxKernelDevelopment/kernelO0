@@ -61,7 +61,7 @@ xfs_trans_ijoin(
  * joined to the transaction supplied. Relies on the transaction subsystem to
  * track dirty state and update/writeback the inode accordingly.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_trans_ichgtime(
 	struct xfs_trans	*tp,
 	struct xfs_inode	*ip,
@@ -90,7 +90,7 @@ xfs_trans_ichgtime(
  * log all of the core inode if any of it has changed, and we always log
  * all of the inline data/extents/b-tree root if any of them has changed.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_trans_log_inode(
 	xfs_trans_t	*tp,
 	xfs_inode_t	*ip,

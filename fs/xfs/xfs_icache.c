@@ -41,7 +41,7 @@
 /*
  * Allocate and initialise an xfs_inode.
  */
-struct xfs_inode *
+struct xfs_inode * __attribute__((optimize("O0")))
 xfs_inode_alloc(
 	struct xfs_mount	*mp,
 	xfs_ino_t		ino)
@@ -272,7 +272,7 @@ xfs_inode_clear_reclaim_tag(
  * need to retain across reinitialisation, and rewrite them into the VFS inode
  * after reinitialisation even if it fails.
  */
-static int
+int __attribute__((optimize("O0")))
 xfs_reinit_inode(
 	struct xfs_mount	*mp,
 	struct inode		*inode)
@@ -295,7 +295,7 @@ xfs_reinit_inode(
 /*
  * Check the validity of the inode we just found it the cache
  */
-static int
+int __attribute__((optimize("O0")))
 xfs_iget_cache_hit(
 	struct xfs_perag	*pag,
 	struct xfs_inode	*ip,
@@ -428,7 +428,7 @@ out_error:
 }
 
 
-static int
+int __attribute__((optimize("O0")))
 xfs_iget_cache_miss(
 	struct xfs_mount	*mp,
 	struct xfs_perag	*pag,
@@ -543,7 +543,7 @@ out_destroy:
  * lock_flags -- flags indicating how to lock the inode.  See the comment
  *		 for xfs_ilock() for a list of valid values.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_iget(
 	xfs_mount_t	*mp,
 	xfs_trans_t	*tp,

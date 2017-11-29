@@ -50,7 +50,7 @@
  * Because we never free per-ag structures, the only thing we
  * have to protect against changes is the tree structure itself.
  */
-struct xfs_perag *
+struct xfs_perag * __attribute__((optimize("O0")))
 xfs_perag_get(
 	struct xfs_mount	*mp,
 	xfs_agnumber_t		agno)

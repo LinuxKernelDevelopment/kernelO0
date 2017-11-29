@@ -400,7 +400,7 @@ xfs_reflink_allocate_cow_range(
  * Find the CoW reservation (and whether or not it needs block allocation)
  * for a given byte offset of a file.
  */
-bool
+bool __attribute__((optimize("00")))
 xfs_reflink_find_cow_mapping(
 	struct xfs_inode		*ip,
 	xfs_off_t			offset,
@@ -441,7 +441,7 @@ xfs_reflink_find_cow_mapping(
 /*
  * Trim an extent to end at the next CoW reservation past offset_fsb.
  */
-int
+int __attribute__((optimize("00")))
 xfs_reflink_trim_irec_to_next_cow(
 	struct xfs_inode		*ip,
 	xfs_fileoff_t			offset_fsb,

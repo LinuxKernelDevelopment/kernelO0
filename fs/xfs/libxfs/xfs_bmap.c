@@ -110,7 +110,7 @@ xfs_bmap_compute_maxlevels(
 	mp->m_bm_maxlevels[whichfork] = level;
 }
 
-STATIC int				/* error */
+int __attribute__((optimize("O0")))			/* error */
 xfs_bmbt_lookup_eq(
 	struct xfs_btree_cur	*cur,
 	xfs_fileoff_t		off,
@@ -248,7 +248,7 @@ xfs_default_attroffset(
  * attribute fork from local to extent format - we reset it where
  * possible to make space available for inline data fork extents.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_bmap_forkoff_reset(
 	xfs_inode_t	*ip,
 	int		whichfork)
@@ -867,7 +867,7 @@ try_another_ag:
  * since the file data needs to get logged so things will stay consistent.
  * (The bmap-level manipulations are ok, though).
  */
-void
+void __attribute__((optimize("O0")))
 xfs_bmap_local_to_extents_empty(
 	struct xfs_inode	*ip,
 	int			whichfork)
@@ -1398,7 +1398,7 @@ error0:
  * entry (null if none).  Else, *lastxp will be set to the index
  * of the found entry; *gotp will contain the entry.
  */
-STATIC xfs_bmbt_rec_host_t *		/* pointer to found extent entry */
+xfs_bmbt_rec_host_t *	__attribute__((optimize("00")))	/* pointer to found extent entry */
 xfs_bmap_search_multi_extents(
 	xfs_ifork_t	*ifp,		/* inode fork pointer */
 	xfs_fileoff_t	bno,		/* block number searched for */
@@ -1445,7 +1445,7 @@ xfs_bmap_search_multi_extents(
  * Else, *lastxp will be set to the index of the found
  * entry; *gotp will contain the entry.
  */
-xfs_bmbt_rec_host_t *                 /* pointer to found extent entry */
+xfs_bmbt_rec_host_t *	__attribute__((optimize("00")))                 /* pointer to found extent entry */
 xfs_bmap_search_extents(
 	xfs_inode_t     *ip,            /* incore inode pointer */
 	xfs_fileoff_t   bno,            /* block number searched for */
@@ -1488,7 +1488,7 @@ xfs_bmap_search_extents(
  * past the end of file.
  * Return 0 if the file is currently local (in-inode).
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_bmap_first_unused(
 	xfs_trans_t	*tp,			/* transaction pointer */
 	xfs_inode_t	*ip,			/* incore inode */
@@ -1657,7 +1657,7 @@ xfs_bmap_isaeof(
  * the file.  This is not based on i_size, it is based on the extent records.
  * Returns 0 for local files, as they do not have extent records.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_bmap_last_offset(
 	struct xfs_inode	*ip,
 	xfs_fileoff_t		*last_block,
@@ -1724,7 +1724,7 @@ xfs_bmap_one_block(
 /*
  * Convert a delayed allocation to a real allocation.
  */
-STATIC int				/* error */
+int __attribute__((optimize("O0")))				/* error */
 xfs_bmap_add_extent_delay_real(
 	struct xfs_bmalloca	*bma,
 	int			whichfork)
@@ -2967,7 +2967,7 @@ xfs_bmap_add_extent_hole_delay(
 /*
  * Convert a hole to a real allocation.
  */
-STATIC int				/* error */
+int __attribute__((optimize("O0")))				/* error */
 xfs_bmap_add_extent_hole_real(
 	struct xfs_bmalloca	*bma,
 	int			whichfork)
@@ -3397,7 +3397,7 @@ xfs_bmap_extsize_align(
 
 #define XFS_ALLOC_GAP_UNITS	4
 
-void
+void __attribute__((optimize("O0")))
 xfs_bmap_adjacent(
 	struct xfs_bmalloca	*ap)	/* bmap alloc argument struct */
 {
@@ -3546,7 +3546,7 @@ xfs_bmap_adjacent(
 #undef ISVALID
 }
 
-static int
+int __attribute__((optimize("O0")))
 xfs_bmap_longest_free_extent(
 	struct xfs_trans	*tp,
 	xfs_agnumber_t		ag,
@@ -3609,7 +3609,7 @@ xfs_bmap_select_minlen(
 	}
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_bmap_btalloc_nullfb(
 	struct xfs_bmalloca	*ap,
 	struct xfs_alloc_arg	*args,
@@ -3687,7 +3687,7 @@ xfs_bmap_btalloc_filestreams(
 	return 0;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_bmap_btalloc(
 	struct xfs_bmalloca	*ap)	/* bmap alloc argument struct */
 {
@@ -3951,7 +3951,7 @@ xfs_bmap_btalloc(
  * caller passed in, and ensure that the AGFL is the right size.  The caller
  * will then map the "allocated" extent into the file somewhere.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_bmap_remap_alloc(
 	struct xfs_bmalloca	*ap)
 {
@@ -4004,7 +4004,7 @@ xfs_bmap_remap_alloc(
  * xfs_bmap_alloc is called by xfs_bmapi to allocate an extent for a file.
  * It figures out where to ask the underlying allocator to put the new extent.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_bmap_alloc(
 	struct xfs_bmalloca	*ap)	/* bmap alloc argument struct */
 {
@@ -4052,7 +4052,7 @@ xfs_trim_extent(
 /*
  * Trim the returned map to the required bounds
  */
-STATIC void
+void __attribute__((optimize("00")))
 xfs_bmapi_trim_map(
 	struct xfs_bmbt_irec	*mval,
 	struct xfs_bmbt_irec	*got,
@@ -4098,7 +4098,7 @@ xfs_bmapi_trim_map(
 /*
  * Update and validate the extent map to return
  */
-STATIC void
+void __attribute__((optimize("00")))
 xfs_bmapi_update_map(
 	struct xfs_bmbt_irec	**map,
 	xfs_fileoff_t		*bno,
@@ -4153,7 +4153,7 @@ xfs_bmapi_update_map(
 /*
  * Map file blocks to filesystem blocks without allocation.
  */
-int
+int __attribute__((optimize("00")))
 xfs_bmapi_read(
 	struct xfs_inode	*ip,
 	xfs_fileoff_t		bno,
@@ -4372,7 +4372,7 @@ out_unreserve_quota:
 	return error;
 }
 
-static int
+int __attribute__((optimize("O0")))
 xfs_bmapi_allocate(
 	struct xfs_bmalloca	*bma)
 {
@@ -4495,7 +4495,7 @@ xfs_bmapi_allocate(
 	return 0;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_bmapi_convert_unwritten(
 	struct xfs_bmalloca	*bma,
 	struct xfs_bmbt_irec	*mval,
@@ -4587,7 +4587,7 @@ xfs_bmapi_convert_unwritten(
  * the first call in "total"; if no allocation group has that many free
  * blocks then the call will fail (return NULLFSBLOCK in "firstblock").
  */
-int
+int __attribute__((optimize("O0")))
 xfs_bmapi_write(
 	struct xfs_trans	*tp,		/* transaction pointer */
 	struct xfs_inode	*ip,		/* incore inode */

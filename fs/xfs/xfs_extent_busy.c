@@ -153,7 +153,7 @@ xfs_extent_busy_search(
  * Returns true if the extent can safely be reused, or false if the search
  * needs to be restarted.
  */
-STATIC bool
+bool __attribute__((optimize("O0")))
 xfs_extent_busy_update_extent(
 	struct xfs_mount	*mp,
 	struct xfs_perag	*pag,
@@ -301,7 +301,7 @@ out_force_log:
 /*
  * For a given extent [fbno, flen], make sure we can reuse it safely.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_extent_busy_reuse(
 	struct xfs_mount	*mp,
 	xfs_agnumber_t		agno,
@@ -346,7 +346,7 @@ restart:
  * args->minlen no suitable extent could be found, and the higher level
  * code needs to force out the log and retry the allocation.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_extent_busy_trim(
 	struct xfs_alloc_arg	*args,
 	xfs_agblock_t		bno,

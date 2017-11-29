@@ -183,7 +183,7 @@ xfs_iflags_test_and_set(xfs_inode_t *ip, unsigned short flags)
  * and using two 16bit values to hold new 32bit projid was chosen
  * to retain compatibility with "old" filesystems).
  */
-static inline prid_t
+static inline prid_t 
 xfs_get_projid(struct xfs_inode *ip)
 {
 	return (prid_t)ip->i_d.di_projid_hi << 16 | ip->i_d.di_projid_lo;
@@ -197,7 +197,7 @@ xfs_set_projid(struct xfs_inode *ip,
 	ip->i_d.di_projid_lo = (__uint16_t) (projid & 0xffff);
 }
 
-static inline prid_t
+static inline prid_t 
 xfs_get_initial_prid(struct xfs_inode *dp)
 {
 	if (dp->i_d.di_flags & XFS_DIFLAG_PROJINHERIT)

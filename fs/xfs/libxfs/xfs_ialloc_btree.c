@@ -143,7 +143,7 @@ xfs_inobt_get_maxrecs(
 	return cur->bc_mp->m_inobt_mxr[level != 0];
 }
 
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_inobt_init_key_from_rec(
 	union xfs_btree_key	*key,
 	union xfs_btree_rec	*rec)
@@ -185,7 +185,7 @@ xfs_inobt_init_ptr_from_cur(
 	ptr->s = agi->agi_root;
 }
 
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_finobt_init_ptr_from_cur(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_ptr	*ptr)
@@ -196,7 +196,7 @@ xfs_finobt_init_ptr_from_cur(
 	ptr->s = agi->agi_free_root;
 }
 
-STATIC __int64_t
+__int64_t __attribute__((optimize("O0")))
 xfs_inobt_key_diff(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_key	*key)
@@ -346,7 +346,7 @@ static const struct xfs_btree_ops xfs_finobt_ops = {
 /*
  * Allocate a new inode btree cursor.
  */
-struct xfs_btree_cur *				/* new inode btree cursor */
+struct xfs_btree_cur * __attribute__((optimize("O0")))				/* new inode btree cursor */
 xfs_inobt_init_cursor(
 	struct xfs_mount	*mp,		/* file system mount point */
 	struct xfs_trans	*tp,		/* transaction pointer */
@@ -405,7 +405,7 @@ xfs_inobt_maxrecs(
  *
  * A bit value of 1 means the inode is allocated, a value of 0 means it is free.
  */
-uint64_t
+uint64_t __attribute__((optimize("O0")))
 xfs_inobt_irec_to_allocmask(
 	struct xfs_inobt_rec_incore	*rec)
 {

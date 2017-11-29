@@ -124,7 +124,7 @@ xfs_allocbt_free_block(
 /*
  * Update the longest extent in the AGF
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_allocbt_update_lastrec(
 	struct xfs_btree_cur	*cur,
 	struct xfs_btree_block	*block,
@@ -235,7 +235,7 @@ xfs_allocbt_init_ptr_from_cur(
 	ptr->s = agf->agf_roots[cur->bc_btnum];
 }
 
-STATIC __int64_t
+__int64_t __attribute__((optimize("O0")))
 xfs_allocbt_key_diff(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_key	*key)
@@ -408,7 +408,7 @@ static const struct xfs_btree_ops xfs_allocbt_ops = {
 /*
  * Allocate a new allocation btree cursor.
  */
-struct xfs_btree_cur *			/* new alloc btree cursor */
+struct xfs_btree_cur * __attribute__((optimize("O0")))			/* new alloc btree cursor */
 xfs_allocbt_init_cursor(
 	struct xfs_mount	*mp,		/* file system mount point */
 	struct xfs_trans	*tp,		/* transaction pointer */

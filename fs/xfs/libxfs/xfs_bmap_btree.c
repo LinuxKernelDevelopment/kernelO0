@@ -98,7 +98,7 @@ xfs_bmdr_to_bmbt(
  * This code must be in sync with the routines xfs_bmbt_get_startoff,
  * xfs_bmbt_get_startblock, xfs_bmbt_get_blockcount and xfs_bmbt_get_state.
  */
-STATIC void
+void __attribute__((optimize("00")))
 __xfs_bmbt_get_all(
 		__uint64_t l0,
 		__uint64_t l1,
@@ -122,7 +122,7 @@ __xfs_bmbt_get_all(
 	s->br_state = st;
 }
 
-void
+void __attribute__((optimize("O0")))
 xfs_bmbt_get_all(
 	xfs_bmbt_rec_host_t *r,
 	xfs_bmbt_irec_t *s)
@@ -154,7 +154,7 @@ xfs_bmbt_get_startblock(
 /*
  * Extract the startoff field from an in memory bmap extent record.
  */
-xfs_fileoff_t
+xfs_fileoff_t __attribute__((optimize("O0")))
 xfs_bmbt_get_startoff(
 	xfs_bmbt_rec_host_t	*r)
 {
@@ -198,7 +198,7 @@ xfs_bmbt_disk_get_startoff(
 /*
  * Set all the fields in a bmap extent record from the arguments.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_bmbt_set_allf(
 	xfs_bmbt_rec_host_t	*r,
 	xfs_fileoff_t		startoff,
@@ -225,7 +225,7 @@ xfs_bmbt_set_allf(
 /*
  * Set all the fields in a bmap extent record from the uncompressed form.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_bmbt_set_all(
 	xfs_bmbt_rec_host_t *r,
 	xfs_bmbt_irec_t	*s)

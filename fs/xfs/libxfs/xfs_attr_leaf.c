@@ -2154,7 +2154,7 @@ xfs_attr3_leaf_unbalance(
  *
  * Don't change the args->value unless we find the attribute.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_attr3_leaf_lookup_int(
 	struct xfs_buf		*bp,
 	struct xfs_da_args	*args)

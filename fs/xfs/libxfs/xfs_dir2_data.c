@@ -348,7 +348,7 @@ xfs_dir3_data_readahead(
  * Given a data block and an unused entry from that block,
  * return the bestfree entry if any that corresponds to it.
  */
-xfs_dir2_data_free_t *
+xfs_dir2_data_free_t * __attribute__((optimize("O0")))
 xfs_dir2_data_freefind(
 	struct xfs_dir2_data_hdr *hdr,		/* data block header */
 	struct xfs_dir2_data_free *bf,		/* bestfree table pointer */
@@ -419,7 +419,7 @@ xfs_dir2_data_freefind(
 /*
  * Insert an unused-space entry into the bestfree table.
  */
-xfs_dir2_data_free_t *				/* entry inserted */
+xfs_dir2_data_free_t * __attribute__((optimize("O0")))				/* entry inserted */
 xfs_dir2_data_freeinsert(
 	struct xfs_dir2_data_hdr *hdr,		/* data block pointer */
 	struct xfs_dir2_data_free *dfp,		/* bestfree table pointer */
@@ -463,7 +463,7 @@ xfs_dir2_data_freeinsert(
 /*
  * Remove a bestfree entry from the table.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_dir2_data_freeremove(
 	struct xfs_dir2_data_hdr *hdr,		/* data block header */
 	struct xfs_dir2_data_free *bf,		/* bestfree table pointer */
@@ -504,7 +504,7 @@ xfs_dir2_data_freeremove(
 /*
  * Given a data block, reconstruct its bestfree map.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_dir2_data_freescan(
 	struct xfs_inode	*dp,
 	struct xfs_dir2_data_hdr *hdr,
@@ -569,7 +569,7 @@ xfs_dir2_data_freescan(
  * Initialize a data block at the given block number in the directory.
  * Give back the buffer for the created block.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir3_data_init(
 	xfs_da_args_t		*args,		/* directory operation args */
 	xfs_dir2_db_t		blkno,		/* logical dir block number */
@@ -718,7 +718,7 @@ xfs_dir2_data_log_unused(
  * Make a byte range in the data block unused.
  * Its current contents are unimportant.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_dir2_data_make_free(
 	struct xfs_da_args	*args,
 	struct xfs_buf		*bp,
@@ -903,7 +903,7 @@ xfs_dir2_data_make_free(
 /*
  * Take a byte range out of an existing unused space and make it un-free.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_dir2_data_use_free(
 	struct xfs_da_args	*args,
 	struct xfs_buf		*bp,

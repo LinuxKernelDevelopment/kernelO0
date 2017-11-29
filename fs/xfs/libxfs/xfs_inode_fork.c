@@ -473,7 +473,7 @@ xfs_iformat_btree(
  * Read in extents from a btree-format inode.
  * Allocate and fill in if_extents.  Real work is done in xfs_bmap.c.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_iread_extents(
 	xfs_trans_t	*tp,
 	xfs_inode_t	*ip,
@@ -526,7 +526,7 @@ xfs_iread_extents(
  * ext_diff -- the change in the number of records, positive or negative,
  *	 requested for the if_broot array.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_iroot_realloc(
 	xfs_inode_t		*ip,
 	int			rec_diff,
@@ -653,7 +653,7 @@ xfs_iroot_realloc(
  * byte_diff -- the change in the number of bytes, positive or negative,
  *	 requested for the if_data array.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_idata_realloc(
 	xfs_inode_t	*ip,
 	int		byte_diff,
@@ -776,7 +776,7 @@ xfs_idestroy_fork(
 }
 
 /* Count number of incore extents based on if_bytes */
-xfs_extnum_t
+xfs_extnum_t __attribute__((optimize("O0")))
 xfs_iext_count(struct xfs_ifork *ifp)
 {
 	return ifp->if_bytes / (uint)sizeof(xfs_bmbt_rec_t);
@@ -942,7 +942,7 @@ xfs_iflush_fork(
 /*
  * Return a pointer to the extent record at file index idx.
  */
-xfs_bmbt_rec_host_t *
+xfs_bmbt_rec_host_t * __attribute__((optimize("00")))
 xfs_iext_get_ext(
 	xfs_ifork_t	*ifp,		/* inode fork pointer */
 	xfs_extnum_t	idx)		/* index of target extent */
@@ -983,7 +983,7 @@ xfs_iext_state_to_fork(
  * Insert new item(s) into the extent records for incore inode
  * fork 'ifp'.  'count' new items are inserted at index 'idx'.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_iext_insert(
 	xfs_inode_t	*ip,		/* incore inode pointer */
 	xfs_extnum_t	idx,		/* starting index of new items */
@@ -1014,7 +1014,7 @@ xfs_iext_insert(
  * caller is responsible for filling in the new extent entries upon
  * return.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_iext_add(
 	xfs_ifork_t	*ifp,		/* inode fork pointer */
 	xfs_extnum_t	idx,		/* index to begin adding exts */
@@ -1611,7 +1611,7 @@ xfs_iext_destroy(
 /*
  * Return a pointer to the extent record for file system block bno.
  */
-xfs_bmbt_rec_host_t *			/* pointer to found extent record */
+xfs_bmbt_rec_host_t *  __attribute__((optimize("00")))			/* pointer to found extent record */
 xfs_iext_bno_to_ext(
 	xfs_ifork_t	*ifp,		/* inode fork pointer */
 	xfs_fileoff_t	bno,		/* block number to search for */
@@ -1682,7 +1682,7 @@ xfs_iext_bno_to_ext(
  * extent record for filesystem block bno. Store the index of the
  * target irec in *erp_idxp.
  */
-xfs_ext_irec_t *			/* pointer to found extent record */
+xfs_ext_irec_t * __attribute__((optimize("00")))			/* pointer to found extent record */
 xfs_iext_bno_to_irec(
 	xfs_ifork_t	*ifp,		/* inode fork pointer */
 	xfs_fileoff_t	bno,		/* block number to search for */

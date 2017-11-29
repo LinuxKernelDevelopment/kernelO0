@@ -46,7 +46,7 @@
 /*
  * Allocation group level functions.
  */
-static inline int
+int __attribute__((optimize("O0")))
 xfs_ialloc_cluster_alignment(
 	struct xfs_mount	*mp)
 {
@@ -60,7 +60,7 @@ xfs_ialloc_cluster_alignment(
 /*
  * Lookup a record by ino in the btree given by cur.
  */
-int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_inobt_lookup(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	xfs_agino_t		ino,	/* starting inode of chunk */
@@ -79,7 +79,7 @@ xfs_inobt_lookup(
  * Update the record referred to by cur to the value given.
  * This either works (return 0) or gets an EFSCORRUPTED error.
  */
-STATIC int				/* error */
+int __attribute__((optimize("O0")))			/* error */
 xfs_inobt_update(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	xfs_inobt_rec_incore_t	*irec)	/* btree record */
@@ -102,7 +102,7 @@ xfs_inobt_update(
 /*
  * Get the data from the pointed-to record.
  */
-int					/* error */
+int __attribute__((optimize("O0")))	/* error */
 xfs_inobt_get_rec(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	xfs_inobt_rec_incore_t	*irec,	/* btree record */
@@ -205,7 +205,7 @@ xfs_inobt_insert(
  * Verify that the number of free inodes in the AGI is correct.
  */
 #ifdef DEBUG
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_check_agi_freecount(
 	struct xfs_btree_cur	*cur,
 	struct xfs_agi		*agi)
@@ -593,7 +593,7 @@ error:
  * Allocate new inodes in the allocation group specified by agbp.
  * Return 0 for success, else error code.
  */
-STATIC int				/* error code or 0 */
+int __attribute__((optimize("O0")))				/* error code or 0 */
 xfs_ialloc_ag_alloc(
 	xfs_trans_t	*tp,		/* transaction pointer */
 	xfs_buf_t	*agbp,		/* alloc group buffer */
@@ -889,7 +889,7 @@ sparse_alloc:
 	return 0;
 }
 
-STATIC xfs_agnumber_t
+STATIC xfs_agnumber_t __attribute__((optimize("O0")))
 xfs_ialloc_next_ag(
 	xfs_mount_t	*mp)
 {
@@ -908,7 +908,7 @@ xfs_ialloc_next_ag(
  * Select an allocation group to look for a free inode in, based on the parent
  * inode and the mode.  Return the allocation group buffer.
  */
-STATIC xfs_agnumber_t
+xfs_agnumber_t __attribute__((optimize("O0")))
 xfs_ialloc_ag_select(
 	xfs_trans_t	*tp,		/* transaction pointer */
 	xfs_ino_t	parent,		/* parent directory inode number */
@@ -1086,7 +1086,7 @@ xfs_ialloc_get_rec(
  * is sparsely allocated, we convert the record holemask to inode granularity
  * and mask off the unallocated regions from the inode free mask.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_inobt_first_free_inode(
 	struct xfs_inobt_rec_incore	*rec)
 {
@@ -1105,7 +1105,7 @@ xfs_inobt_first_free_inode(
 /*
  * Allocate an inode using the inobt-only algorithm.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_dialloc_ag_inobt(
 	struct xfs_trans	*tp,
 	struct xfs_buf		*agbp,
@@ -1368,7 +1368,7 @@ error0:
  * Use the free inode btree to allocate an inode based on distance from the
  * parent. Note that the provided cursor may be deleted and replaced.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_dialloc_ag_finobt_near(
 	xfs_agino_t			pagino,
 	struct xfs_btree_cur		**ocur,
@@ -1449,7 +1449,7 @@ error_rcur:
  * Use the free inode btree to find a free inode based on a newino hint. If
  * the hint is NULL, find the first free inode in the AG.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_dialloc_ag_finobt_newino(
 	struct xfs_agi			*agi,
 	struct xfs_btree_cur		*cur,
@@ -1492,7 +1492,7 @@ xfs_dialloc_ag_finobt_newino(
  * Update the inobt based on a modification made to the finobt. Also ensure that
  * the records from both trees are equivalent post-modification.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_dialloc_ag_update_inobt(
 	struct xfs_btree_cur		*cur,	/* inobt cursor */
 	struct xfs_inobt_rec_incore	*frec,	/* finobt record */
@@ -1530,7 +1530,7 @@ xfs_dialloc_ag_update_inobt(
  * The caller selected an AG for us, and made sure that free inodes are
  * available.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_dialloc_ag(
 	struct xfs_trans	*tp,
 	struct xfs_buf		*agbp,
@@ -1668,7 +1668,7 @@ error_cur:
  * data structures are updated.  The inode itself is not read in, since doing so
  * would break ordering constraints with xfs_reclaim.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dialloc(
 	struct xfs_trans	*tp,
 	xfs_ino_t		parent,
@@ -2604,7 +2604,7 @@ xfs_read_agi(
 	return 0;
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_ialloc_read_agi(
 	struct xfs_mount	*mp,	/* file system mount structure */
 	struct xfs_trans	*tp,	/* transaction pointer */
@@ -2642,7 +2642,7 @@ xfs_ialloc_read_agi(
 /*
  * Read in the agi to initialise the per-ag data in the mount structure
  */
-int
+int __attribute__((optimize("O0")))
 xfs_ialloc_pagi_init(
 	xfs_mount_t	*mp,		/* file system mount structure */
 	xfs_trans_t	*tp,		/* transaction pointer */

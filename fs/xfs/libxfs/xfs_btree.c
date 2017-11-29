@@ -352,7 +352,7 @@ xfs_btree_del_cursor(
  * Duplicate the btree cursor.
  * Allocate a new one, copy the record, re-get the buffers.
  */
-int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_btree_dup_cursor(
 	xfs_btree_cur_t	*cur,		/* input cursor */
 	xfs_btree_cur_t	**ncur)		/* output cursor */
@@ -502,7 +502,7 @@ static inline size_t xfs_btree_ptr_len(struct xfs_btree_cur *cur)
 /*
  * Calculate offset of the n-th record in a btree block.
  */
-STATIC size_t
+size_t __attribute__((optimize("O0")))
 xfs_btree_rec_offset(
 	struct xfs_btree_cur	*cur,
 	int			n)
@@ -514,7 +514,7 @@ xfs_btree_rec_offset(
 /*
  * Calculate offset of the n-th key in a btree block.
  */
-STATIC size_t
+size_t __attribute__((optimize("O0")))
 xfs_btree_key_offset(
 	struct xfs_btree_cur	*cur,
 	int			n)
@@ -538,7 +538,7 @@ xfs_btree_high_key_offset(
 /*
  * Calculate offset of the n-th block pointer in a btree block.
  */
-STATIC size_t
+size_t __attribute__((optimize("O0")))
 xfs_btree_ptr_offset(
 	struct xfs_btree_cur	*cur,
 	int			n,
@@ -552,7 +552,7 @@ xfs_btree_ptr_offset(
 /*
  * Return a pointer to the n-th record in the btree block.
  */
-STATIC union xfs_btree_rec *
+union xfs_btree_rec * __attribute__((optimize("O0")))
 xfs_btree_rec_addr(
 	struct xfs_btree_cur	*cur,
 	int			n,
@@ -565,7 +565,7 @@ xfs_btree_rec_addr(
 /*
  * Return a pointer to the n-th key in the btree block.
  */
-STATIC union xfs_btree_key *
+union xfs_btree_key * __attribute__((optimize("O0")))
 xfs_btree_key_addr(
 	struct xfs_btree_cur	*cur,
 	int			n,
@@ -591,7 +591,7 @@ xfs_btree_high_key_addr(
 /*
  * Return a pointer to the n-th block pointer in the btree block.
  */
-STATIC union xfs_btree_ptr *
+union xfs_btree_ptr * __attribute__((optimize("O0")))
 xfs_btree_ptr_addr(
 	struct xfs_btree_cur	*cur,
 	int			n,
@@ -611,7 +611,7 @@ xfs_btree_ptr_addr(
  * For now this btree implementation assumes the btree root is always
  * stored in the if_broot field of an inode fork.
  */
-STATIC struct xfs_btree_block *
+struct xfs_btree_block * __attribute__((optimize("O0")))
 xfs_btree_get_iroot(
 	struct xfs_btree_cur	*cur)
 {
@@ -625,7 +625,7 @@ xfs_btree_get_iroot(
  * Retrieve the block pointer from the cursor at the given level.
  * This may be an inode btree root or from a buffer.
  */
-STATIC struct xfs_btree_block *		/* generic btree block pointer */
+struct xfs_btree_block * __attribute__((optimize("O0")))		/* generic btree block pointer */
 xfs_btree_get_block(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	int			level,	/* level in btree */
@@ -663,7 +663,7 @@ xfs_btree_get_bufl(
  * Get a buffer for the block, return it with no data read.
  * Short-form addressing.
  */
-xfs_buf_t *				/* buffer for agno/agbno */
+xfs_buf_t * __attribute__((optimize("O0")))				/* buffer for agno/agbno */
 xfs_btree_get_bufs(
 	xfs_mount_t	*mp,		/* file system mount point */
 	xfs_trans_t	*tp,		/* transaction pointer */
@@ -682,7 +682,7 @@ xfs_btree_get_bufs(
 /*
  * Check for the cursor referring to the last block at the given level.
  */
-int					/* 1=is last block, 0=not last block */
+int	__attribute__((optimize("O0")))				/* 1=is last block, 0=not last block */
 xfs_btree_islastblock(
 	xfs_btree_cur_t		*cur,	/* btree cursor */
 	int			level)	/* level to check */
@@ -731,7 +731,7 @@ xfs_btree_firstrec(
  * Change the cursor to point to the last record in the current block
  * at the given level.  Other levels are unaffected.
  */
-STATIC int				/* success=1, failure=0 */
+int __attribute__((optimize("O0")))				/* success=1, failure=0 */
 xfs_btree_lastrec(
 	xfs_btree_cur_t		*cur,	/* btree cursor */
 	int			level)	/* level to change */
@@ -846,7 +846,7 @@ xfs_btree_reada_bufl(
  * Short-form addressing.
  */
 /* ARGSUSED */
-void
+void __attribute__((optimize("O0")))
 xfs_btree_reada_bufs(
 	struct xfs_mount	*mp,		/* file system mount point */
 	xfs_agnumber_t		agno,		/* allocation group number */
@@ -862,7 +862,7 @@ xfs_btree_reada_bufs(
 	xfs_buf_readahead(mp->m_ddev_targp, d, mp->m_bsize * count, ops);
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_readahead_lblock(
 	struct xfs_btree_cur	*cur,
 	int			lr,
@@ -887,7 +887,7 @@ xfs_btree_readahead_lblock(
 	return rval;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_readahead_sblock(
 	struct xfs_btree_cur	*cur,
 	int			lr,
@@ -917,7 +917,7 @@ xfs_btree_readahead_sblock(
  * Read-ahead btree blocks, at the given level.
  * Bits in lr are set from XFS_BTCUR_{LEFT,RIGHT}RA.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_readahead(
 	struct xfs_btree_cur	*cur,		/* btree cursor */
 	int			lev,		/* level in btree */
@@ -944,7 +944,7 @@ xfs_btree_readahead(
 	return xfs_btree_readahead_sblock(cur, lr, block);
 }
 
-STATIC xfs_daddr_t
+xfs_daddr_t __attribute__((optimize("O0")))
 xfs_btree_ptr_to_daddr(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_ptr	*ptr)
@@ -983,7 +983,7 @@ xfs_btree_readahead_ptr(
  * Set the buffer for level "lev" in the cursor to bp, releasing
  * any previous buffer.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_setbuf(
 	xfs_btree_cur_t		*cur,	/* btree cursor */
 	int			lev,	/* level in btree */
@@ -1035,7 +1035,7 @@ xfs_btree_set_ptr_null(
 /*
  * Get/set/init sibling pointers
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_get_sibling(
 	struct xfs_btree_cur	*cur,
 	struct xfs_btree_block	*block,
@@ -1163,7 +1163,7 @@ xfs_btree_init_block_cur(
  * we need to track updates to this record.  The decision
  * will be further refined in the update_lastrec method.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_is_lastrec(
 	struct xfs_btree_cur	*cur,
 	struct xfs_btree_block	*block,
@@ -1255,7 +1255,7 @@ xfs_btree_get_buf_block(
  * Read in the buffer at the given ptr and return the buffer and
  * the block pointer within the buffer.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_read_buf_block(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_ptr	*ptr,
@@ -1285,7 +1285,7 @@ xfs_btree_read_buf_block(
 /*
  * Copy keys from one btree block to another.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_copy_keys(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_key	*dst_key,
@@ -1299,7 +1299,7 @@ xfs_btree_copy_keys(
 /*
  * Copy records from one btree block to another.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_copy_recs(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_rec	*dst_rec,
@@ -1313,7 +1313,7 @@ xfs_btree_copy_recs(
 /*
  * Copy block pointers from one btree block to another.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_copy_ptrs(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_ptr	*dst_ptr,
@@ -1327,7 +1327,7 @@ xfs_btree_copy_ptrs(
 /*
  * Shift keys one index left/right inside a single btree block.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_shift_keys(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_key	*key,
@@ -1346,7 +1346,7 @@ xfs_btree_shift_keys(
 /*
  * Shift records one index left/right inside a single btree block.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_shift_recs(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_rec	*rec,
@@ -1365,7 +1365,7 @@ xfs_btree_shift_recs(
 /*
  * Shift block pointers one index left/right inside a single btree block.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_shift_ptrs(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_ptr	*ptr,
@@ -1384,7 +1384,7 @@ xfs_btree_shift_ptrs(
 /*
  * Log key values from the btree block.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_log_keys(
 	struct xfs_btree_cur	*cur,
 	struct xfs_buf		*bp,
@@ -1431,7 +1431,7 @@ xfs_btree_log_recs(
 /*
  * Log block pointer fields from a btree block (nonleaf).
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_btree_log_ptrs(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	struct xfs_buf		*bp,	/* buffer containing btree block */
@@ -1460,7 +1460,7 @@ xfs_btree_log_ptrs(
 /*
  * Log fields from a btree block header.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_btree_log_block(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	struct xfs_buf		*bp,	/* buffer containing btree block */
@@ -1534,7 +1534,7 @@ xfs_btree_log_block(
  * Increment cursor by one record at the level.
  * For nonzero levels the leaf-ward information is untouched.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_btree_increment(
 	struct xfs_btree_cur	*cur,
 	int			level,
@@ -1642,7 +1642,7 @@ error0:
  * Decrement cursor by one record at the level.
  * For nonzero levels the leaf-ward information is untouched.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_btree_decrement(
 	struct xfs_btree_cur	*cur,
 	int			level,
@@ -1736,7 +1736,7 @@ error0:
 	return error;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_lookup_get_block(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	int			level,	/* level in the btree */
@@ -1798,7 +1798,7 @@ out_bad:
  * structure so we make one up from the record.  For all other levels
  * we just return the right key.
  */
-STATIC union xfs_btree_key *
+union xfs_btree_key * __attribute__((optimize("O0")))
 xfs_lookup_get_search_key(
 	struct xfs_btree_cur	*cur,
 	int			level,
@@ -1819,7 +1819,7 @@ xfs_lookup_get_search_key(
  * Lookup the record.  The cursor is made to point to it, based on dir.
  * stat is set to 0 if can't find any such record, 1 for success.
  */
-int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_btree_lookup(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	xfs_lookup_t		dir,	/* <=, ==, or >= */
@@ -2159,7 +2159,7 @@ xfs_btree_updkeys_force(
 /*
  * Update the parent keys of the given level, progressing towards the root.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_update_keys(
 	struct xfs_btree_cur	*cur,
 	int			level)
@@ -2213,7 +2213,7 @@ xfs_btree_update_keys(
  * given record. This either works (return 0) or gets an
  * EFSCORRUPTED error.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_btree_update(
 	struct xfs_btree_cur	*cur,
 	union xfs_btree_rec	*rec)
@@ -3166,7 +3166,7 @@ out0:
 	return 0;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_make_block_unfull(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	int			level,	/* btree level */
@@ -3236,7 +3236,7 @@ xfs_btree_make_block_unfull(
  * Insert one record/level.  Return information to the caller
  * allowing the next level up to proceed if necessary.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_insrec(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	int			level,	/* level to insert record at */
@@ -3457,7 +3457,7 @@ error0:
  * cursor.  All callers of this function should assume that the cursor is
  * no longer valid and revalidate it.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_btree_insert(
 	struct xfs_btree_cur	*cur,
 	int			*stat)
@@ -3540,7 +3540,7 @@ error0:
  * inode we have to copy the single block it was pointing to into the
  * inode.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_kill_iroot(
 	struct xfs_btree_cur	*cur)
 {
@@ -3681,7 +3681,7 @@ xfs_btree_kill_root(
 	return 0;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_btree_dec_cursor(
 	struct xfs_btree_cur	*cur,
 	int			level,
@@ -3707,7 +3707,7 @@ xfs_btree_dec_cursor(
  * Remove the record from its block then rebalance the tree.
  * Return 0 for error, 1 for done, 2 to go on to the next level.
  */
-STATIC int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_btree_delrec(
 	struct xfs_btree_cur	*cur,		/* btree cursor */
 	int			level,		/* level removing record from */
@@ -4219,7 +4219,7 @@ error0:
  * The cursor refers to the place where the record was (could be inserted)
  * when the operation returns.
  */
-int					/* error */
+int	__attribute__((optimize("O0")))				/* error */
 xfs_btree_delete(
 	struct xfs_btree_cur	*cur,
 	int			*stat)	/* success/failure */
@@ -4277,7 +4277,7 @@ error0:
 /*
  * Get the data from the pointed-to record.
  */
-int					/* error */
+int	__attribute__((optimize("O0")))				/* error */
 xfs_btree_get_rec(
 	struct xfs_btree_cur	*cur,	/* btree cursor */
 	union xfs_btree_rec	**recp,	/* output: btree record */

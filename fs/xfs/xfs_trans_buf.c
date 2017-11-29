@@ -33,7 +33,7 @@
  * Check to see if a buffer matching the given parameters is already
  * a part of the given transaction.
  */
-STATIC struct xfs_buf *
+struct xfs_buf * __attribute__((optimize("O0")))
 xfs_trans_buf_item_match(
 	struct xfs_trans	*tp,
 	struct xfs_buftarg	*target,
@@ -71,7 +71,7 @@ xfs_trans_buf_item_match(
  * If the buffer does not yet have a buf log item associated with it,
  * then allocate one for it.  Then add the buf item to the transaction.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 _xfs_trans_bjoin(
 	struct xfs_trans	*tp,
 	struct xfs_buf		*bp,
@@ -112,7 +112,7 @@ _xfs_trans_bjoin(
 
 }
 
-void
+void __attribute__((optimize("O0")))
 xfs_trans_bjoin(
 	struct xfs_trans	*tp,
 	struct xfs_buf		*bp)
@@ -130,7 +130,7 @@ xfs_trans_bjoin(
  * If the transaction pointer is NULL, make this just a normal
  * get_buf() call.
  */
-struct xfs_buf *
+struct xfs_buf * __attribute__((optimize("O0")))
 xfs_trans_get_buf_map(
 	struct xfs_trans	*tp,
 	struct xfs_buftarg	*target,
@@ -237,7 +237,7 @@ xfs_trans_getsb(xfs_trans_t	*tp,
  * If the transaction pointer is NULL, make this just a normal
  * read_buf() call.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_trans_read_buf_map(
 	struct xfs_mount	*mp,
 	struct xfs_trans	*tp,
@@ -727,7 +727,7 @@ xfs_trans_ordered_buf(
  * Set the type of the buffer for log recovery so that it can correctly identify
  * and hence attach the correct buffer ops to the buffer after replay.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_trans_buf_set_type(
 	struct xfs_trans	*tp,
 	struct xfs_buf		*bp,
