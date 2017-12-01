@@ -325,7 +325,7 @@ xfs_file_dax_read(
 	return ret;
 }
 
-STATIC ssize_t
+ssize_t __attribute__((optimize("O0")))
 xfs_file_buffered_aio_read(
 	struct kiocb		*iocb,
 	struct iov_iter		*to)
@@ -342,7 +342,7 @@ xfs_file_buffered_aio_read(
 	return ret;
 }
 
-STATIC ssize_t
+ssize_t __attribute__((optimize("O0")))
 xfs_file_read_iter(
 	struct kiocb		*iocb,
 	struct iov_iter		*to)

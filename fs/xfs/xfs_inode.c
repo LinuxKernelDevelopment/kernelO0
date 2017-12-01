@@ -115,7 +115,7 @@ xfs_get_cowextsz_hint(
  * The functions return a value which should be given to the corresponding
  * xfs_iunlock() call.
  */
-uint
+uint __attribute__((optimize("O0")))
 xfs_ilock_data_map_shared(
 	struct xfs_inode	*ip)
 {
@@ -700,7 +700,7 @@ xfs_ip2xflags(
  * ci_name->name will point to a the actual name (caller must free) or
  * will be set to NULL if an exact match is found.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_lookup(
 	xfs_inode_t		*dp,
 	struct xfs_name		*name,

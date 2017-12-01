@@ -1150,7 +1150,7 @@ xfs_dir3_leaf_log_tail(
  * Most of the work is done by the xfs_dir2_leaf_lookup_int routine which
  * is also used by the node-format code.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir2_leaf_lookup(
 	xfs_da_args_t		*args)		/* operation arguments */
 {
@@ -1206,7 +1206,7 @@ xfs_dir2_leaf_lookup(
  * If not found dbpp will be NULL, and ENOENT comes back.
  * lbpp will always be filled in with the leaf buffer unless there's an error.
  */
-static int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_dir2_leaf_lookup_int(
 	xfs_da_args_t		*args,		/* operation arguments */
 	struct xfs_buf		**lbpp,		/* out: leaf buffer */

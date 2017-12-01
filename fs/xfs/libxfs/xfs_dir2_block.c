@@ -605,7 +605,7 @@ xfs_dir2_block_log_tail(
  * Look up an entry in the block.  This is the external routine,
  * xfs_dir2_block_lookup_int does the real work.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_block_lookup(
 	xfs_da_args_t		*args)		/* dir lookup arguments */
 {
@@ -650,7 +650,7 @@ xfs_dir2_block_lookup(
 /*
  * Internal block lookup routine.
  */
-static int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_dir2_block_lookup_int(
 	xfs_da_args_t		*args,		/* dir lookup arguments */
 	struct xfs_buf		**bpp,		/* returned block buffer */

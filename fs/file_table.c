@@ -100,7 +100,7 @@ int proc_nr_files(struct ctl_table *table, int write,
  * done, you will imbalance int the mount's writer count
  * and a warning at __fput() time.
  */
-struct file *get_empty_filp(void)
+struct file * __attribute__((optimize("O0"))) get_empty_filp(void)
 {
 	const struct cred *cred = current_cred();
 	static long old_max;

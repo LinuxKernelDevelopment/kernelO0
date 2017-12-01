@@ -686,7 +686,7 @@ out:
 	return error;
 }
 
-int open_check_o_direct(struct file *f)
+int __attribute__((optimize("O0"))) open_check_o_direct(struct file *f)
 {
 	/* NB: we're sure to have correct a_ops only after f_op->open */
 	if (f->f_flags & O_DIRECT) {
@@ -696,7 +696,7 @@ int open_check_o_direct(struct file *f)
 	return 0;
 }
 
-static int do_dentry_open(struct file *f,
+int __attribute__((optimize("O0"))) do_dentry_open(struct file *f,
 			  struct inode *inode,
 			  int (*open)(struct inode *, struct file *),
 			  const struct cred *cred)
@@ -804,7 +804,7 @@ cleanup_file:
  *
  * Returns zero on success or -errno if the open failed.
  */
-int finish_open(struct file *file, struct dentry *dentry,
+int __attribute__((optimize("O0"))) finish_open(struct file *file, struct dentry *dentry,
 		int (*open)(struct inode *, struct file *),
 		int *opened)
 {
@@ -854,7 +854,7 @@ EXPORT_SYMBOL(file_path);
  * @file: newly allocated file with f_flag initialized
  * @cred: credentials to use
  */
-int vfs_open(const struct path *path, struct file *file,
+int __attribute__((optimize("O0"))) vfs_open(const struct path *path, struct file *file,
 	     const struct cred *cred)
 {
 	struct dentry *dentry = d_real(path->dentry, NULL, file->f_flags);
@@ -1035,7 +1035,7 @@ struct file *filp_clone_open(struct file *oldfile)
 }
 EXPORT_SYMBOL(filp_clone_open);
 
-long do_sys_open(int dfd, const char __user *filename, int flags, umode_t mode)
+long __attribute__((optimize("O0"))) do_sys_open(int dfd, const char __user *filename, int flags, umode_t mode)
 {
 	struct open_flags op;
 	int fd = build_open_flags(flags, mode, &op);

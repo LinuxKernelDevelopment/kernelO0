@@ -317,7 +317,7 @@ static const struct xfs_buf_ops xfs_dir3_data_reada_buf_ops = {
 };
 
 
-int
+int __attribute__((optimize("O0")))
 xfs_dir3_data_read(
 	struct xfs_trans	*tp,
 	struct xfs_inode	*dp,

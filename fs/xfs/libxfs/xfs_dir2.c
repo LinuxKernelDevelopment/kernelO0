@@ -325,7 +325,7 @@ out_free:
  * If doing a CI lookup and case-insensitive match, dup actual name into
  * args.value. Return EEXIST for success (ie. name found) or an error.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir_cilookup_result(
 	struct xfs_da_args *args,
 	const unsigned char *name,
@@ -352,7 +352,7 @@ xfs_dir_cilookup_result(
  * to name, or ci_name->name is set to NULL for an exact match.
  */
 
-int
+int __attribute__((optimize("O0")))
 xfs_dir_lookup(
 	xfs_trans_t	*tp,
 	xfs_inode_t	*dp,
@@ -639,7 +639,7 @@ xfs_dir2_isblock(
 /*
  * See if the directory is a single-leaf form directory.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir2_isleaf(
 	struct xfs_da_args	*args,
 	int			*vp)	/* out: 1 is block, 0 is not block */

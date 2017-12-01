@@ -401,7 +401,7 @@ static inline int do_inode_permission(struct inode *inode, int mask)
  * This does not check for a read-only file system.  You probably want
  * inode_permission().
  */
-int __inode_permission(struct inode *inode, int mask)
+int __attribute__((optimize("O0"))) __inode_permission(struct inode *inode, int mask)
 {
 	int retval;
 
@@ -441,7 +441,7 @@ EXPORT_SYMBOL(__inode_permission);
  *
  * Separate out file-system wide checks from inode-specific permission checks.
  */
-static int sb_permission(struct super_block *sb, struct inode *inode, int mask)
+int __attribute__((optimize("O0"))) sb_permission(struct super_block *sb, struct inode *inode, int mask)
 {
 	if (unlikely(mask & MAY_WRITE)) {
 		umode_t mode = inode->i_mode;
@@ -465,7 +465,7 @@ static int sb_permission(struct super_block *sb, struct inode *inode, int mask)
  *
  * When checking for MAY_APPEND, MAY_WRITE must also be set in @mask.
  */
-int inode_permission(struct inode *inode, int mask)
+int __attribute__((optimize("O0"))) inode_permission(struct inode *inode, int mask)
 {
 	int retval;
 
@@ -526,7 +526,7 @@ struct nameidata {
 	int		dfd;
 };
 
-static void set_nameidata(struct nameidata *p, int dfd, struct filename *name)
+void __attribute__((optimize("O0"))) set_nameidata(struct nameidata *p, int dfd, struct filename *name)
 {
 	struct nameidata *old = current->nameidata;
 	p->stack = p->internal;
@@ -644,7 +644,7 @@ static bool legitimize_path(struct nameidata *nd,
 	return !read_seqcount_retry(&path->dentry->d_seq, seq);
 }
 
-static bool legitimize_links(struct nameidata *nd)
+bool __attribute__((optimize("O0"))) legitimize_links(struct nameidata *nd)
 {
 	int i;
 	for (i = 0; i < nd->depth; i++) {
@@ -682,7 +682,7 @@ static bool legitimize_links(struct nameidata *nd)
  * Nothing should touch nameidata between unlazy_walk() failure and
  * terminate_walk().
  */
-static int unlazy_walk(struct nameidata *nd, struct dentry *dentry, unsigned seq)
+int __attribute__((optimize("O0"))) unlazy_walk(struct nameidata *nd, struct dentry *dentry, unsigned seq)
 {
 	struct dentry *parent = nd->path.dentry;
 
@@ -782,7 +782,7 @@ static inline int d_revalidate(struct dentry *dentry, unsigned int flags)
  * success, -error on failure.  In case of failure caller does not
  * need to drop nd->path.
  */
-static int complete_walk(struct nameidata *nd)
+int __attribute__((optimize("O0"))) complete_walk(struct nameidata *nd)
 {
 	struct dentry *dentry = nd->path.dentry;
 	int status;
@@ -1068,7 +1068,7 @@ const char *get_link(struct nameidata *nd)
  * Return 1 if we went up a level and 0 if we were already at the
  * root.
  */
-int follow_up(struct path *path)
+int __attribute__((optimize("O0"))) follow_up(struct path *path)
 {
 	struct mount *mnt = real_mount(path->mnt);
 	struct mount *parent;
@@ -1182,7 +1182,7 @@ static int follow_automount(struct path *path, struct nameidata *nd,
  *
  * Serialization is taken care of in namespace.c
  */
-static int follow_managed(struct path *path, struct nameidata *nd)
+int __attribute__((optimize("O0"))) follow_managed(struct path *path, struct nameidata *nd)
 {
 	struct vfsmount *mnt = path->mnt; /* held by caller, must be left alone */
 	unsigned managed;
@@ -1273,7 +1273,7 @@ static inline int managed_dentry_rcu(struct dentry *dentry)
  * Try to skip to top of mountpoint pile in rcuwalk mode.  Fail if
  * we meet a managed dentry that would need blocking.
  */
-static bool __follow_mount_rcu(struct nameidata *nd, struct path *path,
+bool __attribute__((optimize("O0"))) __follow_mount_rcu(struct nameidata *nd, struct path *path,
 			       struct inode **inode, unsigned *seqp)
 {
 	for (;;) {
@@ -1313,7 +1313,7 @@ static bool __follow_mount_rcu(struct nameidata *nd, struct path *path,
 		!(path->dentry->d_flags & DCACHE_NEED_AUTOMOUNT);
 }
 
-static int follow_dotdot_rcu(struct nameidata *nd)
+int __attribute__((optimize("O0"))) follow_dotdot_rcu(struct nameidata *nd)
 {
 	struct inode *inode = nd->inode;
 
@@ -1420,7 +1420,7 @@ EXPORT_SYMBOL(follow_down);
 /*
  * Skip to top of mountpoint pile in refwalk mode for follow_dotdot()
  */
-static void follow_mount(struct path *path)
+void __attribute__((optimize("O0"))) follow_mount(struct path *path)
 {
 	while (d_mountpoint(path->dentry)) {
 		struct vfsmount *mounted = lookup_mnt(path);
@@ -1444,7 +1444,7 @@ static int path_parent_directory(struct path *path)
 	return 0;
 }
 
-static int follow_dotdot(struct nameidata *nd)
+int __attribute__((optimize("O0"))) follow_dotdot(struct nameidata *nd)
 {
 	while(1) {
 		if (nd->path.dentry == nd->root.dentry &&
@@ -1531,7 +1531,7 @@ static struct dentry *__lookup_hash(const struct qstr *name,
 	return lookup_real(base->d_inode, dentry, flags);
 }
 
-static int lookup_fast(struct nameidata *nd,
+int __attribute__((optimize("O0"))) lookup_fast(struct nameidata *nd,
 		       struct path *path, struct inode **inode,
 		       unsigned *seqp)
 {
@@ -1623,7 +1623,7 @@ static int lookup_fast(struct nameidata *nd,
 }
 
 /* Fast lookup failed, do it the slow way */
-static struct dentry *lookup_slow(const struct qstr *name,
+static struct dentry * __attribute__((optimize("O0"))) lookup_slow(const struct qstr *name,
 				  struct dentry *dir,
 				  unsigned int flags)
 {
@@ -1749,7 +1749,7 @@ static inline int should_follow_link(struct nameidata *nd, struct path *link,
 
 enum {WALK_GET = 1, WALK_PUT = 2};
 
-static int walk_component(struct nameidata *nd, int flags)
+int __attribute__((optimize("O0"))) walk_component(struct nameidata *nd, int flags)
 {
 	struct path path;
 	struct inode *inode;
@@ -1955,7 +1955,7 @@ EXPORT_SYMBOL(hashlen_string);
  * Calculate the length and hash of the path component, and
  * return the "hash_len" as the result.
  */
-static inline u64 hash_name(const void *salt, const char *name)
+static u64 __attribute__((optimize("O0"))) hash_name(const void *salt, const char *name)
 {
 	unsigned long a = 0, b, x = 0, y = (unsigned long)salt;
 	unsigned long adata, bdata, mask, len;
@@ -2036,7 +2036,7 @@ static inline u64 hash_name(const void *salt, const char *name)
  * Returns 0 and nd will have valid dentry and mnt on success.
  * Returns error and drops reference to input namei data on failure.
  */
-static int link_path_walk(const char *name, struct nameidata *nd)
+int __attribute__((optimize("O0"))) link_path_walk(const char *name, struct nameidata *nd)
 {
 	int err;
 
@@ -2257,7 +2257,7 @@ static inline int lookup_last(struct nameidata *nd)
 }
 
 /* Returns 0 and nd will be valid on success; Retuns error, otherwise. */
-static int path_lookupat(struct nameidata *nd, unsigned flags, struct path *path)
+int __attribute__((optimize("O0"))) path_lookupat(struct nameidata *nd, unsigned flags, struct path *path)
 {
 	const char *s = path_init(nd, flags);
 	int err;
@@ -2895,7 +2895,7 @@ bool may_open_dev(const struct path *path)
 		!(path->mnt->mnt_sb->s_iflags & SB_I_NODEV);
 }
 
-static int may_open(struct path *path, int acc_mode, int flag)
+int __attribute__((optimize("O0"))) may_open(struct path *path, int acc_mode, int flag)
 {
 	struct dentry *dentry = path->dentry;
 	struct inode *inode = dentry->d_inode;
@@ -3075,7 +3075,7 @@ static int atomic_open(struct nameidata *nd, struct dentry *dentry,
  * FILE_CREATE will be set in @*opened if the dentry was created and will be
  * cleared otherwise prior to returning.
  */
-static int lookup_open(struct nameidata *nd, struct path *path,
+int __attribute__((optimize("O0"))) lookup_open(struct nameidata *nd, struct path *path,
 			struct file *file,
 			const struct open_flags *op,
 			bool got_write, int *opened)
@@ -3208,7 +3208,7 @@ out_dput:
 /*
  * Handle the last step of open()
  */
-static int do_last(struct nameidata *nd,
+int __attribute__((optimize("O0"))) do_last(struct nameidata *nd,
 		   struct file *file, const struct open_flags *op,
 		   int *opened)
 {
@@ -3393,7 +3393,7 @@ out:
 	return error;
 }
 
-static int do_tmpfile(struct nameidata *nd, unsigned flags,
+int __attribute__((optimize("O0"))) do_tmpfile(struct nameidata *nd, unsigned flags,
 		const struct open_flags *op,
 		struct file *file, int *opened)
 {
@@ -3451,7 +3451,7 @@ out:
 	return error;
 }
 
-static int do_o_path(struct nameidata *nd, unsigned flags, struct file *file)
+int __attribute__((optimize("O0"))) do_o_path(struct nameidata *nd, unsigned flags, struct file *file)
 {
 	struct path path;
 	int error = path_lookupat(nd, flags, &path);
@@ -3463,7 +3463,7 @@ static int do_o_path(struct nameidata *nd, unsigned flags, struct file *file)
 	return error;
 }
 
-static struct file *path_openat(struct nameidata *nd,
+static struct file * __attribute__((optimize("O0"))) path_openat(struct nameidata *nd,
 			const struct open_flags *op, unsigned flags)
 {
 	const char *s;
@@ -3521,7 +3521,7 @@ out2:
 	return file;
 }
 
-struct file *do_filp_open(int dfd, struct filename *pathname,
+struct file * __attribute__((optimize("O0"))) do_filp_open(int dfd, struct filename *pathname,
 		const struct open_flags *op)
 {
 	struct nameidata nd;

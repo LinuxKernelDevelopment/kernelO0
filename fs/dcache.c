@@ -2084,7 +2084,7 @@ static inline bool d_same_name(const struct dentry *dentry,
  * NOTE! The caller *has* to check the resulting dentry against the sequence
  * number we've returned before using any of the resulting dentry state!
  */
-struct dentry *__d_lookup_rcu(const struct dentry *parent,
+struct dentry * __attribute__((optimize("O0"))) __d_lookup_rcu(const struct dentry *parent,
 				const struct qstr *name,
 				unsigned *seqp)
 {

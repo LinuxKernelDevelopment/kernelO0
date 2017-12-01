@@ -1917,7 +1917,7 @@ out:
  * This is the "read_iter()" routine for all filesystems
  * that can use the page cache directly.
  */
-ssize_t
+ssize_t __attribute__((optimize("O0")))
 generic_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
 {
 	struct file *file = iocb->ki_filp;

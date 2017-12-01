@@ -348,7 +348,7 @@ xfs_da3_node_create(
  * Split a leaf node, rebalance, then possibly split
  * intermediate nodes, rebalance, etc.
  */
-int							/* error */
+int	__attribute__((optimize("O0")))					/* error */
 xfs_da3_split(
 	struct xfs_da_state	*state)
 {
@@ -1258,7 +1258,7 @@ xfs_da3_node_lasthash(
  * Walk back up the tree adjusting hash values as necessary,
  * when we stop making changes, return.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_da3_fixhashpath(
 	struct xfs_da_state	*state,
 	struct xfs_da_state_path *path)

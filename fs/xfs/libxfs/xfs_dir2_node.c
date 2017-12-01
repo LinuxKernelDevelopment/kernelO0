@@ -185,7 +185,7 @@ xfs_dir2_free_read(
 	return __xfs_dir3_free_read(tp, dp, fbno, -1, bpp);
 }
 
-static int
+int __attribute__((optimize("O0")))
 xfs_dir2_free_try_read(
 	struct xfs_trans	*tp,
 	struct xfs_inode	*dp,
@@ -373,7 +373,7 @@ xfs_dir2_leaf_to_node(
  * Add a leaf entry to a leaf block in a node-form directory.
  * The other work necessary is done from the caller.
  */
-static int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_dir2_leafn_add(
 	struct xfs_buf		*bp,		/* leaf buffer */
 	xfs_da_args_t		*args,		/* operation arguments */
@@ -1638,7 +1638,7 @@ done:
  * The leaf entry is added in xfs_dir2_leafn_add.
  * We may enter with a freespace block that the lookup found.
  */
-static int					/* error */
+int __attribute__((optimize("O0")))					/* error */
 xfs_dir2_node_addname_int(
 	xfs_da_args_t		*args,		/* operation arguments */
 	xfs_da_state_blk_t	*fblk)		/* optional freespace block */
@@ -2010,7 +2010,7 @@ xfs_dir2_node_addname_int(
  * All the real work happens in xfs_da3_node_lookup_int.
  * The only real output is the inode number of the entry.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_node_lookup(
 	xfs_da_args_t	*args)			/* operation arguments */
 {

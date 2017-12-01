@@ -343,7 +343,7 @@ static int mnt_is_readonly(struct vfsmount *mnt)
  * frozen. When the write operation is finished, __mnt_drop_write() must be
  * called. This is effectively a refcount.
  */
-int __mnt_want_write(struct vfsmount *m)
+int __attribute__((optimize("O0"))) __mnt_want_write(struct vfsmount *m)
 {
 	struct mount *mnt = real_mount(m);
 	int ret = 0;
@@ -612,7 +612,7 @@ int __legitimize_mnt(struct vfsmount *bastard, unsigned seq)
 }
 
 /* call under rcu_read_lock */
-bool legitimize_mnt(struct vfsmount *bastard, unsigned seq)
+bool __attribute__((optimize("O0"))) legitimize_mnt(struct vfsmount *bastard, unsigned seq)
 {
 	int res = __legitimize_mnt(bastard, seq);
 	if (likely(!res))
@@ -629,7 +629,7 @@ bool legitimize_mnt(struct vfsmount *bastard, unsigned seq)
  * find the first mount at @dentry on vfsmount @mnt.
  * call under rcu_read_lock()
  */
-struct mount *__lookup_mnt(struct vfsmount *mnt, struct dentry *dentry)
+struct mount * __attribute__((optimize("O0"))) __lookup_mnt(struct vfsmount *mnt, struct dentry *dentry)
 {
 	struct hlist_head *head = m_hash(mnt, dentry);
 	struct mount *p;

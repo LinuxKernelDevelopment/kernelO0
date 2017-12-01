@@ -398,7 +398,7 @@ ssize_t vfs_iter_write(struct file *file, struct iov_iter *iter, loff_t *ppos)
 }
 EXPORT_SYMBOL(vfs_iter_write);
 
-int rw_verify_area(int read_write, struct file *file, const loff_t *ppos, size_t count)
+int __attribute__((optimize("O0"))) rw_verify_area(int read_write, struct file *file, const loff_t *ppos, size_t count)
 {
 	struct inode *inode;
 	loff_t pos;
@@ -428,7 +428,7 @@ int rw_verify_area(int read_write, struct file *file, const loff_t *ppos, size_t
 				read_write == READ ? MAY_READ : MAY_WRITE);
 }
 
-static ssize_t new_sync_read(struct file *filp, char __user *buf, size_t len, loff_t *ppos)
+ssize_t __attribute__((optimize("O0"))) new_sync_read(struct file *filp, char __user *buf, size_t len, loff_t *ppos)
 {
 	struct iovec iov = { .iov_base = buf, .iov_len = len };
 	struct kiocb kiocb;
@@ -445,7 +445,7 @@ static ssize_t new_sync_read(struct file *filp, char __user *buf, size_t len, lo
 	return ret;
 }
 
-ssize_t __vfs_read(struct file *file, char __user *buf, size_t count,
+ssize_t __attribute__((optimize("O0"))) __vfs_read(struct file *file, char __user *buf, size_t count,
 		   loff_t *pos)
 {
 	if (file->f_op->read)

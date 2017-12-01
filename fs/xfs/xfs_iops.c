@@ -95,7 +95,7 @@ xfs_init_security(
 					     &xfs_initxattrs, NULL);
 }
 
-static void
+void __attribute__((optimize("O0")))
 xfs_dentry_to_name(
 	struct xfs_name	*namep,
 	struct dentry	*dentry,
@@ -235,7 +235,7 @@ xfs_vn_mkdir(
 	return xfs_vn_mknod(dir, dentry, mode|S_IFDIR, 0);
 }
 
-STATIC struct dentry *
+struct dentry * __attribute__((optimize("O0")))
 xfs_vn_lookup(
 	struct inode	*dir,
 	struct dentry	*dentry,
