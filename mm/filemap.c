@@ -1081,7 +1081,7 @@ EXPORT_SYMBOL(page_cache_prev_hole);
  *
  * Otherwise, %NULL is returned.
  */
-struct page *find_get_entry(struct address_space *mapping, pgoff_t offset)
+struct page * __attribute__((optimize("O0"))) find_get_entry(struct address_space *mapping, pgoff_t offset)
 {
 	void **pagep;
 	struct page *head, *page;
@@ -1191,7 +1191,7 @@ EXPORT_SYMBOL(find_lock_entry);
  *
  * If there is a page cache page, it is returned with an increased refcount.
  */
-struct page *pagecache_get_page(struct address_space *mapping, pgoff_t offset,
+struct page * __attribute__((optimize("O0"))) pagecache_get_page(struct address_space *mapping, pgoff_t offset,
 	int fgp_flags, gfp_t gfp_mask)
 {
 	struct page *page;

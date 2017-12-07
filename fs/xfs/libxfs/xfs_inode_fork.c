@@ -44,7 +44,7 @@ STATIC int xfs_iformat_btree(xfs_inode_t *, xfs_dinode_t *, int);
  * Make sure that the extents in the given memory buffer
  * are valid.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_validate_extents(
 	xfs_ifork_t		*ifp,
 	int			nrecs,
@@ -77,7 +77,7 @@ xfs_validate_extents(
  * brought in-core.  The rest will be in-lined in if_extents when it
  * is first referenced (see xfs_iread_extents()).
  */
-int
+int __attribute__((optimize("O0")))
 xfs_iformat_fork(
 	xfs_inode_t		*ip,
 	xfs_dinode_t		*dip)
@@ -260,7 +260,7 @@ xfs_iformat_fork(
 	return error;
 }
 
-void
+void __attribute__((optimize("O0")))
 xfs_init_local_fork(
 	struct xfs_inode	*ip,
 	int			whichfork,
@@ -312,7 +312,7 @@ xfs_init_local_fork(
  * sure that its size is a multiple of 4 and
  * record the real size in i_real_bytes.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_iformat_local(
 	xfs_inode_t	*ip,
 	xfs_dinode_t	*dip,
@@ -348,7 +348,7 @@ xfs_iformat_local(
  * them into it.  Either way, set if_extents
  * to point at the extents.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_iformat_extents(
 	xfs_inode_t	*ip,
 	xfs_dinode_t	*dip,
@@ -417,7 +417,7 @@ xfs_iformat_extents(
  * field will remain NULL until all of the
  * extents are read in (when they are needed).
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_iformat_btree(
 	xfs_inode_t		*ip,
 	xfs_dinode_t		*dip,
@@ -729,7 +729,7 @@ xfs_idata_realloc(
 	ASSERT(ifp->if_bytes <= XFS_IFORK_SIZE(ip, whichfork));
 }
 
-void
+void __attribute__((optimize("O0")))
 xfs_idestroy_fork(
 	xfs_inode_t	*ip,
 	int		whichfork)

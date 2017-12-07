@@ -169,7 +169,7 @@ const struct xfs_buf_ops xfs_inode_buf_ra_ops = {
  * If a non-zero error is returned, then the contents of bpp and dipp are
  * undefined.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_imap_to_bp(
 	struct xfs_mount	*mp,
 	struct xfs_trans	*tp,
@@ -206,7 +206,7 @@ xfs_imap_to_bp(
 	return 0;
 }
 
-void
+void __attribute__((optimize("O0")))
 xfs_inode_from_disk(
 	struct xfs_inode	*ip,
 	struct xfs_dinode	*from)
@@ -461,7 +461,7 @@ xfs_dinode_calc_crc(
  * initialised from the current on-disk value and hence we must also read the
  * inode off disk.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_iread(
 	xfs_mount_t	*mp,
 	xfs_trans_t	*tp,

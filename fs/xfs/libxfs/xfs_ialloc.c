@@ -2197,7 +2197,7 @@ error0:
 	return error;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_imap_lookup(
 	struct xfs_mount	*mp,
 	struct xfs_trans	*tp,
@@ -2260,7 +2260,7 @@ xfs_imap_lookup(
 /*
  * Return the location of the inode in imap, for mapping it into a buffer.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_imap(
 	xfs_mount_t	 *mp,	/* file system mount structure */
 	xfs_trans_t	 *tp,	/* transaction pointer */

@@ -61,7 +61,7 @@ xfs_dir2_sf_nextentry(
 		((char *)sfep + xfs_dir2_sf_entsize(hdr, sfep->namelen));
 }
 
-static struct xfs_dir2_sf_entry *
+struct xfs_dir2_sf_entry * __attribute__((optimize("O0")))
 xfs_dir3_sf_nextentry(
 	struct xfs_dir2_sf_hdr	*hdr,
 	struct xfs_dir2_sf_entry *sfep)

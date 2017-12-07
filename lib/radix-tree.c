@@ -97,7 +97,7 @@ static inline unsigned long get_slot_offset(struct radix_tree_node *parent,
 	return slot - parent->slots;
 }
 
-static unsigned int radix_tree_descend(struct radix_tree_node *parent,
+static unsigned int __attribute__((optimize("O0"))) radix_tree_descend(struct radix_tree_node *parent,
 			struct radix_tree_node **nodep, unsigned long index)
 {
 	unsigned int offset = (index >> parent->shift) & RADIX_TREE_MAP_MASK;
@@ -469,7 +469,7 @@ static inline unsigned long node_maxindex(struct radix_tree_node *node)
 	return shift_maxindex(node->shift);
 }
 
-static unsigned radix_tree_load_root(struct radix_tree_root *root,
+unsigned __attribute__((optimize("O0"))) radix_tree_load_root(struct radix_tree_root *root,
 		struct radix_tree_node **nodep, unsigned long *maxindex)
 {
 	struct radix_tree_node *node = rcu_dereference_raw(root->rnode);
@@ -674,7 +674,7 @@ EXPORT_SYMBOL(__radix_tree_insert);
  *	allocated and @root->rnode is used as a direct slot instead of
  *	pointing to a node, in which case *@nodep will be NULL.
  */
-void *__radix_tree_lookup(struct radix_tree_root *root, unsigned long index,
+void * __attribute__((optimize("O0"))) __radix_tree_lookup(struct radix_tree_root *root, unsigned long index,
 			  struct radix_tree_node **nodep, void ***slotp)
 {
 	struct radix_tree_node *node, *parent;
@@ -718,7 +718,7 @@ void *__radix_tree_lookup(struct radix_tree_root *root, unsigned long index,
  *	exclusive from other writers. Any dereference of the slot must be done
  *	using radix_tree_deref_slot.
  */
-void **radix_tree_lookup_slot(struct radix_tree_root *root, unsigned long index)
+void ** __attribute__((optimize("O0"))) radix_tree_lookup_slot(struct radix_tree_root *root, unsigned long index)
 {
 	void **slot;
 

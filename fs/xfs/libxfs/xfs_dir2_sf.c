@@ -686,7 +686,7 @@ xfs_dir2_sf_create(
  * Lookup an entry in a shortform directory.
  * Returns EEXIST if found, ENOENT if not found.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_sf_lookup(
 	xfs_da_args_t		*args)		/* operation arguments */
 {

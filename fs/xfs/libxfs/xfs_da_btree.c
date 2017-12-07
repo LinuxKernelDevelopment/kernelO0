@@ -1951,7 +1951,7 @@ xfs_da3_path_shift(
  * Rotate the hash value by 7 bits, then XOR each character in.
  * This is implemented with some source-level loop unrolling.
  */
-xfs_dahash_t
+xfs_dahash_t __attribute__((optimize("O0")))
 xfs_da_hashname(const __uint8_t *name, int namelen)
 {
 	xfs_dahash_t hash;
@@ -1989,7 +1989,7 @@ xfs_da_compname(
 					XFS_CMP_EXACT : XFS_CMP_DIFFERENT;
 }
 
-static xfs_dahash_t
+xfs_dahash_t __attribute__((optimize("O0")))
 xfs_default_hashname(
 	struct xfs_name	*name)
 {
