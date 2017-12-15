@@ -140,7 +140,7 @@ map_buffer_to_page(struct page *page, struct buffer_head *bh, int page_block)
  * represent the validity of its disk mapping and to decide when to do the next
  * get_block() call.
  */
-static struct bio *
+struct bio * __attribute__((optimize("O0")))
 do_mpage_readpage(struct bio *bio, struct page *page, unsigned nr_pages,
 		sector_t *last_block_in_bio, struct buffer_head *map_bh,
 		unsigned long *first_logical_block, get_block_t get_block,
@@ -356,7 +356,7 @@ confused:
  *
  * This all causes the disk requests to be issued in the correct order.
  */
-int
+int __attribute__((optimize("O0")))
 mpage_readpages(struct address_space *mapping, struct list_head *pages,
 				unsigned nr_pages, get_block_t get_block)
 {

@@ -773,7 +773,7 @@ xfs_alloc_ag_vextent(
  * and of the form k * prod + mod unless there's nothing that large.
  * Return the starting a.g. block (bno), or NULLAGBLOCK if we can't do it.
  */
-STATIC int			/* error */
+int	__attribute__((optimize("O0"))) /* error */
 xfs_alloc_ag_vextent_exact(
 	xfs_alloc_arg_t	*args)	/* allocation argument structure */
 {

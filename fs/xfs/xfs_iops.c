@@ -216,7 +216,7 @@ xfs_vn_mknod(
 	return xfs_generic_create(dir, dentry, mode, rdev, false);
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_vn_create(
 	struct inode	*dir,
 	struct dentry	*dentry,

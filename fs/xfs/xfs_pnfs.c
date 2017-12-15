@@ -29,7 +29,7 @@
  * also benefit from this sort of synchronization, but due to the tricky locking
  * rules in the page fault path we don't bother.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_break_layouts(
 	struct inode		*inode,
 	uint			*iolock,

@@ -518,7 +518,7 @@ xfs_da2_node_tree_p(struct xfs_da_intnode *dap)
 	return dap->__btree;
 }
 
-static struct xfs_da_node_entry *
+struct xfs_da_node_entry * __attribute__((optimize("O0")))
 xfs_da3_node_tree_p(struct xfs_da_intnode *dap)
 {
 	return ((struct xfs_da3_intnode *)dap)->__btree;
@@ -550,7 +550,7 @@ xfs_da2_node_hdr_to_disk(
 	to->hdr.__level = cpu_to_be16(from->level);
 }
 
-static void
+void __attribute__((optimize("O0")))
 xfs_da3_node_hdr_from_disk(
 	struct xfs_da3_icnode_hdr	*to,
 	struct xfs_da_intnode		*from)

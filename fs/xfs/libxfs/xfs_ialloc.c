@@ -138,7 +138,7 @@ xfs_inobt_get_rec(
 /*
  * Insert a single inobt record. Cursor must already point to desired location.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_inobt_insert_rec(
 	struct xfs_btree_cur	*cur,
 	__uint16_t		holemask,
@@ -157,7 +157,7 @@ xfs_inobt_insert_rec(
 /*
  * Insert records describing a newly allocated inode chunk into the inobt.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_inobt_insert(
 	struct xfs_mount	*mp,
 	struct xfs_trans	*tp,
@@ -248,7 +248,7 @@ xfs_check_agi_freecount(
  * than logging them (which in a transaction context puts them into the AIL
  * for writeback rather than the xfsbufd queue).
  */
-int
+int __attribute__((optimize("O0")))
 xfs_ialloc_inode_init(
 	struct xfs_mount	*mp,
 	struct xfs_trans	*tp,

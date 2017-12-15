@@ -379,7 +379,7 @@ xfs_file_read_iter(
  *
  * Expects the iolock to be held exclusive, and will take the ilock internally.
  */
-int					/* error (positive) */
+int __attribute__((optimize("O0")))					/* error (positive) */
 xfs_zero_eof(
 	struct xfs_inode	*ip,
 	xfs_off_t		offset,		/* starting I/O offset */
@@ -400,7 +400,7 @@ xfs_zero_eof(
  * @iolock, and returns with it held.  Might upgrade the iolock to exclusive
  * if called for a direct write beyond i_size.
  */
-STATIC ssize_t
+ssize_t __attribute__((optimize("O0")))
 xfs_file_aio_write_checks(
 	struct kiocb		*iocb,
 	struct iov_iter		*from,
@@ -521,7 +521,7 @@ restart:
  * Returns with locks held indicated by @iolock and errors indicated by
  * negative return values.
  */
-STATIC ssize_t
+ssize_t __attribute__((optimize("O0")))
 xfs_file_dio_aio_write(
 	struct kiocb		*iocb,
 	struct iov_iter		*from)
@@ -631,7 +631,7 @@ out:
 	return ret;
 }
 
-static noinline ssize_t
+static noinline ssize_t 
 xfs_file_dax_write(
 	struct kiocb		*iocb,
 	struct iov_iter		*from)
@@ -664,7 +664,7 @@ out:
 	return error ? error : ret;
 }
 
-STATIC ssize_t
+ssize_t __attribute__((optimize("O0")))
 xfs_file_buffered_aio_write(
 	struct kiocb		*iocb,
 	struct iov_iter		*from)
@@ -725,7 +725,7 @@ out:
 	return ret;
 }
 
-STATIC ssize_t
+ssize_t __attribute__((optimize("O0")))
 xfs_file_write_iter(
 	struct kiocb		*iocb,
 	struct iov_iter		*from)

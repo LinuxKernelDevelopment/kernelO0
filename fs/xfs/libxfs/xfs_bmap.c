@@ -1584,7 +1584,7 @@ xfs_bmap_last_before(
 	return 0;
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_bmap_last_extent(
 	struct xfs_trans	*tp,
 	struct xfs_inode	*ip,

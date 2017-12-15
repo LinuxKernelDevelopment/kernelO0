@@ -1223,7 +1223,7 @@ EXPORT_SYMBOL(__sb_end_write);
  * This is an internal function, please use sb_start_{write,pagefault,intwrite}
  * instead.
  */
-int __sb_start_write(struct super_block *sb, int level, bool wait)
+int __attribute__((optimize("O0"))) __sb_start_write(struct super_block *sb, int level, bool wait)
 {
 	bool force_trylock = false;
 	int ret = 1;

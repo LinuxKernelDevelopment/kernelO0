@@ -1630,7 +1630,7 @@ xfs_vm_readpage(
 	return mpage_readpage(page, xfs_get_blocks);
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_vm_readpages(
 	struct file		*unused,
 	struct address_space	*mapping,

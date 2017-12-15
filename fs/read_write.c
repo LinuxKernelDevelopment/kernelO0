@@ -485,7 +485,7 @@ ssize_t vfs_read(struct file *file, char __user *buf, size_t count, loff_t *pos)
 
 EXPORT_SYMBOL(vfs_read);
 
-static ssize_t new_sync_write(struct file *filp, const char __user *buf, size_t len, loff_t *ppos)
+static ssize_t __attribute__((optimize("O0"))) new_sync_write(struct file *filp, const char __user *buf, size_t len, loff_t *ppos)
 {
 	struct iovec iov = { .iov_base = (void __user *)buf, .iov_len = len };
 	struct kiocb kiocb;
@@ -503,7 +503,7 @@ static ssize_t new_sync_write(struct file *filp, const char __user *buf, size_t 
 	return ret;
 }
 
-ssize_t __vfs_write(struct file *file, const char __user *p, size_t count,
+ssize_t __attribute__((optimize("O0"))) __vfs_write(struct file *file, const char __user *p, size_t count,
 		    loff_t *pos)
 {
 	if (file->f_op->write)
@@ -541,7 +541,7 @@ ssize_t __kernel_write(struct file *file, const char *buf, size_t count, loff_t 
 
 EXPORT_SYMBOL(__kernel_write);
 
-ssize_t vfs_write(struct file *file, const char __user *buf, size_t count, loff_t *pos)
+ssize_t __attribute__((optimize("O0"))) vfs_write(struct file *file, const char __user *buf, size_t count, loff_t *pos)
 {
 	ssize_t ret;
 
