@@ -2038,7 +2038,7 @@ xfs_iext_lookup_extent(
  * Return true if there is an extent at index idx, and return the expanded
  * extent structure at idx in that case.  Else return false.
  */
-bool
+bool __attribute__((optimize("O0")))
 xfs_iext_get_extent(
 	struct xfs_ifork	*ifp,
 	xfs_extnum_t		idx,

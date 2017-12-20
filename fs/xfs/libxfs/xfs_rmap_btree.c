@@ -536,7 +536,7 @@ xfs_rmapbt_compute_maxlevels(
 }
 
 /* Calculate the refcount btree size for some records. */
-xfs_extlen_t
+xfs_extlen_t __attribute__((optimize("O0")))
 xfs_rmapbt_calc_size(
 	struct xfs_mount	*mp,
 	unsigned long long	len)

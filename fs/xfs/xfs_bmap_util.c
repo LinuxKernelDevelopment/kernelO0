@@ -799,7 +799,7 @@ xfs_getbmap(
  * them, so it is up to the caller to ensure that partial blocks are not
  * passed in.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_bmap_punch_delalloc_range(
 	struct xfs_inode	*ip,
 	xfs_fileoff_t		start_fsb,

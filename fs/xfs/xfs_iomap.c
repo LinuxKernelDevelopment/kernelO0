@@ -45,7 +45,7 @@
 #define XFS_WRITEIO_ALIGN(mp,off)	(((off) >> mp->m_writeio_log) \
 						<< mp->m_writeio_log)
 
-void
+void __attribute__((optimize("O0")))
 xfs_bmbt_to_iomap(
 	struct xfs_inode	*ip,
 	struct iomap		*iomap,
@@ -312,7 +312,7 @@ out_trans_cancel:
 	goto out_unlock;
 }
 
-STATIC bool
+bool __attribute__((optimize("O0")))
 xfs_quota_need_throttle(
 	struct xfs_inode *ip,
 	int type,
@@ -390,7 +390,7 @@ xfs_quota_calc_throttle(
  * We clean up any extra space left over when the file is closed in
  * xfs_inactive().
  */
-STATIC xfs_fsblock_t
+xfs_fsblock_t __attribute__((optimize("O0")))
 xfs_iomap_prealloc_size(
 	struct xfs_inode	*ip,
 	loff_t			offset,
@@ -522,7 +522,7 @@ check_writeio:
 	return alloc_blocks;
 }
 
-static int
+int __attribute__((optimize("O0")))
 xfs_file_iomap_begin_delay(
 	struct inode		*inode,
 	loff_t			offset,
@@ -827,7 +827,7 @@ error0:
 	return error;
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_iomap_write_unwritten(
 	xfs_inode_t	*ip,
 	xfs_off_t	offset,
@@ -950,7 +950,7 @@ static inline bool imap_needs_alloc(struct inode *inode,
 		(IS_DAX(inode) && ISUNWRITTEN(imap));
 }
 
-static int
+int __attribute__((optimize("O0")))
 xfs_file_iomap_begin(
 	struct inode		*inode,
 	loff_t			offset,
@@ -1056,7 +1056,7 @@ out_unlock:
 	return error;
 }
 
-static int
+int __attribute__((optimize("O0")))
 xfs_file_iomap_end_delalloc(
 	struct xfs_inode	*ip,
 	loff_t			offset,
@@ -1095,7 +1095,7 @@ xfs_file_iomap_end_delalloc(
 	return 0;
 }
 
-static int
+int __attribute__((optimize("O0")))
 xfs_file_iomap_end(
 	struct inode		*inode,
 	loff_t			offset,

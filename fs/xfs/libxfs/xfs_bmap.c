@@ -183,7 +183,7 @@ xfs_bmbt_update(
  * Compute the worst-case number of indirect blocks that will be used
  * for ip's delayed extent of length "len".
  */
-STATIC xfs_filblks_t
+xfs_filblks_t __attribute__((optimize("O0")))
 xfs_bmap_worst_indlen(
 	xfs_inode_t	*ip,		/* incore inode pointer */
 	xfs_filblks_t	len)		/* delayed extent length */
@@ -2820,7 +2820,7 @@ done:
 /*
  * Convert a hole to a delayed allocation.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xfs_bmap_add_extent_hole_delay(
 	xfs_inode_t		*ip,	/* incore inode pointer */
 	int			whichfork,
@@ -3221,7 +3221,7 @@ done:
 /*
  * Adjust the size of the new extent based on di_extsize and rt extsize.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_bmap_extsize_align(
 	xfs_mount_t	*mp,
 	xfs_bmbt_irec_t	*gotp,		/* next extent pointer */
@@ -4250,7 +4250,7 @@ xfs_bmapi_read(
 	return 0;
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_bmapi_reserve_delalloc(
 	struct xfs_inode	*ip,
 	int			whichfork,
@@ -5464,7 +5464,7 @@ done:
  * that value.  If not all extents in the block range can be removed then
  * *done is set.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 __xfs_bunmapi(
 	xfs_trans_t		*tp,		/* transaction pointer */
 	struct xfs_inode	*ip,		/* incore inode */
@@ -5852,7 +5852,7 @@ error0:
 }
 
 /* Unmap a range of a file. */
-int
+int __attribute__((optimize("O0")))
 xfs_bunmapi(
 	xfs_trans_t		*tp,
 	struct xfs_inode	*ip,

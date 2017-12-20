@@ -237,7 +237,7 @@ xfs_reflink_trim_around_shared(
  * in the data fork, as the upper layers need them for read-modify-write
  * operations.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_reflink_reserve_cow(
 	struct xfs_inode	*ip,
 	struct xfs_bmbt_irec	*imap,
@@ -610,7 +610,7 @@ out:
 /*
  * Remap parts of a file's data fork after a successful CoW.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_reflink_end_cow(
 	struct xfs_inode		*ip,
 	xfs_off_t			offset,

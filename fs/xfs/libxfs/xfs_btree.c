@@ -4826,7 +4826,7 @@ xfs_btree_query_range(
  * Calculate the number of blocks needed to store a given number of records
  * in a short-format (per-AG metadata) btree.
  */
-xfs_extlen_t
+xfs_extlen_t __attribute__((optimize("O0")))
 xfs_btree_calc_size(
 	struct xfs_mount	*mp,
 	uint			*limits,

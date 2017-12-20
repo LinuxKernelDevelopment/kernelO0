@@ -38,7 +38,7 @@
  * resources they require in the iomap_begin call, and release them in the
  * iomap_end call.
  */
-loff_t
+loff_t __attribute__((optimize("O0")))
 iomap_apply(struct inode *inode, loff_t pos, loff_t length, unsigned flags,
 		struct iomap_ops *ops, void *data, iomap_actor_t actor)
 {
@@ -90,7 +90,7 @@ iomap_apply(struct inode *inode, loff_t pos, loff_t length, unsigned flags,
 	return written ? written : ret;
 }
 
-static void
+void __attribute__((optimize("O0")))
 iomap_write_failed(struct inode *inode, loff_t pos, unsigned len)
 {
 	loff_t i_size = i_size_read(inode);
@@ -103,7 +103,7 @@ iomap_write_failed(struct inode *inode, loff_t pos, unsigned len)
 		truncate_pagecache_range(inode, max(pos, i_size), pos + len);
 }
 
-static int
+int __attribute__((optimize("O0")))
 iomap_write_begin(struct inode *inode, loff_t pos, unsigned len, unsigned flags,
 		struct page **pagep, struct iomap *iomap)
 {
@@ -130,7 +130,7 @@ iomap_write_begin(struct inode *inode, loff_t pos, unsigned len, unsigned flags,
 	return status;
 }
 
-static int
+int __attribute__((optimize("O0")))
 iomap_write_end(struct inode *inode, loff_t pos, unsigned len,
 		unsigned copied, struct page *page)
 {
@@ -143,7 +143,7 @@ iomap_write_end(struct inode *inode, loff_t pos, unsigned len,
 	return ret;
 }
 
-static loff_t
+loff_t __attribute__((optimize("O0")))
 iomap_write_actor(struct inode *inode, loff_t pos, loff_t length, void *data,
 		struct iomap *iomap)
 {
@@ -229,7 +229,7 @@ again:
 	return written ? written : status;
 }
 
-ssize_t
+ssize_t __attribute__((optimize("O0")))
 iomap_file_buffered_write(struct kiocb *iocb, struct iov_iter *iter,
 		struct iomap_ops *ops)
 {

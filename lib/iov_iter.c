@@ -790,7 +790,7 @@ void iov_iter_pipe(struct iov_iter *i, int direction,
 }
 EXPORT_SYMBOL(iov_iter_pipe);
 
-unsigned long iov_iter_alignment(const struct iov_iter *i)
+unsigned long __attribute__((optimize("O0"))) iov_iter_alignment(const struct iov_iter *i)
 {
 	unsigned long res = 0;
 	size_t size = i->count;

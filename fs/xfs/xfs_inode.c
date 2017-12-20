@@ -66,7 +66,7 @@ STATIC int xfs_iunlink_remove(struct xfs_trans *, struct xfs_inode *);
 /*
  * helper function to extract extent size hint from inode
  */
-xfs_extlen_t
+xfs_extlen_t __attribute__((optimize("O0")))
 xfs_get_extsz_hint(
 	struct xfs_inode	*ip)
 {
@@ -83,7 +83,7 @@ xfs_get_extsz_hint(
  * return the greater of the two.  If the value is zero (automatic),
  * use the default size.
  */
-xfs_extlen_t
+xfs_extlen_t __attribute__((optimize("O0")))
 xfs_get_cowextsz_hint(
 	struct xfs_inode	*ip)
 {
@@ -331,7 +331,7 @@ xfs_iunlock(
  * give up write locks.  the i/o lock cannot be held nested
  * if it is being demoted.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_ilock_demote(
 	xfs_inode_t		*ip,
 	uint			lock_flags)

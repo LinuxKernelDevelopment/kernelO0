@@ -1219,7 +1219,7 @@ xfs_mod_ifree(
  * we get near to ENOSPC and we have to be very accurate with our updates.
  */
 #define XFS_FDBLOCKS_BATCH	1024
-int
+int __attribute__((optimize("O0")))
 xfs_mod_fdblocks(
 	struct xfs_mount	*mp,
 	int64_t			delta,
@@ -1298,7 +1298,7 @@ fdblocks_enospc:
 	return -ENOSPC;
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_mod_frextents(
 	struct xfs_mount	*mp,
 	int64_t			delta)

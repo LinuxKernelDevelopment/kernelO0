@@ -227,7 +227,7 @@ __xfs_setfilesize(
 	return xfs_trans_commit(tp);
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_setfilesize(
 	struct xfs_inode	*ip,
 	xfs_off_t		offset,
@@ -1490,7 +1490,7 @@ xfs_get_blocks(
 	return __xfs_get_blocks(inode, iblock, bh_result, create, false, false);
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_get_blocks_direct(
 	struct inode		*inode,
 	sector_t		iblock,
@@ -1521,7 +1521,7 @@ xfs_get_blocks_dax_fault(
  * whereas if we have flags set we will always be called in task context
  * (i.e. from a workqueue).
  */
-int
+int __attribute__((optimize("O0")))
 xfs_end_io_direct_write(
 	struct kiocb		*iocb,
 	loff_t			offset,

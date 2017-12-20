@@ -157,7 +157,7 @@ static inline unsigned dio_pages_present(struct dio_submit *sdio)
 /*
  * Go grab and pin some userspace pages.   Typically we'll get 64 at a time.
  */
-static inline int dio_refill_pages(struct dio *dio, struct dio_submit *sdio)
+int __attribute__((optimize("O0"))) dio_refill_pages(struct dio *dio, struct dio_submit *sdio)
 {
 	ssize_t ret;
 
@@ -199,7 +199,7 @@ static inline int dio_refill_pages(struct dio *dio, struct dio_submit *sdio)
  * decent number of pages, less frequently.  To provide nicer use of the
  * L1 cache.
  */
-static inline struct page *dio_get_page(struct dio *dio,
+struct page * __attribute__((optimize("O0"))) dio_get_page(struct dio *dio,
 					struct dio_submit *sdio)
 {
 	if (dio_pages_present(sdio) == 0) {
@@ -365,7 +365,7 @@ void dio_end_io(struct bio *bio, int error)
 }
 EXPORT_SYMBOL_GPL(dio_end_io);
 
-static inline void
+void __attribute__((optimize("O0")))
 dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
 	      struct block_device *bdev,
 	      sector_t first_sector, int nr_vecs)
@@ -397,7 +397,7 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
  *
  * bios hold a dio reference between submit_bio and ->end_io.
  */
-static inline void dio_bio_submit(struct dio *dio, struct dio_submit *sdio)
+void __attribute__((optimize("O0"))) dio_bio_submit(struct dio *dio, struct dio_submit *sdio)
 {
 	struct bio *bio = sdio->bio;
 	unsigned long flags;
@@ -525,7 +525,7 @@ static void dio_await_completion(struct dio *dio)
  *
  * This also helps to limit the peak amount of pinned userspace memory.
  */
-static inline int dio_bio_reap(struct dio *dio, struct dio_submit *sdio)
+int __attribute__((optimize("O0"))) dio_bio_reap(struct dio *dio, struct dio_submit *sdio)
 {
 	int ret = 0;
 
@@ -572,7 +572,7 @@ static int sb_init_dio_done_wq(struct super_block *sb)
 	return 0;
 }
 
-static int dio_set_defer_completion(struct dio *dio)
+int __attribute__((optimize("O0"))) dio_set_defer_completion(struct dio *dio)
 {
 	struct super_block *sb = dio->inode->i_sb;
 
@@ -607,7 +607,7 @@ static int dio_set_defer_completion(struct dio *dio)
  * buffer_mapped().  However the direct-io code will only process holes one
  * block at a time - it will repeatedly call get_block() as it walks the hole.
  */
-static int get_more_blocks(struct dio *dio, struct dio_submit *sdio,
+int __attribute__((optimize("O0"))) get_more_blocks(struct dio *dio, struct dio_submit *sdio,
 			   struct buffer_head *map_bh)
 {
 	int ret;
@@ -665,7 +665,7 @@ static int get_more_blocks(struct dio *dio, struct dio_submit *sdio,
 /*
  * There is no bio.  Make one now.
  */
-static inline int dio_new_bio(struct dio *dio, struct dio_submit *sdio,
+int __attribute__((optimize("O0"))) dio_new_bio(struct dio *dio, struct dio_submit *sdio,
 		sector_t start_sector, struct buffer_head *map_bh)
 {
 	sector_t sector;
@@ -722,7 +722,7 @@ static inline int dio_bio_add_page(struct dio_submit *sdio)
  * The caller of this function is responsible for removing cur_page from the
  * dio, and for dropping the refcount which came from that presence.
  */
-static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
+int __attribute__((optimize("O0"))) dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
 		struct buffer_head *map_bh)
 {
 	int ret = 0;
@@ -786,7 +786,7 @@ out:
  * If that doesn't work out then we put the old page into the bio and add this
  * page to the dio instead.
  */
-static inline int
+int __attribute__((optimize("O0")))
 submit_page_section(struct dio *dio, struct dio_submit *sdio, struct page *page,
 		    unsigned offset, unsigned len, sector_t blocknr,
 		    struct buffer_head *map_bh)
@@ -920,7 +920,7 @@ static inline void dio_zero_block(struct dio *dio, struct dio_submit *sdio,
  * it should set b_size to PAGE_SIZE or more inside get_block().  This gives
  * fine alignment but still allows this function to work in PAGE_SIZE units.
  */
-static int do_direct_IO(struct dio *dio, struct dio_submit *sdio,
+int __attribute__((optimize("O0"))) do_direct_IO(struct dio *dio, struct dio_submit *sdio,
 			struct buffer_head *map_bh)
 {
 	const unsigned blkbits = sdio->blkbits;
@@ -1116,7 +1116,7 @@ static inline int drop_refcount(struct dio *dio)
  * individual fields and will generate much worse code. This is important
  * for the whole file.
  */
-static inline ssize_t
+ssize_t __attribute__((optimize("O0")))
 do_blockdev_direct_IO(struct kiocb *iocb, struct inode *inode,
 		      struct block_device *bdev, struct iov_iter *iter,
 		      get_block_t get_block, dio_iodone_t end_io,
@@ -1338,7 +1338,8 @@ out:
 	return retval;
 }
 
-ssize_t __blockdev_direct_IO(struct kiocb *iocb, struct inode *inode,
+ssize_t __attribute__((optimize("O0")))
+__blockdev_direct_IO(struct kiocb *iocb, struct inode *inode,
 			     struct block_device *bdev, struct iov_iter *iter,
 			     get_block_t get_block,
 			     dio_iodone_t end_io, dio_submit_t submit_io,
