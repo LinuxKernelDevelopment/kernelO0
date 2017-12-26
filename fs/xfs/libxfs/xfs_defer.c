@@ -314,7 +314,7 @@ xfs_defer_join(
  *
  * If an inode is provided, relog it to the new transaction.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_defer_finish(
 	struct xfs_trans		**tp,
 	struct xfs_defer_ops		*dop,

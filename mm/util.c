@@ -290,7 +290,7 @@ int __weak get_user_pages_fast(unsigned long start,
 }
 EXPORT_SYMBOL_GPL(get_user_pages_fast);
 
-unsigned long vm_mmap_pgoff(struct file *file, unsigned long addr,
+unsigned long __attribute__((optimize("O0"))) vm_mmap_pgoff(struct file *file, unsigned long addr,
 	unsigned long len, unsigned long prot,
 	unsigned long flag, unsigned long pgoff)
 {

@@ -1450,7 +1450,7 @@ xfs_file_llseek(
  * do correct delalloc accounting (ENOSPC checking!) and unwritten extent
  * mapping.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_filemap_page_mkwrite(
 	struct vm_area_struct	*vma,
 	struct vm_fault		*vmf)
@@ -1477,7 +1477,7 @@ xfs_filemap_page_mkwrite(
 	return ret;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_filemap_fault(
 	struct vm_area_struct	*vma,
 	struct vm_fault		*vmf)
@@ -1514,7 +1514,7 @@ xfs_filemap_fault(
  * handle both cases here. @flags carries the information on the type of fault
  * occuring.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_filemap_pmd_fault(
 	struct vm_area_struct	*vma,
 	unsigned long		addr,
@@ -1551,7 +1551,7 @@ xfs_filemap_pmd_fault(
  * truncate similar to page_mkwrite. Hence we cycle the XFS_MMAPLOCK_SHARED
  * to ensure we serialise the fault barrier in place.
  */
-static int
+int __attribute__((optimize("O0")))
 xfs_filemap_pfn_mkwrite(
 	struct vm_area_struct	*vma,
 	struct vm_fault		*vmf)
@@ -1588,7 +1588,7 @@ static const struct vm_operations_struct xfs_file_vm_ops = {
 	.pfn_mkwrite	= xfs_filemap_pfn_mkwrite,
 };
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_file_mmap(
 	struct file	*filp,
 	struct vm_area_struct *vma)

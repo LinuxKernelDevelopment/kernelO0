@@ -83,7 +83,7 @@ static bool vmacache_valid(struct mm_struct *mm)
 	return true;
 }
 
-struct vm_area_struct *vmacache_find(struct mm_struct *mm, unsigned long addr)
+struct vm_area_struct * __attribute__((optimize("O0"))) vmacache_find(struct mm_struct *mm, unsigned long addr)
 {
 	int i;
 

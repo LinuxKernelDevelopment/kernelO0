@@ -201,7 +201,7 @@ xfs_bmap_rtalloc(
  * the allocation to a stripe unit boundary.  All offsets are considered outside
  * the end of file for an empty fork, so 1 is returned in *eof in that case.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_bmap_eof(
 	struct xfs_inode	*ip,
 	xfs_fileoff_t		endoff,

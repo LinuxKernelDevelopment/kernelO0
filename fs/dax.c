@@ -947,7 +947,7 @@ static void __dax_dbg(struct buffer_head *bh, unsigned long address,
  * When a page fault occurs, filesystems may call this helper in their
  * pmd_fault handler for DAX files.
  */
-int dax_pmd_fault(struct vm_area_struct *vma, unsigned long address,
+int __attribute__((optimize("O0"))) dax_pmd_fault(struct vm_area_struct *vma, unsigned long address,
 		pmd_t *pmd, unsigned int flags, get_block_t get_block)
 {
 	struct file *file = vma->vm_file;
@@ -1365,7 +1365,7 @@ EXPORT_SYMBOL_GPL(iomap_dax_rw);
  * or mkwrite handler for DAX files. Assumes the caller has done all the
  * necessary locking for the page fault to proceed successfully.
  */
-int iomap_dax_fault(struct vm_area_struct *vma, struct vm_fault *vmf,
+int __attribute__((optimize("O0"))) iomap_dax_fault(struct vm_area_struct *vma, struct vm_fault *vmf,
 			struct iomap_ops *ops)
 {
 	struct address_space *mapping = vma->vm_file->f_mapping;

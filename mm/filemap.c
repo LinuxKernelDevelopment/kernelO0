@@ -2092,7 +2092,7 @@ static void do_async_mmap_readahead(struct vm_area_struct *vma,
  *
  * We never return with VM_FAULT_RETRY and a bit from VM_FAULT_ERROR set.
  */
-int filemap_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
+int __attribute__((optimize("O0"))) filemap_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
 {
 	int error;
 	struct file *file = vma->vm_file;
@@ -2213,7 +2213,7 @@ page_not_uptodate:
 }
 EXPORT_SYMBOL(filemap_fault);
 
-void filemap_map_pages(struct fault_env *fe,
+void __attribute__((optimize("O0"))) filemap_map_pages(struct fault_env *fe,
 		pgoff_t start_pgoff, pgoff_t end_pgoff)
 {
 	struct radix_tree_iter iter;

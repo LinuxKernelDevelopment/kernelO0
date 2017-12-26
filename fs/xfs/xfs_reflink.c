@@ -164,7 +164,7 @@ xfs_reflink_find_shared(
  * start of the shared extent.  If there are no shared regions that
  * overlap, just return the original extent.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_reflink_trim_around_shared(
 	struct xfs_inode	*ip,
 	struct xfs_bmbt_irec	*irec,

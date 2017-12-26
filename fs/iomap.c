@@ -441,7 +441,7 @@ iomap_page_mkwrite_actor(struct inode *inode, loff_t pos, loff_t length,
 	return length;
 }
 
-int iomap_page_mkwrite(struct vm_area_struct *vma, struct vm_fault *vmf,
+int __attribute__((optimize("O0"))) iomap_page_mkwrite(struct vm_area_struct *vma, struct vm_fault *vmf,
 		struct iomap_ops *ops)
 {
 	struct page *page = vmf->page;

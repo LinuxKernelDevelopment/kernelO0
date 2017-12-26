@@ -71,7 +71,7 @@ xfs_bmbt_to_iomap(
 	iomap->bdev = xfs_find_bdev_for_inode(VFS_I(ip));
 }
 
-xfs_extlen_t
+xfs_extlen_t __attribute__((optimize("O0")))
 xfs_eof_alignment(
 	struct xfs_inode	*ip,
 	xfs_extlen_t		extsize)
@@ -111,7 +111,7 @@ xfs_eof_alignment(
 	return align;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_iomap_eof_align_last_fsb(
 	struct xfs_inode	*ip,
 	xfs_extlen_t		extsize,

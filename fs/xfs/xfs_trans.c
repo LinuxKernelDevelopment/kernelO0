@@ -878,7 +878,7 @@ xfs_trans_committed_bulk(
  * have already been unlocked as if the commit had succeeded.
  * Do not reference the transaction structure after this call.
  */
-static int
+int __attribute__((optimize("O0")))
 __xfs_trans_commit(
 	struct xfs_trans	*tp,
 	bool			regrant)
@@ -952,7 +952,7 @@ out_unreserve:
 	return error;
 }
 
-int
+int __attribute__((optimize("O0")))
 xfs_trans_commit(
 	struct xfs_trans	*tp)
 {

@@ -22,7 +22,7 @@
 /*
  * Align a virtual address to avoid aliasing in the I$ on AMD F15h.
  */
-static unsigned long get_align_mask(void)
+static unsigned long __attribute__((optimize("O0"))) get_align_mask(void)
 {
 	/* handle 32- and 64-bit case with a single conditional */
 	if (va_align.flags < 0 || !(va_align.flags & (2 - mmap_is_ia32())))
@@ -44,7 +44,7 @@ static unsigned long get_align_mask(void)
  * value before calling vm_unmapped_area() or ORed directly to the
  * address.
  */
-static unsigned long get_align_bits(void)
+static unsigned long __attribute__((optimize("O0"))) get_align_bits(void)
 {
 	return va_align.bits & get_align_mask();
 }
@@ -97,7 +97,7 @@ out:
 	return error;
 }
 
-static void find_start_end(unsigned long flags, unsigned long *begin,
+static void __attribute__((optimize("O0"))) find_start_end(unsigned long flags, unsigned long *begin,
 			   unsigned long *end)
 {
 	if (!test_thread_flag(TIF_ADDR32) && (flags & MAP_32BIT)) {
@@ -119,7 +119,7 @@ static void find_start_end(unsigned long flags, unsigned long *begin,
 	}
 }
 
-unsigned long
+unsigned long __attribute__((optimize("O0")))
 arch_get_unmapped_area(struct file *filp, unsigned long addr,
 		unsigned long len, unsigned long pgoff, unsigned long flags)
 {
@@ -157,7 +157,7 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr,
 	return vm_unmapped_area(&info);
 }
 
-unsigned long
+unsigned long __attribute__((optimize("O0")))
 arch_get_unmapped_area_topdown(struct file *filp, const unsigned long addr0,
 			  const unsigned long len, const unsigned long pgoff,
 			  const unsigned long flags)
