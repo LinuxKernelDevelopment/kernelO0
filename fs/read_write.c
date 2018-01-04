@@ -52,7 +52,7 @@ static inline int unsigned_offsets(struct file *file)
  *
  * Return the specified offset on success and -EINVAL on invalid offset.
  */
-loff_t vfs_setpos(struct file *file, loff_t offset, loff_t maxsize)
+loff_t __attribute__((optimize("O0"))) vfs_setpos(struct file *file, loff_t offset, loff_t maxsize)
 {
 	if (offset < 0 && !unsigned_offsets(file))
 		return -EINVAL;
@@ -83,7 +83,7 @@ EXPORT_SYMBOL(vfs_setpos);
  * SEEK_CUR is synchronized against other SEEK_CURs, but not read/writes.
  * read/writes behave like SEEK_SET against seeks.
  */
-loff_t
+loff_t __attribute__((optimize("O0")))
 generic_file_llseek_size(struct file *file, loff_t offset, int whence,
 		loff_t maxsize, loff_t eof)
 {
@@ -142,7 +142,7 @@ EXPORT_SYMBOL(generic_file_llseek_size);
  * filesystems.  It just updates the file offset to the value specified by
  * @offset and @whence.
  */
-loff_t generic_file_llseek(struct file *file, loff_t offset, int whence)
+loff_t __attribute__((optimize("O0"))) generic_file_llseek(struct file *file, loff_t offset, int whence)
 {
 	struct inode *inode = file->f_mapping->host;
 
@@ -289,7 +289,7 @@ out:
 }
 EXPORT_SYMBOL(default_llseek);
 
-loff_t vfs_llseek(struct file *file, loff_t offset, int whence)
+loff_t __attribute__((optimize("O0"))) vfs_llseek(struct file *file, loff_t offset, int whence)
 {
 	loff_t (*fn)(struct file *, loff_t, int);
 

@@ -648,7 +648,7 @@ struct request_queue *blk_alloc_queue(gfp_t gfp_mask)
 }
 EXPORT_SYMBOL(blk_alloc_queue);
 
-int blk_queue_enter(struct request_queue *q, bool nowait)
+int __attribute__((optimize("O0"))) blk_queue_enter(struct request_queue *q, bool nowait)
 {
 	while (true) {
 		int ret;
@@ -669,7 +669,7 @@ int blk_queue_enter(struct request_queue *q, bool nowait)
 	}
 }
 
-void blk_queue_exit(struct request_queue *q)
+void __attribute__((optimize("O0"))) blk_queue_exit(struct request_queue *q)
 {
 	percpu_ref_put(&q->q_usage_counter);
 }
@@ -1992,7 +1992,7 @@ end_io:
  * a lower device by calling into generic_make_request recursively, which
  * means the bio should NOT be touched after the call to ->make_request_fn.
  */
-blk_qc_t generic_make_request(struct bio *bio)
+blk_qc_t  __attribute__((optimize("O0"))) generic_make_request(struct bio *bio)
 {
 	struct bio_list bio_list_on_stack;
 	blk_qc_t ret = BLK_QC_T_NONE;
@@ -2064,7 +2064,7 @@ EXPORT_SYMBOL(generic_make_request);
  * interfaces; @bio must be presetup and ready for I/O.
  *
  */
-blk_qc_t submit_bio(struct bio *bio)
+blk_qc_t __attribute__((optimize("O0"))) submit_bio(struct bio *bio)
 {
 	/*
 	 * If it's a regular read/write or a barrier with data attached,

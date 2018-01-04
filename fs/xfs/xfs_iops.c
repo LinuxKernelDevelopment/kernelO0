@@ -457,7 +457,7 @@ xfs_vn_get_link_inline(
 	return XFS_I(inode)->i_df.if_u1.if_data;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_vn_getattr(
 	struct vfsmount		*mnt,
 	struct dentry		*dentry,

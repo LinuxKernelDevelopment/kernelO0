@@ -49,7 +49,7 @@ EXPORT_SYMBOL(generic_fillattr);
  * no attributes to any user.  Any other code probably wants
  * vfs_getattr.
  */
-int vfs_getattr_nosec(struct path *path, struct kstat *stat)
+int __attribute__((optimize("O0"))) vfs_getattr_nosec(struct path *path, struct kstat *stat)
 {
 	struct inode *inode = d_backing_inode(path->dentry);
 
@@ -62,7 +62,7 @@ int vfs_getattr_nosec(struct path *path, struct kstat *stat)
 
 EXPORT_SYMBOL(vfs_getattr_nosec);
 
-int vfs_getattr(struct path *path, struct kstat *stat)
+int __attribute__((optimize("O0"))) vfs_getattr(struct path *path, struct kstat *stat)
 {
 	int retval;
 
@@ -87,7 +87,7 @@ int vfs_fstat(unsigned int fd, struct kstat *stat)
 }
 EXPORT_SYMBOL(vfs_fstat);
 
-int vfs_fstatat(int dfd, const char __user *filename, struct kstat *stat,
+int __attribute__((optimize("O0"))) vfs_fstatat(int dfd, const char __user *filename, struct kstat *stat,
 		int flag)
 {
 	struct path path;
@@ -118,7 +118,7 @@ out:
 }
 EXPORT_SYMBOL(vfs_fstatat);
 
-int vfs_stat(const char __user *name, struct kstat *stat)
+int __attribute__((optimize("O0"))) vfs_stat(const char __user *name, struct kstat *stat)
 {
 	return vfs_fstatat(AT_FDCWD, name, stat, 0);
 }

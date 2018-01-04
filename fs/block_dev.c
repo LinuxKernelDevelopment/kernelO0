@@ -400,7 +400,7 @@ EXPORT_SYMBOL(blkdev_fsync);
  *
  * Return: negative errno if an error occurs, 0 if submission was successful.
  */
-int bdev_read_page(struct block_device *bdev, sector_t sector,
+int __attribute__((optimize("O0"))) bdev_read_page(struct block_device *bdev, sector_t sector,
 			struct page *page)
 {
 	const struct block_device_operations *ops = bdev->bd_disk->fops;

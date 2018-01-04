@@ -2382,7 +2382,7 @@ xfs_da_shrink_inode(
  * See if the mapping(s) for this btree block are valid, i.e.
  * don't contain holes, are logically contiguous, and cover the whole range.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_da_map_covers_blocks(
 	int		nmap,
 	xfs_bmbt_irec_t	*mapp,

@@ -2287,7 +2287,7 @@ int __attribute__((optimize("O0"))) path_lookupat(struct nameidata *nd, unsigned
 	return err;
 }
 
-static int filename_lookup(int dfd, struct filename *name, unsigned flags,
+static int __attribute__((optimize("O0"))) filename_lookup(int dfd, struct filename *name, unsigned flags,
 			   struct path *path, struct path *root)
 {
 	int retval;
@@ -2550,7 +2550,7 @@ int path_pts(struct path *path)
 }
 #endif
 
-int user_path_at_empty(int dfd, const char __user *name, unsigned flags,
+int __attribute__((optimize("O0"))) user_path_at_empty(int dfd, const char __user *name, unsigned flags,
 		 struct path *path, int *empty)
 {
 	return filename_lookup(dfd, getname_flags(name, flags, empty),

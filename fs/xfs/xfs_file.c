@@ -1379,7 +1379,7 @@ out_error:
 	return error;
 }
 
-STATIC loff_t
+loff_t __attribute__((optimize("O0")))
 xfs_seek_hole_data(
 	struct file		*file,
 	loff_t			start,
@@ -1414,7 +1414,7 @@ out_unlock:
 	return offset;
 }
 
-STATIC loff_t
+loff_t __attribute__((optimize("O0")))
 xfs_file_llseek(
 	struct file	*file,
 	loff_t		offset,

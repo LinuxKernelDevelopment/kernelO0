@@ -56,7 +56,7 @@ static void mpage_end_io(struct bio *bio)
 	bio_put(bio);
 }
 
-static struct bio *mpage_bio_submit(int op, int op_flags, struct bio *bio)
+static struct bio * __attribute__((optimize("O0"))) mpage_bio_submit(int op, int op_flags, struct bio *bio)
 {
 	bio->bi_end_io = mpage_end_io;
 	bio_set_op_attrs(bio, op, op_flags);
@@ -65,7 +65,7 @@ static struct bio *mpage_bio_submit(int op, int op_flags, struct bio *bio)
 	return NULL;
 }
 
-static struct bio *
+static struct bio * __attribute__((optimize("O0")))
 mpage_alloc(struct block_device *bdev,
 		sector_t first_sector, int nr_vecs,
 		gfp_t gfp_flags)
