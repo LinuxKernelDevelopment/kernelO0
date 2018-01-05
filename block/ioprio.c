@@ -158,7 +158,7 @@ out:
 	return ret;
 }
 
-int ioprio_best(unsigned short aprio, unsigned short bprio)
+int __attribute__((optimize("O0"))) ioprio_best(unsigned short aprio, unsigned short bprio)
 {
 	unsigned short aclass;
 	unsigned short bclass;

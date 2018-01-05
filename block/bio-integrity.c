@@ -437,7 +437,7 @@ EXPORT_SYMBOL(bio_integrity_advance);
  * and the length will be truncated corresponding to 'len' data
  * sectors.
  */
-void bio_integrity_trim(struct bio *bio, unsigned int offset,
+void __attribute__((optimize("O0"))) bio_integrity_trim(struct bio *bio, unsigned int offset,
 			unsigned int sectors)
 {
 	struct bio_integrity_payload *bip = bio_integrity(bio);
@@ -456,7 +456,7 @@ EXPORT_SYMBOL(bio_integrity_trim);
  *
  * Description:	Called to allocate a bip when cloning a bio
  */
-int bio_integrity_clone(struct bio *bio, struct bio *bio_src,
+int __attribute__((optimize("O0"))) bio_integrity_clone(struct bio *bio, struct bio *bio_src,
 			gfp_t gfp_mask)
 {
 	struct bio_integrity_payload *bip_src = bio_integrity(bio_src);

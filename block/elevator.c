@@ -269,7 +269,7 @@ static void elv_rqhash_reposition(struct request_queue *q, struct request *rq)
 	elv_rqhash_add(q, rq);
 }
 
-static struct request *elv_rqhash_find(struct request_queue *q, sector_t offset)
+static struct request * __attribute__((optimize("O0"))) elv_rqhash_find(struct request_queue *q, sector_t offset)
 {
 	struct elevator_queue *e = q->elevator;
 	struct hlist_node *next;
@@ -407,7 +407,7 @@ void elv_dispatch_add_tail(struct request_queue *q, struct request *rq)
 }
 EXPORT_SYMBOL(elv_dispatch_add_tail);
 
-int elv_merge(struct request_queue *q, struct request **req, struct bio *bio)
+int __attribute__((optimize("O0"))) elv_merge(struct request_queue *q, struct request **req, struct bio *bio)
 {
 	struct elevator_queue *e = q->elevator;
 	struct request *__rq;
@@ -525,7 +525,7 @@ void elv_merge_requests(struct request_queue *q, struct request *rq,
 	q->last_merge = rq;
 }
 
-void elv_bio_merged(struct request_queue *q, struct request *rq,
+void __attribute__((optimize("O0"))) elv_bio_merged(struct request_queue *q, struct request *rq,
 			struct bio *bio)
 {
 	struct elevator_queue *e = q->elevator;

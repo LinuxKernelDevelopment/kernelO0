@@ -570,7 +570,7 @@ EXPORT_SYMBOL(bio_phys_segments);
  *
  * 	Caller must ensure that @bio_src is not freed before @bio.
  */
-void __bio_clone_fast(struct bio *bio, struct bio *bio_src)
+void __attribute__((optimize("O0"))) __bio_clone_fast(struct bio *bio, struct bio *bio_src)
 {
 	BUG_ON(bio->bi_pool && BVEC_POOL_IDX(bio));
 
@@ -596,7 +596,7 @@ EXPORT_SYMBOL(__bio_clone_fast);
  *
  * 	Like __bio_clone_fast, only also allocates the returned bio
  */
-struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
+struct bio * __attribute__((optimize("O0"))) bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
 {
 	struct bio *b;
 
@@ -630,7 +630,7 @@ EXPORT_SYMBOL(bio_clone_fast);
  *	Clone bio. Caller will own the returned bio, but not the actual data it
  *	points to. Reference count of returned bio will be one.
  */
-struct bio *bio_clone_bioset(struct bio *bio_src, gfp_t gfp_mask,
+struct bio * __attribute__((optimize("O0"))) bio_clone_bioset(struct bio *bio_src, gfp_t gfp_mask,
 			     struct bio_set *bs)
 {
 	struct bvec_iter iter;
@@ -806,7 +806,7 @@ EXPORT_SYMBOL(bio_add_pc_page);
  *	Attempt to add a page to the bio_vec maplist. This will only fail
  *	if either bio->bi_vcnt == bio->bi_max_vecs or it's a cloned bio.
  */
-int bio_add_page(struct bio *bio, struct page *page,
+int __attribute__((optimize("O0"))) bio_add_page(struct bio *bio, struct page *page,
 		 unsigned int len, unsigned int offset)
 {
 	struct bio_vec *bv;
@@ -893,7 +893,7 @@ EXPORT_SYMBOL(submit_bio_wait);
  *
  * @bio will then represent the remaining, uncompleted portion of the io.
  */
-void bio_advance(struct bio *bio, unsigned bytes)
+void __attribute__((optimize("O0"))) bio_advance(struct bio *bio, unsigned bytes)
 {
 	if (bio_integrity(bio))
 		bio_integrity_advance(bio, bytes);
@@ -1778,7 +1778,7 @@ EXPORT_SYMBOL(bio_endio);
  * to @bio's bi_io_vec; it is the caller's responsibility to ensure that
  * @bio is not freed before the split.
  */
-struct bio *bio_split(struct bio *bio, int sectors,
+struct bio * __attribute__((optimize("O0"))) bio_split(struct bio *bio, int sectors,
 		      gfp_t gfp, struct bio_set *bs)
 {
 	struct bio *split = NULL;
@@ -1953,7 +1953,7 @@ EXPORT_SYMBOL(bioset_create_nobvec);
  * when @bio is released.  The caller must own @bio and is responsible for
  * synchronizing calls to this function.
  */
-int bio_associate_blkcg(struct bio *bio, struct cgroup_subsys_state *blkcg_css)
+int __attribute__((optimize("O0"))) bio_associate_blkcg(struct bio *bio, struct cgroup_subsys_state *blkcg_css)
 {
 	if (unlikely(bio->bi_css))
 		return -EBUSY;
@@ -2015,7 +2015,7 @@ void bio_disassociate_task(struct bio *bio)
  * @dst: destination bio
  * @src: source bio
  */
-void bio_clone_blkcg_association(struct bio *dst, struct bio *src)
+void __attribute__((optimize("O0"))) bio_clone_blkcg_association(struct bio *dst, struct bio *src)
 {
 	if (src->bi_css)
 		WARN_ON(bio_associate_blkcg(dst, src->bi_css));

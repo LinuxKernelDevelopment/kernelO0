@@ -1242,7 +1242,7 @@ rq_starved:
  * Returns ERR_PTR on failure, with @q->queue_lock held.
  * Returns request pointer on success, with @q->queue_lock *not held*.
  */
-static struct request *get_request(struct request_queue *q, int op,
+static struct request * __attribute__((optimize("O0"))) get_request(struct request_queue *q, int op,
 				   int op_flags, struct bio *bio,
 				   gfp_t gfp_mask)
 {
@@ -1419,7 +1419,7 @@ static inline void blk_pm_put_request(struct request *rq) {}
 /*
  * queue lock must be held
  */
-void __blk_put_request(struct request_queue *q, struct request *req)
+void __attribute__((optimize("O0"))) __blk_put_request(struct request_queue *q, struct request *req)
 {
 	if (unlikely(!q))
 		return;
@@ -1503,7 +1503,7 @@ void blk_add_request_payload(struct request *rq, struct page *page,
 }
 EXPORT_SYMBOL_GPL(blk_add_request_payload);
 
-bool bio_attempt_back_merge(struct request_queue *q, struct request *req,
+bool __attribute__((optimize("O0"))) bio_attempt_back_merge(struct request_queue *q, struct request *req,
 			    struct bio *bio)
 {
 	const int ff = bio->bi_opf & REQ_FAILFAST_MASK;
@@ -1660,7 +1660,7 @@ void init_request_from_bio(struct request *req, struct bio *bio)
 	blk_rq_bio_prep(req->q, req, bio);
 }
 
-static blk_qc_t blk_queue_bio(struct request_queue *q, struct bio *bio)
+static blk_qc_t __attribute__((optimize("O0"))) blk_queue_bio(struct request_queue *q, struct bio *bio)
 {
 	const bool sync = !!(bio->bi_opf & REQ_SYNC);
 	struct blk_plug *plug;
@@ -2294,7 +2294,7 @@ static inline struct request *blk_pm_peek_request(struct request_queue *q,
 }
 #endif
 
-void blk_account_io_start(struct request *rq, bool new_io)
+void __attribute__((optimize("O0"))) blk_account_io_start(struct request *rq, bool new_io)
 {
 	struct hd_struct *part;
 	int rw = rq_data_dir(rq);

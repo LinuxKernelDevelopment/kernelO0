@@ -11,7 +11,7 @@
 
 #include "blk.h"
 
-static struct bio *blk_bio_discard_split(struct request_queue *q,
+static struct bio * __attribute__((optimize("O0"))) blk_bio_discard_split(struct request_queue *q,
 					 struct bio *bio,
 					 struct bio_set *bs,
 					 unsigned *nsegs)
@@ -54,7 +54,7 @@ static struct bio *blk_bio_discard_split(struct request_queue *q,
 	return bio_split(bio, split_sectors, GFP_NOIO, bs);
 }
 
-static struct bio *blk_bio_write_same_split(struct request_queue *q,
+static struct bio * __attribute__((optimize("O0"))) blk_bio_write_same_split(struct request_queue *q,
 					    struct bio *bio,
 					    struct bio_set *bs,
 					    unsigned *nsegs)
@@ -82,7 +82,7 @@ static inline unsigned get_max_io_size(struct request_queue *q,
 	return sectors;
 }
 
-static struct bio *blk_bio_segment_split(struct request_queue *q,
+static struct bio * __attribute__((optimize("O0"))) blk_bio_segment_split(struct request_queue *q,
 					 struct bio *bio,
 					 struct bio_set *bs,
 					 unsigned *segs)
@@ -188,7 +188,7 @@ split:
 	return do_split ? new : NULL;
 }
 
-void blk_queue_split(struct request_queue *q, struct bio **bio,
+void __attribute__((optimize("O0"))) blk_queue_split(struct request_queue *q, struct bio **bio,
 		     struct bio_set *bs)
 {
 	struct bio *split, *res;
@@ -629,7 +629,7 @@ static int ll_merge_requests_fn(struct request_queue *q, struct request *req,
  *     which can be mixed are set in each bio and mark @rq as mixed
  *     merged.
  */
-void blk_rq_set_mixed_merge(struct request *rq)
+void __attribute__((optimize("O0"))) blk_rq_set_mixed_merge(struct request *rq)
 {
 	unsigned int ff = rq->cmd_flags & REQ_FAILFAST_MASK;
 	struct bio *bio;
@@ -670,7 +670,7 @@ static void blk_account_io_merge(struct request *req)
 /*
  * Has to be called with the request spinlock acquired
  */
-static int attempt_merge(struct request_queue *q, struct request *req,
+static int __attribute__((optimize("O0"))) attempt_merge(struct request_queue *q, struct request *req,
 			  struct request *next)
 {
 	if (!rq_mergeable(req) || !rq_mergeable(next))
@@ -747,7 +747,7 @@ static int attempt_merge(struct request_queue *q, struct request *req,
 	return 1;
 }
 
-int attempt_back_merge(struct request_queue *q, struct request *rq)
+int __attribute__((optimize("O0"))) attempt_back_merge(struct request_queue *q, struct request *rq)
 {
 	struct request *next = elv_latter_request(q, rq);
 
