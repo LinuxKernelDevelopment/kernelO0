@@ -382,7 +382,7 @@ int __attribute__((optimize("O0"))) __mnt_want_write(struct vfsmount *m)
  * is not frozen) before returning success.  When the write operation is
  * finished, mnt_drop_write() must be called.  This is effectively a refcount.
  */
-int mnt_want_write(struct vfsmount *m)
+int __attribute__((optimize("O0"))) mnt_want_write(struct vfsmount *m)
 {
 	int ret;
 
