@@ -168,7 +168,7 @@ void fprop_fraction_single(struct fprop_global *p,
  */
 #define PROP_BATCH (8*(1+ilog2(nr_cpu_ids)))
 
-int fprop_local_init_percpu(struct fprop_local_percpu *pl, gfp_t gfp)
+int __attribute__((optimize("O0"))) fprop_local_init_percpu(struct fprop_local_percpu *pl, gfp_t gfp)
 {
 	int err;
 

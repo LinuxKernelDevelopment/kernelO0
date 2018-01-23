@@ -1114,7 +1114,7 @@ xfs_dir_ialloc(
  * link count to go to zero, move the inode to AGI unlinked list so that it can
  * be freed when the last active reference goes away via xfs_inactive().
  */
-static int			/* error */
+int __attribute__((optimize("O0")))			/* error */
 xfs_droplink(
 	xfs_trans_t *tp,
 	xfs_inode_t *ip)
@@ -1972,7 +1972,7 @@ xfs_inactive(
  * We place the on-disk inode on a list in the AGI.  It will be pulled from this
  * list when the inode is freed.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_iunlink(
 	struct xfs_trans *tp,
 	struct xfs_inode *ip)
@@ -2529,7 +2529,7 @@ xfs_iunpin_wait(
  * entry and drop the link count in the first transaction of the remove
  * operation, there are no transactional constraints on the ordering here.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_remove(
 	xfs_inode_t             *dp,
 	struct xfs_name		*name,

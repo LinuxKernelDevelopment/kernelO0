@@ -270,7 +270,7 @@ subsys_initcall(default_bdi_init);
  * We have to be careful not to postpone flush work if it is scheduled for
  * earlier. Thus we use queue_delayed_work().
  */
-void wb_wakeup_delayed(struct bdi_writeback *wb)
+void __attribute__((optimize("O0"))) wb_wakeup_delayed(struct bdi_writeback *wb)
 {
 	unsigned long timeout;
 
@@ -286,7 +286,7 @@ void wb_wakeup_delayed(struct bdi_writeback *wb)
  */
 #define INIT_BW		(100 << (20 - PAGE_SHIFT))
 
-static int wb_init(struct bdi_writeback *wb, struct backing_dev_info *bdi,
+static int __attribute__((optimize("O0"))) wb_init(struct bdi_writeback *wb, struct backing_dev_info *bdi,
 		   int blkcg_id, gfp_t gfp)
 {
 	int i, err;
@@ -395,7 +395,7 @@ static DECLARE_WAIT_QUEUE_HEAD(cgwb_release_wait);
  * The returned wb_congested has its reference count incremented.  Returns
  * NULL on failure.
  */
-struct bdi_writeback_congested *
+struct bdi_writeback_congested * __attribute__((optimize("O0")))
 wb_congested_get_create(struct backing_dev_info *bdi, int blkcg_id, gfp_t gfp)
 {
 	struct bdi_writeback_congested *new_congested = NULL, *congested;

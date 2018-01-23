@@ -755,7 +755,7 @@ xfs_dir2_block_lookup_int(
  * Remove an entry from a block format directory.
  * If that makes the block small enough to fit in shortform, transform it.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_block_removename(
 	xfs_da_args_t		*args)		/* directory operation args */
 {
@@ -898,7 +898,7 @@ xfs_dir2_block_sort(
 /*
  * Convert a V2 leaf directory to a V2 block directory if possible.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_leaf_to_block(
 	xfs_da_args_t		*args,		/* operation arguments */
 	struct xfs_buf		*lbp,		/* leaf buffer */

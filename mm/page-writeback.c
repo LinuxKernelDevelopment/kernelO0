@@ -1343,7 +1343,7 @@ static void wb_update_dirty_ratelimit(struct dirty_throttle_control *dtc,
 	trace_bdi_dirty_ratelimit(wb, dirty_rate, task_ratelimit);
 }
 
-static void __wb_update_bandwidth(struct dirty_throttle_control *gdtc,
+static void __attribute__((optimize("O0"))) __wb_update_bandwidth(struct dirty_throttle_control *gdtc,
 				  struct dirty_throttle_control *mdtc,
 				  unsigned long start_time,
 				  bool update_ratelimit)
@@ -1393,7 +1393,7 @@ snapshot:
 	wb->bw_time_stamp = now;
 }
 
-void wb_update_bandwidth(struct bdi_writeback *wb, unsigned long start_time)
+void __attribute__((optimize("O0"))) wb_update_bandwidth(struct bdi_writeback *wb, unsigned long start_time)
 {
 	struct dirty_throttle_control gdtc = { GDTC_INIT(wb) };
 
@@ -2337,7 +2337,7 @@ int generic_writepages(struct address_space *mapping,
 
 EXPORT_SYMBOL(generic_writepages);
 
-int do_writepages(struct address_space *mapping, struct writeback_control *wbc)
+int __attribute__((optimize("O0"))) do_writepages(struct address_space *mapping, struct writeback_control *wbc)
 {
 	int ret;
 

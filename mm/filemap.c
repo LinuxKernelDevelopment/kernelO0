@@ -343,7 +343,7 @@ void delete_from_page_cache(struct page *page)
 }
 EXPORT_SYMBOL(delete_from_page_cache);
 
-int filemap_check_errors(struct address_space *mapping)
+int __attribute__((optimize("O0"))) filemap_check_errors(struct address_space *mapping)
 {
 	int ret = 0;
 	/* Check for outstanding write errors */
@@ -424,7 +424,7 @@ int filemap_flush(struct address_space *mapping)
 }
 EXPORT_SYMBOL(filemap_flush);
 
-static int __filemap_fdatawait_range(struct address_space *mapping,
+static int __attribute__((optimize("O0"))) __filemap_fdatawait_range(struct address_space *mapping,
 				     loff_t start_byte, loff_t end_byte)
 {
 	pgoff_t index = start_byte >> PAGE_SHIFT;
@@ -475,7 +475,7 @@ out:
  * callers are responsible for checking the return value and handling and/or
  * reporting the error.
  */
-int filemap_fdatawait_range(struct address_space *mapping, loff_t start_byte,
+int __attribute__((optimize("O0"))) filemap_fdatawait_range(struct address_space *mapping, loff_t start_byte,
 			    loff_t end_byte)
 {
 	int ret, ret2;
@@ -523,7 +523,7 @@ void filemap_fdatawait_keep_errors(struct address_space *mapping)
  * callers are responsible for checking the return value and handling and/or
  * reporting the error.
  */
-int filemap_fdatawait(struct address_space *mapping)
+int __attribute__((optimize("O0"))) filemap_fdatawait(struct address_space *mapping)
 {
 	loff_t i_size = i_size_read(mapping->host);
 

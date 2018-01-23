@@ -2580,7 +2580,7 @@ const struct xfs_buf_ops xfs_agi_buf_ops = {
 /*
  * Read in the allocation group header (inode allocation section)
  */
-int
+int __attribute__((optimize("O0")))
 xfs_read_agi(
 	struct xfs_mount	*mp,	/* file system mount structure */
 	struct xfs_trans	*tp,	/* transaction pointer */

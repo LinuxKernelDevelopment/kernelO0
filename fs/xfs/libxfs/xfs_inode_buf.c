@@ -433,7 +433,7 @@ xfs_dinode_verify(
 	return true;
 }
 
-void
+void __attribute__((optimize("O0")))
 xfs_dinode_calc_crc(
 	struct xfs_mount	*mp,
 	struct xfs_dinode	*dip)

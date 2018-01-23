@@ -1338,7 +1338,7 @@ xfs_dir2_leaf_lookup_int(
 /*
  * Remove an entry from a leaf format directory.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_leaf_removename(
 	xfs_da_args_t		*args)		/* operation arguments */
 {

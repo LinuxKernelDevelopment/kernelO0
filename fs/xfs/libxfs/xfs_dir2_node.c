@@ -2063,7 +2063,7 @@ xfs_dir2_node_lookup(
 /*
  * Remove an entry from a node-format directory.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_node_removename(
 	struct xfs_da_args	*args)		/* operation arguments */
 {

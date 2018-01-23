@@ -1469,7 +1469,7 @@ int __attribute__((optimize("O0"))) follow_dotdot(struct nameidata *nd)
  * This looks up the name in dcache and possibly revalidates the found dentry.
  * NULL is returned if the dentry does not exist in the cache.
  */
-static struct dentry *lookup_dcache(const struct qstr *name,
+static struct dentry * __attribute__((optimize("O0"))) lookup_dcache(const struct qstr *name,
 				    struct dentry *dir,
 				    unsigned int flags)
 {
@@ -1497,7 +1497,7 @@ static struct dentry *lookup_dcache(const struct qstr *name,
  *
  * dir->d_inode->i_mutex must be held
  */
-static struct dentry *lookup_real(struct inode *dir, struct dentry *dentry,
+static struct dentry * __attribute__((optimize("O0"))) lookup_real(struct inode *dir, struct dentry *dentry,
 				  unsigned int flags)
 {
 	struct dentry *old;
@@ -1516,7 +1516,7 @@ static struct dentry *lookup_real(struct inode *dir, struct dentry *dentry,
 	return dentry;
 }
 
-static struct dentry *__lookup_hash(const struct qstr *name,
+static struct dentry * __attribute__((optimize("O0"))) __lookup_hash(const struct qstr *name,
 		struct dentry *base, unsigned int flags)
 {
 	struct dentry *dentry = lookup_dcache(name, base, flags);

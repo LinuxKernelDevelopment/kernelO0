@@ -264,7 +264,7 @@ void __inode_attach_wb(struct inode *inode, struct page *page)
  * held on entry and is released on return.  The returned wb is guaranteed
  * to stay @inode's associated wb until its list_lock is released.
  */
-static struct bdi_writeback *
+static struct bdi_writeback * __attribute__((optimize("O0")))
 locked_inode_to_wb_and_lock_list(struct inode *inode)
 	__releases(&inode->i_lock)
 	__acquires(&wb->list_lock)
@@ -302,7 +302,7 @@ locked_inode_to_wb_and_lock_list(struct inode *inode)
  * Same as locked_inode_to_wb_and_lock_list() but @inode->i_lock isn't held
  * on entry.
  */
-static struct bdi_writeback *inode_to_wb_and_lock_list(struct inode *inode)
+static struct bdi_writeback * __attribute__((optimize("O0"))) inode_to_wb_and_lock_list(struct inode *inode)
 	__acquires(&wb->list_lock)
 {
 	spin_lock(&inode->i_lock);
@@ -1045,7 +1045,7 @@ static void requeue_io(struct inode *inode, struct bdi_writeback *wb)
 	inode_io_list_move_locked(inode, wb, &wb->b_more_io);
 }
 
-static void inode_sync_complete(struct inode *inode)
+static void __attribute__((optimize("O0"))) inode_sync_complete(struct inode *inode)
 {
 	inode->i_state &= ~I_SYNC;
 	/* If inode is clean an unused, put it into LRU now... */
@@ -1227,7 +1227,7 @@ static void inode_sleep_on_writeback(struct inode *inode)
  * processes all inodes in writeback lists and requeueing inodes behind flusher
  * thread's back can have unexpected consequences.
  */
-static void requeue_inode(struct inode *inode, struct bdi_writeback *wb,
+static void __attribute__((optimize("O0"))) requeue_inode(struct inode *inode, struct bdi_writeback *wb,
 			  struct writeback_control *wbc)
 {
 	if (inode->i_state & I_FREEING)
@@ -1290,7 +1290,7 @@ static void requeue_inode(struct inode *inode, struct bdi_writeback *wb,
  * linkage. That is left to the caller. The caller is also responsible for
  * setting I_SYNC flag and calling inode_sync_complete() to clear it.
  */
-static int
+static int __attribute__((optimize("O0")))
 __writeback_single_inode(struct inode *inode, struct writeback_control *wbc)
 {
 	struct address_space *mapping = inode->i_mapping;
@@ -1474,7 +1474,7 @@ static long writeback_chunk_size(struct bdi_writeback *wb,
  * unlock and relock that for each inode it ends up doing
  * IO for.
  */
-static long writeback_sb_inodes(struct super_block *sb,
+static long __attribute__((optimize("O0"))) writeback_sb_inodes(struct super_block *sb,
 				struct bdi_writeback *wb,
 				struct wb_writeback_work *work)
 {
@@ -1616,7 +1616,7 @@ static long writeback_sb_inodes(struct super_block *sb,
 	return wrote;
 }
 
-static long __writeback_inodes_wb(struct bdi_writeback *wb,
+static long __attribute__((optimize("O0"))) __writeback_inodes_wb(struct bdi_writeback *wb,
 				  struct wb_writeback_work *work)
 {
 	unsigned long start_time = jiffies;
@@ -1650,7 +1650,7 @@ static long __writeback_inodes_wb(struct bdi_writeback *wb,
 	return wrote;
 }
 
-static long writeback_inodes_wb(struct bdi_writeback *wb, long nr_pages,
+static long __attribute__((optimize("O0"))) writeback_inodes_wb(struct bdi_writeback *wb, long nr_pages,
 				enum wb_reason reason)
 {
 	struct wb_writeback_work work = {
@@ -1687,7 +1687,7 @@ static long writeback_inodes_wb(struct bdi_writeback *wb, long nr_pages,
  * older_than_this takes precedence over nr_to_write.  So we'll only write back
  * all dirty pages if they are all attached to "old" mappings.
  */
-static long wb_writeback(struct bdi_writeback *wb,
+static long __attribute__((optimize("O0"))) wb_writeback(struct bdi_writeback *wb,
 			 struct wb_writeback_work *work)
 {
 	unsigned long wb_start = jiffies;
@@ -1813,7 +1813,7 @@ static unsigned long get_nr_dirty_pages(void)
 		get_nr_dirty_inodes();
 }
 
-static long wb_check_background_flush(struct bdi_writeback *wb)
+static long __attribute__((optimize("O0"))) wb_check_background_flush(struct bdi_writeback *wb)
 {
 	if (wb_over_bg_thresh(wb)) {
 
@@ -1831,7 +1831,7 @@ static long wb_check_background_flush(struct bdi_writeback *wb)
 	return 0;
 }
 
-static long wb_check_old_data_flush(struct bdi_writeback *wb)
+static long __attribute__((optimize("O0"))) wb_check_old_data_flush(struct bdi_writeback *wb)
 {
 	unsigned long expired;
 	long nr_pages;
@@ -1868,7 +1868,7 @@ static long wb_check_old_data_flush(struct bdi_writeback *wb)
 /*
  * Retrieve work items and do the writeback they describe
  */
-static long wb_do_writeback(struct bdi_writeback *wb)
+static long __attribute__((optimize("O0"))) wb_do_writeback(struct bdi_writeback *wb)
 {
 	struct wb_writeback_work *work;
 	long wrote = 0;
@@ -1901,7 +1901,7 @@ static long wb_do_writeback(struct bdi_writeback *wb)
  * Handle writeback of dirty data for the device backed by this bdi. Also
  * reschedules periodically and does kupdated style flushing.
  */
-void wb_workfn(struct work_struct *work)
+void __attribute__((optimize("O0"))) wb_workfn(struct work_struct *work)
 {
 	struct bdi_writeback *wb = container_of(to_delayed_work(work),
 						struct bdi_writeback, dwork);

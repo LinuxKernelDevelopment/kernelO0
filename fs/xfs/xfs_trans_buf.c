@@ -636,7 +636,7 @@ xfs_trans_binval(
  * transferred to the buffer's log format structure so that we'll know what to
  * do at recovery time.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_trans_inode_buf(
 	xfs_trans_t	*tp,
 	xfs_buf_t	*bp)

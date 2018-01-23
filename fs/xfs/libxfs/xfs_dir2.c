@@ -430,7 +430,7 @@ out_free:
 /*
  * Remove an entry from a directory.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_dir_removename(
 	xfs_trans_t	*tp,
 	xfs_inode_t	*dp,

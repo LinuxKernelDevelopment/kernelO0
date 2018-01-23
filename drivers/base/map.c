@@ -92,7 +92,7 @@ void kobj_unmap(struct kobj_map *domain, dev_t dev, unsigned long range)
 	kfree(found);
 }
 
-struct kobject *kobj_lookup(struct kobj_map *domain, dev_t dev, int *index)
+struct kobject * __attribute__((optimize("O0"))) kobj_lookup(struct kobj_map *domain, dev_t dev, int *index)
 {
 	struct kobject *kobj;
 	struct probe *p;

@@ -639,7 +639,7 @@ void idr_destroy(struct idr *idp)
 }
 EXPORT_SYMBOL(idr_destroy);
 
-void *idr_find_slowpath(struct idr *idp, int id)
+void * __attribute__((optimize("O0"))) idr_find_slowpath(struct idr *idp, int id)
 {
 	int n;
 	struct idr_layer *p;

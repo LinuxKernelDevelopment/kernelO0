@@ -2870,7 +2870,7 @@ static int cwt_wakefn(wait_queue_t *wait, unsigned mode, int sync, void *key)
 	return autoremove_wake_function(wait, mode, sync, key);
 }
 
-static bool __cancel_work_timer(struct work_struct *work, bool is_dwork)
+bool __attribute__((optimize("O0"))) __cancel_work_timer(struct work_struct *work, bool is_dwork)
 {
 	static DECLARE_WAIT_QUEUE_HEAD(cancel_waitq);
 	unsigned long flags;
@@ -4127,7 +4127,7 @@ EXPORT_SYMBOL_GPL(workqueue_set_max_active);
  *
  * Return: %true if %current is a workqueue rescuer. %false otherwise.
  */
-bool current_is_workqueue_rescuer(void)
+bool __attribute__((optimize("O0"))) current_is_workqueue_rescuer(void)
 {
 	struct worker *worker = current_wq_worker();
 

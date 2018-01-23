@@ -58,7 +58,7 @@ static void xfs_dir2_sf_toino8(xfs_da_args_t *args);
  * space currently present in the inode.  If it won't fit, the output
  * size is too big (but not accurate).
  */
-int						/* size for sf form */
+int __attribute__((optimize("O0")))						/* size for sf form */
 xfs_dir2_block_sfsize(
 	xfs_inode_t		*dp,		/* incore inode pointer */
 	xfs_dir2_data_hdr_t	*hdr,		/* block directory data */
@@ -148,7 +148,7 @@ xfs_dir2_block_sfsize(
  * Convert a block format directory to shortform.
  * Caller has already checked that it will fit, and built us a header.
  */
-int						/* error */
+int __attribute__((optimize("O0")))						/* error */
 xfs_dir2_block_to_sf(
 	xfs_da_args_t		*args,		/* operation arguments */
 	struct xfs_buf		*bp,

@@ -665,7 +665,7 @@ xfs_dir2_data_log_entry(
 /*
  * Log a data block header.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_dir2_data_log_header(
 	struct xfs_da_args	*args,
 	struct xfs_buf		*bp)

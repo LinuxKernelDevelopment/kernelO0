@@ -321,7 +321,7 @@ xfs_vn_link(
 	return 0;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xfs_vn_unlink(
 	struct inode	*dir,
 	struct dentry	*dentry)

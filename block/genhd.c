@@ -59,7 +59,7 @@ static void disk_release_events(struct gendisk *disk);
  * RETURNS:
  * Pointer to the found partition on success, NULL if not found.
  */
-struct hd_struct *disk_get_part(struct gendisk *disk, int partno)
+struct hd_struct * __attribute__((optimize("O0"))) disk_get_part(struct gendisk *disk, int partno)
 {
 	struct hd_struct *part = NULL;
 	struct disk_part_tbl *ptbl;
@@ -706,7 +706,7 @@ static ssize_t disk_badblocks_store(struct device *dev,
  * This function gets the structure containing partitioning
  * information for the given device @devt.
  */
-struct gendisk *get_gendisk(dev_t devt, int *partno)
+struct gendisk * __attribute__((optimize("O0"))) get_gendisk(dev_t devt, int *partno)
 {
 	struct gendisk *disk = NULL;
 
@@ -745,7 +745,7 @@ EXPORT_SYMBOL(get_gendisk);
  * RETURNS:
  * Resulting block_device on success, NULL on failure.
  */
-struct block_device *bdget_disk(struct gendisk *disk, int partno)
+struct block_device * __attribute__((optimize("O0"))) bdget_disk(struct gendisk *disk, int partno)
 {
 	struct hd_struct *part;
 	struct block_device *bdev = NULL;
@@ -1331,7 +1331,7 @@ struct gendisk *alloc_disk_node(int minors, int node_id)
 }
 EXPORT_SYMBOL(alloc_disk_node);
 
-struct kobject *get_disk(struct gendisk *disk)
+struct kobject * __attribute__((optimize("O0"))) get_disk(struct gendisk *disk)
 {
 	struct module *owner;
 	struct kobject *kobj;
@@ -1485,7 +1485,7 @@ static unsigned long disk_events_poll_jiffies(struct gendisk *disk)
  * CONTEXT:
  * Might sleep.
  */
-void disk_block_events(struct gendisk *disk)
+void __attribute__((optimize("O0"))) disk_block_events(struct gendisk *disk)
 {
 	struct disk_events *ev = disk->ev;
 	unsigned long flags;

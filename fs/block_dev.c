@@ -697,7 +697,7 @@ static int bdev_set(struct inode *inode, void *data)
 
 static LIST_HEAD(all_bdevs);
 
-struct block_device *bdget(dev_t dev)
+struct block_device * __attribute__((optimize("O0"))) bdget(dev_t dev)
 {
 	struct block_device *bdev;
 	struct inode *inode;
@@ -762,7 +762,7 @@ void bdput(struct block_device *bdev)
 
 EXPORT_SYMBOL(bdput);
  
-static struct block_device *bd_acquire(struct inode *inode)
+struct block_device * __attribute__((optimize("O0"))) bd_acquire(struct inode *inode)
 {
 	struct block_device *bdev;
 
@@ -1207,7 +1207,7 @@ int check_disk_change(struct block_device *bdev)
 
 EXPORT_SYMBOL(check_disk_change);
 
-void bd_set_size(struct block_device *bdev, loff_t size)
+void __attribute__((optimize("O0"))) bd_set_size(struct block_device *bdev, loff_t size)
 {
 	unsigned bsize = bdev_logical_block_size(bdev);
 
@@ -1233,7 +1233,7 @@ static void __blkdev_put(struct block_device *bdev, fmode_t mode, int for_part);
  *    mutex_lock_nested(whole->bd_mutex, 1)
  */
 
-static int __blkdev_get(struct block_device *bdev, fmode_t mode, int for_part)
+int __attribute__((optimize("O0"))) __blkdev_get(struct block_device *bdev, fmode_t mode, int for_part)
 {
 	struct gendisk *disk;
 	struct module *owner;
@@ -1398,7 +1398,7 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, int for_part)
  * RETURNS:
  * 0 on success, -errno on failure.
  */
-int blkdev_get(struct block_device *bdev, fmode_t mode, void *holder)
+int __attribute__((optimize("O0"))) blkdev_get(struct block_device *bdev, fmode_t mode, void *holder)
 {
 	struct block_device *whole = NULL;
 	int res;
@@ -1543,7 +1543,7 @@ struct block_device *blkdev_get_by_dev(dev_t dev, fmode_t mode, void *holder)
 }
 EXPORT_SYMBOL(blkdev_get_by_dev);
 
-static int blkdev_open(struct inode * inode, struct file * filp)
+int __attribute__((optimize("O0"))) blkdev_open(struct inode * inode, struct file * filp)
 {
 	struct block_device *bdev;
 
@@ -1571,7 +1571,7 @@ static int blkdev_open(struct inode * inode, struct file * filp)
 	return blkdev_get(bdev, filp->f_mode, filp);
 }
 
-static void __blkdev_put(struct block_device *bdev, fmode_t mode, int for_part)
+void __attribute__((optimize("O0"))) __blkdev_put(struct block_device *bdev, fmode_t mode, int for_part)
 {
 	struct gendisk *disk = bdev->bd_disk;
 	struct block_device *victim = NULL;
