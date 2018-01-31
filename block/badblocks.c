@@ -168,7 +168,7 @@ static void badblocks_update_acked(struct badblocks *bb)
  *  0: success
  *  1: failed to set badblocks (out of space)
  */
-int badblocks_set(struct badblocks *bb, sector_t s, int sectors,
+int __attribute__((optimize("O0"))) badblocks_set(struct badblocks *bb, sector_t s, int sectors,
 			int acknowledged)
 {
 	u64 *p;

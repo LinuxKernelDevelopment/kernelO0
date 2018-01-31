@@ -123,7 +123,7 @@ xfs_trans_dup(
  * This does not do quota reservations. That typically is done by the
  * caller afterwards.
  */
-static int
+int __attribute__((optimize("O0")))
 xfs_trans_reserve(
 	struct xfs_trans	*tp,
 	struct xfs_trans_res	*resp,
@@ -684,7 +684,7 @@ out:
  *
  * The log item will now point to its new descriptor with its li_desc field.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_trans_add_item(
 	struct xfs_trans	*tp,
 	struct xfs_log_item	*lip)
@@ -967,7 +967,7 @@ xfs_trans_commit(
  * If the transaction has made a log reservation, make sure to release
  * it as well.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_trans_cancel(
 	struct xfs_trans	*tp)
 {

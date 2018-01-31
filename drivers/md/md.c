@@ -755,7 +755,7 @@ void md_super_wait(struct mddev *mddev)
 	wait_event(mddev->sb_wait, atomic_read(&mddev->pending_writes)==0);
 }
 
-int sync_page_io(struct md_rdev *rdev, sector_t sector, int size,
+int __attribute__((optimize("O0"))) sync_page_io(struct md_rdev *rdev, sector_t sector, int size,
 		 struct page *page, int op, int op_flags, bool metadata_op)
 {
 	struct bio *bio = bio_alloc_mddev(GFP_NOIO, 1, rdev->mddev);
@@ -782,7 +782,7 @@ int sync_page_io(struct md_rdev *rdev, sector_t sector, int size,
 }
 EXPORT_SYMBOL_GPL(sync_page_io);
 
-static int read_disk_sb(struct md_rdev *rdev, int size)
+int __attribute__((optimize("O0"))) read_disk_sb(struct md_rdev *rdev, int size)
 {
 	char b[BDEVNAME_SIZE];
 
@@ -1363,7 +1363,7 @@ static __le32 calc_sb_1_csum(struct mdp_superblock_1 *sb)
 	return cpu_to_le32(csum);
 }
 
-static int super_1_load(struct md_rdev *rdev, struct md_rdev *refdev, int minor_version)
+int __attribute__((optimize("O0"))) super_1_load(struct md_rdev *rdev, struct md_rdev *refdev, int minor_version)
 {
 	struct mdp_superblock_1 *sb;
 	int ret;
@@ -3271,7 +3271,7 @@ abort_free:
  * Check a full RAID array for plausibility
  */
 
-static void analyze_sbs(struct mddev *mddev)
+void __attribute__((optimize("O0"))) analyze_sbs(struct mddev *mddev)
 {
 	int i;
 	struct md_rdev *rdev, *freshest, *tmp;
@@ -5128,7 +5128,7 @@ static void md_safemode_timeout(unsigned long data)
 
 static int start_dirty_degraded;
 
-int md_run(struct mddev *mddev)
+int __attribute__((optimize("O0"))) md_run(struct mddev *mddev)
 {
 	int err;
 	struct md_rdev *rdev;
@@ -5361,7 +5361,7 @@ int md_run(struct mddev *mddev)
 }
 EXPORT_SYMBOL_GPL(md_run);
 
-static int do_md_run(struct mddev *mddev)
+int __attribute__((optimize("O0"))) do_md_run(struct mddev *mddev)
 {
 	int err;
 
@@ -5847,7 +5847,7 @@ static int get_version(void __user *arg)
 	return 0;
 }
 
-static int get_array_info(struct mddev *mddev, void __user *arg)
+int __attribute__((optimize("O0"))) get_array_info(struct mddev *mddev, void __user *arg)
 {
 	mdu_array_info_t info;
 	int nr,working,insync,failed,spare;
@@ -5907,7 +5907,7 @@ static int get_array_info(struct mddev *mddev, void __user *arg)
 	return 0;
 }
 
-static int get_bitmap_file(struct mddev *mddev, void __user * arg)
+int get_bitmap_file(struct mddev *mddev, void __user * arg)
 {
 	mdu_bitmap_file_t *file = NULL; /* too big for stack allocation */
 	char *ptr;
@@ -6384,7 +6384,7 @@ static int set_bitmap_file(struct mddev *mddev, int fd)
  *  The minor and patch _version numbers are also kept incase the
  *  super_block handler wishes to interpret them.
  */
-static int set_array_info(struct mddev *mddev, mdu_array_info_t *info)
+int __attribute__((optimize("O0"))) set_array_info(struct mddev *mddev, mdu_array_info_t *info)
 {
 
 	if (info->raid_disks == 0) {
@@ -6745,7 +6745,7 @@ static inline bool md_ioctl_valid(unsigned int cmd)
 	}
 }
 
-static int md_ioctl(struct block_device *bdev, fmode_t mode,
+int __attribute__((optimize("O0"))) md_ioctl(struct block_device *bdev, fmode_t mode,
 			unsigned int cmd, unsigned long arg)
 {
 	int err = 0;
@@ -7063,7 +7063,7 @@ static int md_compat_ioctl(struct block_device *bdev, fmode_t mode,
 }
 #endif /* CONFIG_COMPAT */
 
-static int md_open(struct block_device *bdev, fmode_t mode)
+int __attribute__((optimize("O0"))) md_open(struct block_device *bdev, fmode_t mode)
 {
 	/*
 	 * Succeed if we can lock the mddev, which confirms that

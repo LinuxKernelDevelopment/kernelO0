@@ -679,7 +679,7 @@ static inline void copy_user_overflow(int size, unsigned long count)
 	WARN(1, "Buffer overflow detected (%d < %lu)!\n", size, count);
 }
 
-static __always_inline unsigned long __must_check
+static __always_inline unsigned long __must_check __attribute__((optimize("O0")))
 copy_from_user(void *to, const void __user *from, unsigned long n)
 {
 	int sz = __compiletime_object_size(to);
@@ -699,7 +699,7 @@ copy_from_user(void *to, const void __user *from, unsigned long n)
 	return n;
 }
 
-static __always_inline unsigned long __must_check
+static __always_inline unsigned long __must_check __attribute__((optimize("O0")))
 copy_to_user(void __user *to, const void *from, unsigned long n)
 {
 	int sz = __compiletime_object_size(from);

@@ -285,7 +285,7 @@ static int put_u64(unsigned long arg, u64 val)
 	return put_user(val, (u64 __user *)arg);
 }
 
-int __blkdev_driver_ioctl(struct block_device *bdev, fmode_t mode,
+int __attribute__((optimize("O0"))) __blkdev_driver_ioctl(struct block_device *bdev, fmode_t mode,
 			unsigned cmd, unsigned long arg)
 {
 	struct gendisk *disk = bdev->bd_disk;
@@ -499,7 +499,7 @@ static int blkdev_bszset(struct block_device *bdev, fmode_t mode,
 /*
  * always keep this in sync with compat_blkdev_ioctl()
  */
-int blkdev_ioctl(struct block_device *bdev, fmode_t mode, unsigned cmd,
+int __attribute__((optimize("O0"))) blkdev_ioctl(struct block_device *bdev, fmode_t mode, unsigned cmd,
 			unsigned long arg)
 {
 	struct backing_dev_info *bdi;

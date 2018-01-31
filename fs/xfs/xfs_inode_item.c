@@ -629,7 +629,7 @@ static const struct xfs_item_ops xfs_inode_item_ops = {
 /*
  * Initialize the inode log item for a newly allocated (in-core) inode.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_inode_item_init(
 	struct xfs_inode	*ip,
 	struct xfs_mount	*mp)

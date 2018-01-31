@@ -571,7 +571,7 @@ again:
  * lock more than one at a time, lockdep will report false positives saying we
  * have violated locking orders.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_lock_two_inodes(
 	xfs_inode_t		*ip0,
 	xfs_inode_t		*ip1,

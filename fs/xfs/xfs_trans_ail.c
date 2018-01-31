@@ -553,7 +553,7 @@ xfsaild(
  * AIL at the time we are called. We don't need to access the contents of
  * any of the objects, so the lock is not needed.
  */
-void
+void __attribute__((optimize("O0")))
 xfs_ail_push(
 	struct xfs_ail	*ailp,
 	xfs_lsn_t	threshold_lsn)

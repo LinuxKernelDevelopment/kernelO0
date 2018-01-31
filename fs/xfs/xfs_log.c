@@ -161,7 +161,7 @@ xlog_grant_sub_space(
 	} while (head_val != old);
 }
 
-static void
+void __attribute__((optimize("O0")))
 xlog_grant_add_space(
 	struct xlog		*log,
 	atomic64_t		*head,
@@ -228,7 +228,7 @@ xlog_ticket_reservation(
 	}
 }
 
-STATIC bool
+bool __attribute__((optimize("O0")))
 xlog_grant_head_wake(
 	struct xlog		*log,
 	struct xlog_grant_head	*head,
@@ -250,7 +250,7 @@ xlog_grant_head_wake(
 	return true;
 }
 
-STATIC int
+int __attribute__((optimize("O0")))
 xlog_grant_head_wait(
 	struct xlog		*log,
 	struct xlog_grant_head	*head,
@@ -303,7 +303,7 @@ shutdown:
  * head->waiters because the t_queue list head will be empty and we hold the
  * only reference to it so it can safely be checked unlocked.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xlog_grant_head_check(
 	struct xlog		*log,
 	struct xlog_grant_head	*head,
@@ -367,7 +367,7 @@ xlog_tic_add_region(xlog_ticket_t *tic, uint len, uint type)
 /*
  * Replenish the byte reservation required by moving the grant write head.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_log_regrant(
 	struct xfs_mount	*mp,
 	struct xlog_ticket	*tic)
@@ -428,7 +428,7 @@ out_error:
  * log record header from any reservation.  By wasting space in each
  * reservation, we prevent over allocation problems.
  */
-int
+int __attribute__((optimize("O0")))
 xfs_log_reserve(
 	struct xfs_mount	*mp,
 	int		 	unit_bytes,
@@ -970,7 +970,7 @@ xfs_log_unmount(
 	xlog_dealloc_log(mp->m_log);
 }
 
-void
+void __attribute__((optimize("O0")))
 xfs_log_item_init(
 	struct xfs_mount	*mp,
 	struct xfs_log_item	*item,
@@ -1130,7 +1130,7 @@ xlog_assign_tail_lsn(
  * the tail.  The details of this case are described below, but the end
  * result is that we return the size of the log as the amount of space left.
  */
-STATIC int
+int __attribute__((optimize("O0")))
 xlog_space_left(
 	struct xlog	*log,
 	atomic64_t	*head)
@@ -1555,7 +1555,7 @@ xlog_commit_record(
  * pushes on an lsn which is further along in the log once we reach the high
  * water mark.  In this manner, we would be creating a low water mark.
  */
-STATIC void
+void __attribute__((optimize("O0")))
 xlog_grant_push_ail(
 	struct xlog	*log,
 	int		need_bytes)
@@ -3629,7 +3629,7 @@ xfs_log_calc_unit_res(
 /*
  * Allocate and initialise a new log ticket.
  */
-struct xlog_ticket *
+struct xlog_ticket * __attribute__((optimize("O0")))
 xlog_ticket_alloc(
 	struct xlog		*log,
 	int			unit_bytes,
