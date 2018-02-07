@@ -242,7 +242,7 @@ static DEFINE_SPINLOCK(all_mddevs_lock);
  * call has finished, the bio has been linked into some internal structure
  * and so is visible to ->quiesce(), so we don't need the refcount any more.
  */
-static blk_qc_t md_make_request(struct request_queue *q, struct bio *bio)
+blk_qc_t __attribute__((optimize("O0"))) md_make_request(struct request_queue *q, struct bio *bio)
 {
 	const int rw = bio_data_dir(bio);
 	struct mddev *mddev = q->queuedata;
@@ -662,7 +662,7 @@ static struct md_rdev *find_rdev_rcu(struct mddev *mddev, dev_t dev)
 	return NULL;
 }
 
-static struct md_personality *find_pers(int level, char *clevel)
+struct md_personality * __attribute__((optimize("O0"))) find_pers(int level, char *clevel)
 {
 	struct md_personality *pers;
 	list_for_each_entry(pers, &pers_list, list) {
@@ -6456,7 +6456,7 @@ int __attribute__((optimize("O0"))) set_array_info(struct mddev *mddev, mdu_arra
 	return 0;
 }
 
-void md_set_array_sectors(struct mddev *mddev, sector_t array_sectors)
+void __attribute__((optimize("O0"))) md_set_array_sectors(struct mddev *mddev, sector_t array_sectors)
 {
 	WARN(!mddev_is_locked(mddev), "%s: unlocked mddev!\n", __func__);
 

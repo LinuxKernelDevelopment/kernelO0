@@ -234,7 +234,7 @@ EXPORT_SYMBOL(blk_queue_bounce_limit);
  *    per-device basis in /sys/block/<device>/queue/max_sectors_kb.
  *    The soft limit can not exceed max_hw_sectors.
  **/
-void blk_queue_max_hw_sectors(struct request_queue *q, unsigned int max_hw_sectors)
+void __attribute__((optimize("O0"))) blk_queue_max_hw_sectors(struct request_queue *q, unsigned int max_hw_sectors)
 {
 	struct queue_limits *limits = &q->limits;
 	unsigned int max_sectors;
@@ -277,7 +277,7 @@ EXPORT_SYMBOL(blk_queue_chunk_sectors);
  * @q:  the request queue for the device
  * @max_discard_sectors: maximum number of sectors to discard
  **/
-void blk_queue_max_discard_sectors(struct request_queue *q,
+void __attribute__((optimize("O0"))) blk_queue_max_discard_sectors(struct request_queue *q,
 		unsigned int max_discard_sectors)
 {
 	q->limits.max_hw_discard_sectors = max_discard_sectors;
@@ -290,7 +290,7 @@ EXPORT_SYMBOL(blk_queue_max_discard_sectors);
  * @q:  the request queue for the device
  * @max_write_same_sectors: maximum number of sectors to write per command
  **/
-void blk_queue_max_write_same_sectors(struct request_queue *q,
+void __attribute__((optimize("O0"))) blk_queue_max_write_same_sectors(struct request_queue *q,
 				      unsigned int max_write_same_sectors)
 {
 	q->limits.max_write_same_sectors = max_write_same_sectors;
@@ -413,7 +413,7 @@ EXPORT_SYMBOL(blk_queue_alignment_offset);
  *   smallest I/O the device can perform without incurring a performance
  *   penalty.
  */
-void blk_limits_io_min(struct queue_limits *limits, unsigned int min)
+void __attribute__((optimize("O0"))) blk_limits_io_min(struct queue_limits *limits, unsigned int min)
 {
 	limits->io_min = min;
 
@@ -439,7 +439,7 @@ EXPORT_SYMBOL(blk_limits_io_min);
  *   preferred request size for workloads where a high number of I/O
  *   operations is desired.
  */
-void blk_queue_io_min(struct request_queue *q, unsigned int min)
+void __attribute__((optimize("O0"))) blk_queue_io_min(struct request_queue *q, unsigned int min)
 {
 	blk_limits_io_min(&q->limits, min);
 }
@@ -477,7 +477,7 @@ EXPORT_SYMBOL(blk_limits_io_opt);
  *   optimal_io_size is the preferred request size for workloads where
  *   sustained throughput is desired.
  */
-void blk_queue_io_opt(struct request_queue *q, unsigned int opt)
+void __attribute__((optimize("O0"))) blk_queue_io_opt(struct request_queue *q, unsigned int opt)
 {
 	blk_limits_io_opt(&q->limits, opt);
 }
@@ -666,7 +666,7 @@ EXPORT_SYMBOL(bdev_stack_limits);
  *    Merges the limits for a top level gendisk and a bottom level
  *    block_device.
  */
-void disk_stack_limits(struct gendisk *disk, struct block_device *bdev,
+void __attribute__((optimize("O0"))) disk_stack_limits(struct gendisk *disk, struct block_device *bdev,
 		       sector_t offset)
 {
 	struct request_queue *t = disk->queue;

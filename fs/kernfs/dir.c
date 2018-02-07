@@ -300,7 +300,7 @@ static unsigned int kernfs_name_hash(const char *name, const void *ns)
 	return hash;
 }
 
-static int kernfs_name_compare(unsigned int hash, const char *name,
+int __attribute__((optimize("O0"))) kernfs_name_compare(unsigned int hash, const char *name,
 			       const void *ns, const struct kernfs_node *kn)
 {
 	if (hash < kn->hash)
@@ -477,7 +477,7 @@ static void kernfs_drain(struct kernfs_node *kn)
  * kernfs_get - get a reference count on a kernfs_node
  * @kn: the target kernfs_node
  */
-void kernfs_get(struct kernfs_node *kn)
+void __attribute__((optimize("O0"))) kernfs_get(struct kernfs_node *kn)
 {
 	if (kn) {
 		WARN_ON(!atomic_read(&kn->count));
@@ -734,7 +734,7 @@ out_unlock:
  * Look for kernfs_node with name @name under @parent.  Returns pointer to
  * the found kernfs_node on success, %NULL on failure.
  */
-static struct kernfs_node *kernfs_find_ns(struct kernfs_node *parent,
+static struct kernfs_node * __attribute__((optimize("O0"))) kernfs_find_ns(struct kernfs_node *parent,
 					  const unsigned char *name,
 					  const void *ns)
 {
@@ -809,7 +809,7 @@ static struct kernfs_node *kernfs_walk_ns(struct kernfs_node *parent,
  * if found.  This function may sleep and returns pointer to the found
  * kernfs_node on success, %NULL on failure.
  */
-struct kernfs_node *kernfs_find_and_get_ns(struct kernfs_node *parent,
+struct kernfs_node * __attribute__((optimize("O0"))) kernfs_find_and_get_ns(struct kernfs_node *parent,
 					   const char *name, const void *ns)
 {
 	struct kernfs_node *kn;

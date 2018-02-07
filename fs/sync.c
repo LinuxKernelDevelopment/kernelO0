@@ -180,7 +180,7 @@ SYSCALL_DEFINE1(syncfs, int, fd)
  * @datasync is set only metadata needed to access modified file data is
  * written.
  */
-int vfs_fsync_range(struct file *file, loff_t start, loff_t end, int datasync)
+int __attribute__((optimize("O0"))) vfs_fsync_range(struct file *file, loff_t start, loff_t end, int datasync)
 {
 	struct inode *inode = file->f_mapping->host;
 
@@ -204,7 +204,7 @@ EXPORT_SYMBOL(vfs_fsync_range);
  * Write back data and metadata for @file to disk.  If @datasync is
  * set only metadata needed to access modified file data is written.
  */
-int vfs_fsync(struct file *file, int datasync)
+int __attribute__((optimize("O0"))) vfs_fsync(struct file *file, int datasync)
 {
 	return vfs_fsync_range(file, 0, LLONG_MAX, datasync);
 }

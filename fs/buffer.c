@@ -1644,7 +1644,7 @@ EXPORT_SYMBOL(unmap_underlying_metadata);
  * constraints in mind (relevant mostly if some
  * architecture has a slow bit-scan instruction)
  */
-static inline int block_size_bits(unsigned int blocksize)
+int block_size_bits(unsigned int blocksize)
 {
 	return ilog2(blocksize);
 }
@@ -1946,7 +1946,7 @@ iomap_to_bh(struct inode *inode, sector_t block, struct buffer_head *bh,
 	}
 }
 
-int __block_write_begin_int(struct page *page, loff_t pos, unsigned len,
+int __attribute__((optimize("O0"))) __block_write_begin_int(struct page *page, loff_t pos, unsigned len,
 		get_block_t *get_block, struct iomap *iomap)
 {
 	unsigned from = pos & (PAGE_SIZE - 1);
@@ -2032,14 +2032,14 @@ int __block_write_begin_int(struct page *page, loff_t pos, unsigned len,
 	return err;
 }
 
-int __block_write_begin(struct page *page, loff_t pos, unsigned len,
+int __attribute__((optimize("O0"))) __block_write_begin(struct page *page, loff_t pos, unsigned len,
 		get_block_t *get_block)
 {
 	return __block_write_begin_int(page, pos, len, get_block, NULL);
 }
 EXPORT_SYMBOL(__block_write_begin);
 
-static int __block_commit_write(struct inode *inode, struct page *page,
+int __attribute__((optimize("O0"))) __block_commit_write(struct inode *inode, struct page *page,
 		unsigned from, unsigned to)
 {
 	unsigned block_start, block_end;
@@ -2083,7 +2083,7 @@ static int __block_commit_write(struct inode *inode, struct page *page,
  *
  * The filesystem needs to handle block truncation upon failure.
  */
-int block_write_begin(struct address_space *mapping, loff_t pos, unsigned len,
+int __attribute__((optimize("O0"))) block_write_begin(struct address_space *mapping, loff_t pos, unsigned len,
 		unsigned flags, struct page **pagep, get_block_t *get_block)
 {
 	pgoff_t index = pos >> PAGE_SHIFT;
@@ -2106,7 +2106,7 @@ int block_write_begin(struct address_space *mapping, loff_t pos, unsigned len,
 }
 EXPORT_SYMBOL(block_write_begin);
 
-int block_write_end(struct file *file, struct address_space *mapping,
+int __attribute__((optimize("O0"))) block_write_end(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned copied,
 			struct page *page, void *fsdata)
 {

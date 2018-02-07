@@ -6684,7 +6684,7 @@ static int only_parity(int raid_disk, int algo, int raid_disks, int max_degraded
 	return 0;
 }
 
-static int raid5_run(struct mddev *mddev)
+int __attribute__((optimize("O0"))) raid5_run(struct mddev *mddev)
 {
 	struct r5conf *conf;
 	int working_disks = 0;

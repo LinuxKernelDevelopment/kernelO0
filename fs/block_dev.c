@@ -1695,7 +1695,7 @@ long __attribute__((optimize("O0"))) block_ioctl(struct file *file, unsigned cmd
  * Does not take i_mutex for the write and thus is not for general purpose
  * use.
  */
-ssize_t blkdev_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ssize_t __attribute__((optimize("O0"))) blkdev_write_iter(struct kiocb *iocb, struct iov_iter *from)
 {
 	struct file *file = iocb->ki_filp;
 	struct inode *bd_inode = bdev_file_inode(file);

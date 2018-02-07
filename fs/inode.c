@@ -1734,7 +1734,7 @@ EXPORT_SYMBOL(touch_atime);
  *	if suid or (sgid and xgrp)
  *		remove privs
  */
-int should_remove_suid(struct dentry *dentry)
+int __attribute__((optimize("O0"))) should_remove_suid(struct dentry *dentry)
 {
 	umode_t mode = d_inode(dentry)->i_mode;
 	int kill = 0;
@@ -1762,7 +1762,7 @@ EXPORT_SYMBOL(should_remove_suid);
  * response to write or truncate. Return 0 if nothing has to be changed.
  * Negative value on error (change should be denied).
  */
-int dentry_needs_remove_privs(struct dentry *dentry)
+int __attribute__((optimize("O0"))) dentry_needs_remove_privs(struct dentry *dentry)
 {
 	struct inode *inode = d_inode(dentry);
 	int mask = 0;
@@ -1796,7 +1796,7 @@ static int __remove_privs(struct dentry *dentry, int kill)
  * Remove special file priviledges (suid, capabilities) when file is written
  * to or truncated.
  */
-int file_remove_privs(struct file *file)
+int __attribute__((optimize("O0"))) file_remove_privs(struct file *file)
 {
 	struct dentry *dentry = file_dentry(file);
 	struct inode *inode = file_inode(file);

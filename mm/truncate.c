@@ -581,7 +581,7 @@ static int do_launder_page(struct address_space *mapping, struct page *page)
  *
  * Returns -EBUSY if any pages could not be invalidated.
  */
-int invalidate_inode_pages2_range(struct address_space *mapping,
+int __attribute__((optimize("O0"))) invalidate_inode_pages2_range(struct address_space *mapping,
 				  pgoff_t start, pgoff_t end)
 {
 	pgoff_t indices[PAGEVEC_SIZE];

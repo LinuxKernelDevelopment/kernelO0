@@ -899,7 +899,7 @@ EXPORT_SYMBOL(__pagevec_lru_add);
  * pagevec_lookup_entries() returns the number of entries which were
  * found.
  */
-unsigned pagevec_lookup_entries(struct pagevec *pvec,
+unsigned __attribute__((optimize("O0"))) pagevec_lookup_entries(struct pagevec *pvec,
 				struct address_space *mapping,
 				pgoff_t start, unsigned nr_pages,
 				pgoff_t *indices)

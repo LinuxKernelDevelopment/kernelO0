@@ -372,7 +372,7 @@ EXPORT_SYMBOL(filemap_check_errors);
  * these two operations is that if a dirty page/buffer is encountered, it must
  * be waited upon, and not just skipped over.
  */
-int __filemap_fdatawrite_range(struct address_space *mapping, loff_t start,
+int __attribute__((optimize("O0"))) __filemap_fdatawrite_range(struct address_space *mapping, loff_t start,
 				loff_t end, int sync_mode)
 {
 	int ret;
@@ -570,7 +570,7 @@ EXPORT_SYMBOL(filemap_write_and_wait);
  * Note that `lend' is inclusive (describes the last byte to be written) so
  * that this function can be used to write to the very end-of-file (end = -1).
  */
-int filemap_write_and_wait_range(struct address_space *mapping,
+int __attribute__((optimize("O0"))) filemap_write_and_wait_range(struct address_space *mapping,
 				 loff_t lstart, loff_t lend)
 {
 	int err = 0;
@@ -2592,7 +2592,7 @@ int pagecache_write_end(struct file *file, struct address_space *mapping,
 }
 EXPORT_SYMBOL(pagecache_write_end);
 
-ssize_t
+ssize_t __attribute__((optimize("O0")))
 generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
 {
 	struct file	*file = iocb->ki_filp;
@@ -2683,7 +2683,7 @@ struct page __attribute__((optimize("O0"))) *grab_cache_page_write_begin(struct 
 }
 EXPORT_SYMBOL(grab_cache_page_write_begin);
 
-ssize_t generic_perform_write(struct file *file,
+ssize_t __attribute__((optimize("O0"))) generic_perform_write(struct file *file,
 				struct iov_iter *i, loff_t pos)
 {
 	struct address_space *mapping = file->f_mapping;
@@ -2790,7 +2790,7 @@ EXPORT_SYMBOL(generic_perform_write);
  * A caller has to handle it. This is mainly due to the fact that we want to
  * avoid syncing under i_mutex.
  */
-ssize_t __generic_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ssize_t __attribute__((optimize("O0"))) __generic_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
 {
 	struct file *file = iocb->ki_filp;
 	struct address_space * mapping = file->f_mapping;

@@ -884,7 +884,7 @@ repeat:
  * Notify @kn such that poll(2) on @kn wakes up.  Maybe be called from any
  * context.
  */
-void kernfs_notify(struct kernfs_node *kn)
+void __attribute__((optimize("O0"))) kernfs_notify(struct kernfs_node *kn)
 {
 	static DECLARE_WORK(kernfs_notify_work, kernfs_notify_workfn);
 	unsigned long flags;
