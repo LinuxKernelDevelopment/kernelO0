@@ -2149,7 +2149,7 @@ static int unshare_fs(unsigned long unshare_flags, struct fs_struct **new_fsp)
 /*
  * Unshare file descriptor table if it is being shared
  */
-static int unshare_fd(unsigned long unshare_flags, struct files_struct **new_fdp)
+int __attribute__((optimize("O0"))) unshare_fd(unsigned long unshare_flags, struct files_struct **new_fdp)
 {
 	struct files_struct *fd = current->files;
 	int error = 0;
@@ -2292,7 +2292,7 @@ bad_unshare_out:
  *	the exec layer of the kernel.
  */
 
-int unshare_files(struct files_struct **displaced)
+int __attribute__((optimize("O0"))) unshare_files(struct files_struct **displaced)
 {
 	struct task_struct *task = current;
 	struct files_struct *copy = NULL;

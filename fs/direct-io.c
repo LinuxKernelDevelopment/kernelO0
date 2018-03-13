@@ -439,7 +439,7 @@ static inline void dio_cleanup(struct dio *dio, struct dio_submit *sdio)
  * all bios have been issued so that dio->refcount can only decrease.  This
  * requires that that the caller hold a reference on the dio.
  */
-static struct bio *dio_await_one(struct dio *dio)
+static struct bio * __attribute__((optimize("O0"))) dio_await_one(struct dio *dio)
 {
 	unsigned long flags;
 	struct bio *bio = NULL;

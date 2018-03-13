@@ -177,7 +177,7 @@ struct bio *bio_alloc_mddev(gfp_t gfp_mask, int nr_iovecs,
 }
 EXPORT_SYMBOL_GPL(bio_alloc_mddev);
 
-struct bio *bio_clone_mddev(struct bio *bio, gfp_t gfp_mask,
+struct bio * __attribute__((optimize("O0"))) bio_clone_mddev(struct bio *bio, gfp_t gfp_mask,
 			    struct mddev *mddev)
 {
 	if (!mddev || !mddev->bio_set)
@@ -422,7 +422,7 @@ static void md_submit_flush_data(struct work_struct *ws)
 	wake_up(&mddev->sb_wait);
 }
 
-void md_flush_request(struct mddev *mddev, struct bio *bio)
+void __attribute__((optimize("O0"))) md_flush_request(struct mddev *mddev, struct bio *bio)
 {
 	spin_lock_irq(&mddev->lock);
 	wait_event_lock_irq(mddev->sb_wait,
@@ -7185,7 +7185,7 @@ static int md_thread(void *arg)
 	return 0;
 }
 
-void md_wakeup_thread(struct md_thread *thread)
+void __attribute__((optimize("O0"))) md_wakeup_thread(struct md_thread *thread)
 {
 	if (thread) {
 		pr_debug("md: waking up MD thread %s.\n", thread->tsk->comm);
@@ -7722,7 +7722,7 @@ EXPORT_SYMBOL(md_done_sync);
  * in superblock) before writing, schedule a superblock update
  * and wait for it to complete.
  */
-void md_write_start(struct mddev *mddev, struct bio *bi)
+void __attribute__((optimize("O0"))) md_write_start(struct mddev *mddev, struct bio *bi)
 {
 	int did_change = 0;
 	if (bio_data_dir(bi) != WRITE)
@@ -8349,7 +8349,7 @@ static void md_start_sync(struct work_struct *ws)
  *  5/ If array is degraded, try to add spares devices
  *  6/ If array has spares or is not in-sync, start a resync thread.
  */
-void md_check_recovery(struct mddev *mddev)
+void __attribute__((optimize("O0"))) md_check_recovery(struct mddev *mddev)
 {
 	if (mddev->suspended)
 		return;

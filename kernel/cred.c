@@ -240,7 +240,7 @@ error:
  *
  * Call commit_creds() or abort_creds() to clean up.
  */
-struct cred *prepare_creds(void)
+struct cred * __attribute__((optimize("O0"))) prepare_creds(void)
 {
 	struct task_struct *task = current;
 	const struct cred *old;
@@ -289,7 +289,7 @@ EXPORT_SYMBOL(prepare_creds);
  * Prepare credentials for current to perform an execve()
  * - The caller must hold ->cred_guard_mutex
  */
-struct cred *prepare_exec_creds(void)
+struct cred * __attribute__((optimize("O0"))) prepare_exec_creds(void)
 {
 	struct cred *new;
 

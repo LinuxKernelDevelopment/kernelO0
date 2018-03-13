@@ -300,7 +300,7 @@ void bio_reset(struct bio *bio)
 }
 EXPORT_SYMBOL(bio_reset);
 
-static struct bio *__bio_chain_endio(struct bio *bio)
+static struct bio * __attribute__((optimize("O0"))) __bio_chain_endio(struct bio *bio)
 {
 	struct bio *parent = bio->bi_private;
 
@@ -1740,7 +1740,7 @@ static inline bool bio_remaining_done(struct bio *bio)
  *   way to end I/O on a bio. No one should call bi_end_io() directly on a
  *   bio unless they own it and thus know that it has an end_io function.
  **/
-void bio_endio(struct bio *bio)
+void __attribute__((optimize("O0"))) bio_endio(struct bio *bio)
 {
 again:
 	if (!bio_remaining_done(bio))

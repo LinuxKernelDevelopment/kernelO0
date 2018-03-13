@@ -2101,7 +2101,7 @@ void __init page_writeback_init(void)
 /*
  * We tag pages in batches of WRITEBACK_TAG_BATCH to reduce tree_lock latency.
  */
-void tag_pages_for_writeback(struct address_space *mapping,
+void __attribute__((optimize("O0"))) tag_pages_for_writeback(struct address_space *mapping,
 			     pgoff_t start, pgoff_t end)
 {
 #define WRITEBACK_TAG_BATCH 4096
@@ -2142,7 +2142,7 @@ EXPORT_SYMBOL(tag_pages_for_writeback);
  * tag we set). The rule we follow is that TOWRITE tag can be cleared only
  * by the process clearing the DIRTY tag (and submitting the page for IO).
  */
-int write_cache_pages(struct address_space *mapping,
+int __attribute__((optimize("O0"))) write_cache_pages(struct address_space *mapping,
 		      struct writeback_control *wbc, writepage_t writepage,
 		      void *data)
 {
@@ -2319,7 +2319,7 @@ static int __writepage(struct page *page, struct writeback_control *wbc,
  * This is a library function, which implements the writepages()
  * address_space_operation.
  */
-int generic_writepages(struct address_space *mapping,
+int __attribute__((optimize("O0"))) generic_writepages(struct address_space *mapping,
 		       struct writeback_control *wbc)
 {
 	struct blk_plug plug;

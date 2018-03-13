@@ -223,7 +223,7 @@ static int raid6_idx_to_slot(int idx, struct stripe_head *sh,
 	return slot;
 }
 
-static void return_io(struct bio_list *return_bi)
+static void __attribute__((optimize("O0"))) return_io(struct bio_list *return_bi)
 {
 	struct bio *bi;
 	while ((bi = bio_list_pop(return_bi)) != NULL) {
@@ -286,7 +286,7 @@ static void raid5_wakeup_stripe_thread(struct stripe_head *sh)
 	}
 }
 
-static void do_release_stripe(struct r5conf *conf, struct stripe_head *sh,
+void __attribute__((optimize("O0"))) do_release_stripe(struct r5conf *conf, struct stripe_head *sh,
 			      struct list_head *temp_inactive_list)
 {
 	BUG_ON(!list_empty(&sh->lru));
@@ -321,7 +321,7 @@ static void do_release_stripe(struct r5conf *conf, struct stripe_head *sh,
 	}
 }
 
-static void __release_stripe(struct r5conf *conf, struct stripe_head *sh,
+void __attribute__((optimize("O0"))) __release_stripe(struct r5conf *conf, struct stripe_head *sh,
 			     struct list_head *temp_inactive_list)
 {
 	if (atomic_dec_and_test(&sh->count))
@@ -335,7 +335,7 @@ static void __release_stripe(struct r5conf *conf, struct stripe_head *sh,
  * given time. Adding stripes only takes device lock, while deleting stripes
  * only takes hash lock.
  */
-static void release_inactive_stripe_list(struct r5conf *conf,
+void __attribute__((optimize("O0"))) release_inactive_stripe_list(struct r5conf *conf,
 					 struct list_head *temp_inactive_list,
 					 int hash)
 {
@@ -460,7 +460,7 @@ static inline void insert_hash(struct r5conf *conf, struct stripe_head *sh)
 }
 
 /* find an idle stripe, make sure it is unhashed, and return it. */
-static struct stripe_head *get_free_stripe(struct r5conf *conf, int hash)
+static struct stripe_head * __attribute__((optimize("O0"))) get_free_stripe(struct r5conf *conf, int hash)
 {
 	struct stripe_head *sh = NULL;
 	struct list_head *first;
@@ -516,7 +516,7 @@ static void raid5_build_block(struct stripe_head *sh, int i, int previous);
 static void stripe_set_idx(sector_t stripe, struct r5conf *conf, int previous,
 			    struct stripe_head *sh);
 
-static void init_stripe(struct stripe_head *sh, sector_t sector, int previous)
+void __attribute__((optimize("O0"))) init_stripe(struct stripe_head *sh, sector_t sector, int previous)
 {
 	struct r5conf *conf = sh->raid_conf;
 	int i, seq;
@@ -558,7 +558,7 @@ retry:
 	set_bit(STRIPE_BATCH_READY, &sh->state);
 }
 
-static struct stripe_head *__find_stripe(struct r5conf *conf, sector_t sector,
+static struct stripe_head * __attribute__((optimize("O0"))) __find_stripe(struct r5conf *conf, sector_t sector,
 					 short generation)
 {
 	struct stripe_head *sh;
@@ -653,7 +653,7 @@ static int has_failed(struct r5conf *conf)
 	return 0;
 }
 
-struct stripe_head *
+struct stripe_head * __attribute__((optimize("O0")))
 raid5_get_active_stripe(struct r5conf *conf, sector_t sector,
 			int previous, int noblock, int noquiesce)
 {
@@ -2508,7 +2508,7 @@ static void raid5_end_write_request(struct bio *bi)
 		raid5_release_stripe(sh->batch_head);
 }
 
-static void raid5_build_block(struct stripe_head *sh, int i, int previous)
+void __attribute__((optimize("O0"))) raid5_build_block(struct stripe_head *sh, int i, int previous)
 {
 	struct r5dev *dev = &sh->dev[i];
 
@@ -2546,7 +2546,7 @@ static void raid5_error(struct mddev *mddev, struct md_rdev *rdev)
  * Input: a 'big' sector number,
  * Output: index of the data and parity disk, and the sector # in them.
  */
-sector_t raid5_compute_sector(struct r5conf *conf, sector_t r_sector,
+sector_t __attribute__((optimize("O0"))) raid5_compute_sector(struct r5conf *conf, sector_t r_sector,
 			      int previous, int *dd_idx,
 			      struct stripe_head *sh)
 {
@@ -2748,7 +2748,7 @@ sector_t raid5_compute_sector(struct r5conf *conf, sector_t r_sector,
 	return new_sector;
 }
 
-sector_t raid5_compute_blocknr(struct stripe_head *sh, int i, int previous)
+sector_t __attribute__((optimize("O0"))) raid5_compute_blocknr(struct stripe_head *sh, int i, int previous)
 {
 	struct r5conf *conf = sh->raid_conf;
 	int raid_disks = sh->disks;
@@ -3066,7 +3066,7 @@ static int add_stripe_bio(struct stripe_head *sh, struct bio *bi, int dd_idx,
 
 static void end_reshape(struct r5conf *conf);
 
-static void stripe_set_idx(sector_t stripe, struct r5conf *conf, int previous,
+void __attribute__((optimize("O0"))) stripe_set_idx(sector_t stripe, struct r5conf *conf, int previous,
 			    struct stripe_head *sh)
 {
 	int sectors_per_chunk =
@@ -4307,7 +4307,7 @@ static void break_stripe_batch_list(struct stripe_head *head_sh,
 		wake_up(&head_sh->raid_conf->wait_for_overlap);
 }
 
-static void handle_stripe(struct stripe_head *sh)
+void __attribute__((optimize("O0"))) handle_stripe(struct stripe_head *sh)
 {
 	struct stripe_head_state s;
 	struct r5conf *conf = sh->raid_conf;
@@ -4711,7 +4711,7 @@ static int raid5_congested(struct mddev *mddev, int bits)
 	return 0;
 }
 
-static int in_chunk_boundary(struct mddev *mddev, struct bio *bio)
+int __attribute__((optimize("O0"))) in_chunk_boundary(struct mddev *mddev, struct bio *bio)
 {
 	struct r5conf *conf = mddev->private;
 	sector_t sector = bio->bi_iter.bi_sector + get_start_sect(bio->bi_bdev);
@@ -4740,7 +4740,7 @@ static void add_bio_to_retry(struct bio *bi,struct r5conf *conf)
 	md_wakeup_thread(conf->mddev->thread);
 }
 
-static struct bio *remove_bio_from_retry(struct r5conf *conf)
+static struct bio * __attribute__((optimize("O0"))) remove_bio_from_retry(struct r5conf *conf)
 {
 	struct bio *bi;
 
@@ -4800,7 +4800,7 @@ static void raid5_align_endio(struct bio *bi)
 	add_bio_to_retry(raid_bi, conf);
 }
 
-static int raid5_read_one_chunk(struct mddev *mddev, struct bio *raid_bio)
+int __attribute__((optimize("O0"))) raid5_read_one_chunk(struct mddev *mddev, struct bio *raid_bio)
 {
 	struct r5conf *conf = mddev->private;
 	int dd_idx;
@@ -4884,7 +4884,7 @@ static int raid5_read_one_chunk(struct mddev *mddev, struct bio *raid_bio)
 	}
 }
 
-static struct bio *chunk_aligned_read(struct mddev *mddev, struct bio *raid_bio)
+struct bio * __attribute__((optimize("O0"))) chunk_aligned_read(struct mddev *mddev, struct bio *raid_bio)
 {
 	struct bio *split;
 
@@ -5161,7 +5161,7 @@ static void make_discard_request(struct mddev *mddev, struct bio *bi)
 	}
 }
 
-static void raid5_make_request(struct mddev *mddev, struct bio * bi)
+void __attribute__((optimize("O0"))) raid5_make_request(struct mddev *mddev, struct bio * bi)
 {
 	struct r5conf *conf = mddev->private;
 	int dd_idx;
@@ -5694,7 +5694,7 @@ static inline sector_t raid5_sync_request(struct mddev *mddev, sector_t sector_n
 	return STRIPE_SECTORS;
 }
 
-static int  retry_aligned_read(struct r5conf *conf, struct bio *raid_bio)
+int  __attribute__((optimize("O0"))) retry_aligned_read(struct r5conf *conf, struct bio *raid_bio)
 {
 	/* We may not be able to submit a whole bio at once as there
 	 * may not be enough stripe_heads available.
@@ -5760,7 +5760,7 @@ static int  retry_aligned_read(struct r5conf *conf, struct bio *raid_bio)
 	return handled;
 }
 
-static int handle_active_stripes(struct r5conf *conf, int group,
+int __attribute__((optimize("O0"))) handle_active_stripes(struct r5conf *conf, int group,
 				 struct r5worker *worker,
 				 struct list_head *temp_inactive_list)
 {
@@ -5850,7 +5850,7 @@ static void raid5_do_work(struct work_struct *work)
  * During the scan, completed stripes are saved for us by the interrupt
  * handler, so that they will not have to wait for our next wakeup.
  */
-static void raid5d(struct md_thread *thread)
+static void __attribute__((optimize("O0"))) raid5d(struct md_thread *thread)
 {
 	struct mddev *mddev = thread->mddev;
 	struct r5conf *conf = mddev->private;
