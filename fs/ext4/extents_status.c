@@ -776,7 +776,7 @@ void ext4_es_cache_extent(struct inode *inode, ext4_lblk_t lblk,
  *
  * Return: 1 on found, 0 on not
  */
-int ext4_es_lookup_extent(struct inode *inode, ext4_lblk_t lblk,
+int __attribute__((optimize("O0"))) ext4_es_lookup_extent(struct inode *inode, ext4_lblk_t lblk,
 			  struct extent_status *es)
 {
 	struct ext4_es_tree *tree;

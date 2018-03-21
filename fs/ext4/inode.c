@@ -471,7 +471,7 @@ static void ext4_map_blocks_es_recheck(handle_t *handle,
  *
  * It returns the error in case of allocation failure.
  */
-int ext4_map_blocks(handle_t *handle, struct inode *inode,
+int __attribute__((optimize("O0"))) ext4_map_blocks(handle_t *handle, struct inode *inode,
 		    struct ext4_map_blocks *map, int flags)
 {
 	struct extent_status es;
@@ -928,7 +928,7 @@ static int ext4_dio_get_block_overwrite(struct inode *inode, sector_t iblock,
 /*
  * `handle' can be NULL if create is zero
  */
-struct buffer_head *ext4_getblk(handle_t *handle, struct inode *inode,
+struct buffer_head * __attribute__((optimize("O0"))) ext4_getblk(handle_t *handle, struct inode *inode,
 				ext4_lblk_t block, int map_flags)
 {
 	struct ext4_map_blocks map;

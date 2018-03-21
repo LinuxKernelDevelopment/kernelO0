@@ -4284,7 +4284,7 @@ static int get_implied_cluster_alloc(struct super_block *sb,
  *
  * return < 0, error case.
  */
-int ext4_ext_map_blocks(handle_t *handle, struct inode *inode,
+int __attribute__((optimize("O0"))) ext4_ext_map_blocks(handle_t *handle, struct inode *inode,
 			struct ext4_map_blocks *map, int flags)
 {
 	struct ext4_ext_path *path = NULL;

@@ -1037,7 +1037,7 @@ static int ext4_add_dirent_to_inline(handle_t *handle,
 	return 1;
 }
 
-static void *ext4_get_inline_xattr_pos(struct inode *inode,
+void * __attribute__((optimize("O0"))) ext4_get_inline_xattr_pos(struct inode *inode,
 				       struct ext4_iloc *iloc)
 {
 	struct ext4_xattr_entry *entry;
@@ -1608,7 +1608,7 @@ out:
 	return ret;
 }
 
-struct buffer_head *ext4_find_inline_entry(struct inode *dir,
+struct buffer_head * __attribute__((optimize("O0"))) ext4_find_inline_entry(struct inode *dir,
 					struct ext4_filename *fname,
 					const struct qstr *d_name,
 					struct ext4_dir_entry_2 **res_dir,

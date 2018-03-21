@@ -1273,7 +1273,7 @@ static inline int ext4_match(struct ext4_filename *fname,
 /*
  * Returns 0 if not found, -1 on failure, and 1 on success
  */
-int ext4_search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
+int __attribute__((optimize("O0"))) ext4_search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
 		    struct inode *dir, struct ext4_filename *fname,
 		    const struct qstr *d_name,
 		    unsigned int offset, struct ext4_dir_entry_2 **res_dir)
@@ -1352,7 +1352,7 @@ static int is_dx_internal_node(struct inode *dir, ext4_lblk_t block,
  * The returned buffer_head has ->b_count elevated.  The caller is expected
  * to brelse() it when appropriate.
  */
-static struct buffer_head * ext4_find_entry (struct inode *dir,
+struct buffer_head * __attribute__((optimize("O0"))) ext4_find_entry (struct inode *dir,
 					const struct qstr *d_name,
 					struct ext4_dir_entry_2 **res_dir,
 					int *inlined)
@@ -1510,7 +1510,7 @@ cleanup_and_exit:
 	return ret;
 }
 
-static struct buffer_head * ext4_dx_find_entry(struct inode *dir,
+struct buffer_head * __attribute__((optimize("O0"))) ext4_dx_find_entry(struct inode *dir,
 			struct ext4_filename *fname,
 			struct ext4_dir_entry_2 **res_dir)
 {
@@ -1564,7 +1564,7 @@ success:
 	return bh;
 }
 
-static struct dentry *ext4_lookup(struct inode *dir, struct dentry *dentry, unsigned int flags)
+struct dentry * __attribute__((optimize("O0"))) ext4_lookup(struct inode *dir, struct dentry *dentry, unsigned int flags)
 {
 	struct inode *inode;
 	struct ext4_dir_entry_2 *de;

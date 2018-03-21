@@ -276,7 +276,7 @@ unsigned ext4_free_clusters_after_init(struct super_block *sb,
  * @bh:			pointer to the buffer head to store the block
  *			group descriptor
  */
-struct ext4_group_desc * ext4_get_group_desc(struct super_block *sb,
+struct ext4_group_desc * __attribute__((optimize("O0"))) ext4_get_group_desc(struct super_block *sb,
 					     ext4_group_t block_group,
 					     struct buffer_head **bh)
 {

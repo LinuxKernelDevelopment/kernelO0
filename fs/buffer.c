@@ -196,7 +196,7 @@ EXPORT_SYMBOL(end_buffer_write_sync);
  * succeeds, there is no need to take private_lock. (But if
  * private_lock is contended then so is mapping->tree_lock).
  */
-static struct buffer_head *
+struct buffer_head * __attribute__((optimize("O0")))
 __find_get_block_slow(struct block_device *bdev, sector_t block)
 {
 	struct inode *bd_inode = bdev->bd_inode;
@@ -981,7 +981,7 @@ init_page_buffers(struct page *page, struct block_device *bdev,
  *
  * This is used purely for blockdev mappings.
  */
-static int
+int __attribute__((optimize("O0")))
 grow_dev_page(struct block_device *bdev, sector_t block,
 	      pgoff_t index, int size, int sizebits, gfp_t gfp)
 {
@@ -1049,7 +1049,7 @@ failed:
  * Create buffers for the specified block device block's page.  If
  * that page was dirty, the buffers are set dirty also.
  */
-static int
+int __attribute__((optimize("O0")))
 grow_buffers(struct block_device *bdev, sector_t block, int size, gfp_t gfp)
 {
 	pgoff_t index;
@@ -1078,7 +1078,7 @@ grow_buffers(struct block_device *bdev, sector_t block, int size, gfp_t gfp)
 	return grow_dev_page(bdev, block, index, size, sizebits, gfp);
 }
 
-static struct buffer_head *
+struct buffer_head * __attribute__((optimize("O0")))
 __getblk_slow(struct block_device *bdev, sector_t block,
 	     unsigned size, gfp_t gfp)
 {
@@ -1315,7 +1315,7 @@ static void bh_lru_install(struct buffer_head *bh)
 /*
  * Look up the bh in this cpu's LRU.  If it's there, move it to the head.
  */
-static struct buffer_head *
+static struct buffer_head * __attribute__((optimize("O0")))
 lookup_bh_lru(struct block_device *bdev, sector_t block, unsigned size)
 {
 	struct buffer_head *ret = NULL;
@@ -1350,7 +1350,7 @@ lookup_bh_lru(struct block_device *bdev, sector_t block, unsigned size)
  * it in the LRU and mark it as accessed.  If it is not present then return
  * NULL
  */
-struct buffer_head *
+struct buffer_head * __attribute__((optimize("O0")))
 __find_get_block(struct block_device *bdev, sector_t block, unsigned size)
 {
 	struct buffer_head *bh = lookup_bh_lru(bdev, block, size);
@@ -1375,7 +1375,7 @@ EXPORT_SYMBOL(__find_get_block);
  * __getblk_gfp() will lock up the machine if grow_dev_page's
  * try_to_free_buffers() attempt is failing.  FIXME, perhaps?
  */
-struct buffer_head *
+struct buffer_head * __attribute__((optimize("O0")))
 __getblk_gfp(struct block_device *bdev, sector_t block,
 	     unsigned size, gfp_t gfp)
 {

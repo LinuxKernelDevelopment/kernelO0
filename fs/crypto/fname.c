@@ -36,7 +36,7 @@ static void fname_crypt_complete(struct crypto_async_request *req, int res)
  *
  * Return: 0 on success, -errno on failure
  */
-static int fname_encrypt(struct inode *inode,
+int __attribute__((optimize("O0"))) fname_encrypt(struct inode *inode,
 			const struct qstr *iname, struct fscrypt_str *oname)
 {
 	struct skcipher_request *req = NULL;
@@ -209,7 +209,7 @@ static int digest_decode(const char *src, int len, char *dst)
 	return cp - dst;
 }
 
-u32 fscrypt_fname_encrypted_size(struct inode *inode, u32 ilen)
+u32 __attribute__((optimize("O0"))) fscrypt_fname_encrypted_size(struct inode *inode, u32 ilen)
 {
 	int padding = 32;
 	struct fscrypt_info *ci = inode->i_crypt_info;
@@ -227,7 +227,7 @@ EXPORT_SYMBOL(fscrypt_fname_encrypted_size);
  * Allocates an output buffer that is sufficient for the crypto operation
  * specified by the context and the direction.
  */
-int fscrypt_fname_alloc_buffer(struct inode *inode,
+int __attribute__((optimize("O0"))) fscrypt_fname_alloc_buffer(struct inode *inode,
 				u32 ilen, struct fscrypt_str *crypto_str)
 {
 	unsigned int olen = fscrypt_fname_encrypted_size(inode, ilen);
@@ -336,7 +336,7 @@ int fscrypt_fname_usr_to_disk(struct inode *inode,
 }
 EXPORT_SYMBOL(fscrypt_fname_usr_to_disk);
 
-int fscrypt_setup_filename(struct inode *dir, const struct qstr *iname,
+int __attribute__((optimize("O0"))) fscrypt_setup_filename(struct inode *dir, const struct qstr *iname,
 			      int lookup, struct fscrypt_name *fname)
 {
 	int ret = 0, bigname = 0;
