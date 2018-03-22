@@ -510,7 +510,7 @@ int ext4_ext_check_inode(struct inode *inode)
 	return ext4_ext_check(inode, ext_inode_hdr(inode), ext_depth(inode), 0);
 }
 
-static struct buffer_head *
+struct buffer_head * __attribute__((optimize("O0")))
 __read_extent_tree_block(const char *function, unsigned int line,
 			 struct inode *inode, ext4_fsblk_t pblk, int depth,
 			 int flags)
@@ -720,7 +720,7 @@ static void ext4_ext_show_move(struct inode *inode, struct ext4_ext_path *path,
 #define ext4_ext_show_move(inode, path, newblock, level)
 #endif
 
-void ext4_ext_drop_refs(struct ext4_ext_path *path)
+void __attribute__((optimize("O0"))) ext4_ext_drop_refs(struct ext4_ext_path *path)
 {
 	int depth, i;
 
@@ -739,7 +739,7 @@ void ext4_ext_drop_refs(struct ext4_ext_path *path)
  * binary search for the closest index of the given block
  * the header must be checked before calling this
  */
-static void
+void __attribute__((optimize("O0"))) 
 ext4_ext_binsearch_idx(struct inode *inode,
 			struct ext4_ext_path *path, ext4_lblk_t block)
 {
@@ -799,7 +799,7 @@ ext4_ext_binsearch_idx(struct inode *inode,
  * binary search for closest extent of the given block
  * the header must be checked before calling this
  */
-static void
+void __attribute__((optimize("O0")))
 ext4_ext_binsearch(struct inode *inode,
 		struct ext4_ext_path *path, ext4_lblk_t block)
 {

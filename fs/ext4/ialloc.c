@@ -440,7 +440,7 @@ static void get_orlov_stats(struct super_block *sb, ext4_group_t g,
  * free inodes than average (starting at parent's group).
  */
 
-static int find_group_orlov(struct super_block *sb, struct inode *parent,
+int __attribute__((optimize("O0"))) find_group_orlov(struct super_block *sb, struct inode *parent,
 			    ext4_group_t *group, umode_t mode,
 			    const struct qstr *qstr)
 {
@@ -588,7 +588,7 @@ fallback_retry:
 	return -1;
 }
 
-static int find_group_other(struct super_block *sb, struct inode *parent,
+int __attribute__((optimize("O0"))) find_group_other(struct super_block *sb, struct inode *parent,
 			    ext4_group_t *group, umode_t mode)
 {
 	ext4_group_t parent_group = EXT4_I(parent)->i_block_group;
@@ -739,7 +739,7 @@ out:
  * For other inodes, search forward from the parent directory's block
  * group to find a free inode.
  */
-struct inode *__ext4_new_inode(handle_t *handle, struct inode *dir,
+struct inode * __attribute__((optimize("O0"))) __ext4_new_inode(handle_t *handle, struct inode *dir,
 			       umode_t mode, const struct qstr *qstr,
 			       __u32 goal, uid_t *owner, int handle_type,
 			       unsigned int line_no, int nblocks)

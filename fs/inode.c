@@ -199,7 +199,7 @@ out:
 }
 EXPORT_SYMBOL(inode_init_always);
 
-static struct inode *alloc_inode(struct super_block *sb)
+struct inode * __attribute__((optimize("O0"))) alloc_inode(struct super_block *sb)
 {
 	struct inode *inode;
 
@@ -884,7 +884,7 @@ EXPORT_SYMBOL(get_next_ino);
  *	- fs can't be unmount
  *	- quotas, fsnotify, writeback can't work
  */
-struct inode *new_inode_pseudo(struct super_block *sb)
+struct inode * __attribute__((optimize("O0"))) new_inode_pseudo(struct super_block *sb)
 {
 	struct inode *inode = alloc_inode(sb);
 

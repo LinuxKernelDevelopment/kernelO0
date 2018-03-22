@@ -508,7 +508,7 @@ int ext4_wait_block_bitmap(struct super_block *sb, ext4_group_t block_group,
 	return ext4_validate_block_bitmap(sb, desc, block_group, bh);
 }
 
-struct buffer_head *
+struct buffer_head * __attribute__((optimize("O0")))
 ext4_read_block_bitmap(struct super_block *sb, ext4_group_t block_group)
 {
 	struct buffer_head *bh;

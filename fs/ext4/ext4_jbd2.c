@@ -153,7 +153,7 @@ static void ext4_journal_abort_handle(const char *caller, unsigned int line,
 	jbd2_journal_abort_handle(handle);
 }
 
-int __ext4_journal_get_write_access(const char *where, unsigned int line,
+int __attribute__((optimize("O0"))) __ext4_journal_get_write_access(const char *where, unsigned int line,
 				    handle_t *handle, struct buffer_head *bh)
 {
 	int err = 0;
@@ -250,7 +250,7 @@ int __ext4_journal_get_create_access(const char *where, unsigned int line,
 	return err;
 }
 
-int __ext4_handle_dirty_metadata(const char *where, unsigned int line,
+int __attribute__((optimize("O0"))) __ext4_handle_dirty_metadata(const char *where, unsigned int line,
 				 handle_t *handle, struct inode *inode,
 				 struct buffer_head *bh)
 {

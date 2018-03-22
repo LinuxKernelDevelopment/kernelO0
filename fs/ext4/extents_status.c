@@ -629,7 +629,7 @@ static inline void ext4_es_insert_extent_check(struct inode *inode,
 }
 #endif
 
-static int __es_insert_extent(struct inode *inode, struct extent_status *newes)
+int __attribute__((optimize("O0"))) __es_insert_extent(struct inode *inode, struct extent_status *newes)
 {
 	struct ext4_es_tree *tree = &EXT4_I(inode)->i_es_tree;
 	struct rb_node **p = &tree->root.rb_node;
@@ -687,7 +687,7 @@ out:
  *
  * Return 0 on success, error code on failure.
  */
-int ext4_es_insert_extent(struct inode *inode, ext4_lblk_t lblk,
+int __attribute__((optimize("O0"))) ext4_es_insert_extent(struct inode *inode, ext4_lblk_t lblk,
 			  ext4_lblk_t len, ext4_fsblk_t pblk,
 			  unsigned int status)
 {
@@ -836,7 +836,7 @@ out:
 	return found;
 }
 
-static int __es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
+int __attribute__((optimize("O0"))) __es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
 			      ext4_lblk_t end)
 {
 	struct ext4_es_tree *tree = &EXT4_I(inode)->i_es_tree;

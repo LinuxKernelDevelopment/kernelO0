@@ -862,7 +862,7 @@ int remove_inode_buffers(struct inode *inode)
  * The retry flag is used to differentiate async IO (paging, swapping)
  * which may not fail from ordinary buffer allocations.
  */
-struct buffer_head *alloc_page_buffers(struct page *page, unsigned long size,
+struct buffer_head * __attribute__((optimize("O0"))) alloc_page_buffers(struct page *page, unsigned long size,
 		int retry)
 {
 	struct buffer_head *bh, *head;
@@ -3141,7 +3141,7 @@ EXPORT_SYMBOL(submit_bh);
  * All of the buffers must be for the same device, and must also be a
  * multiple of the current approved size for the device.
  */
-void ll_rw_block(int op, int op_flags,  int nr, struct buffer_head *bhs[])
+void __attribute__((optimize("O0"))) ll_rw_block(int op, int op_flags,  int nr, struct buffer_head *bhs[])
 {
 	int i;
 

@@ -286,7 +286,7 @@ void ext4_free_group_clusters_set(struct super_block *sb,
 		bg->bg_free_blocks_count_hi = cpu_to_le16(count >> 16);
 }
 
-void ext4_free_inodes_set(struct super_block *sb,
+void __attribute__((optimize("O0"))) ext4_free_inodes_set(struct super_block *sb,
 			  struct ext4_group_desc *bg, __u32 count)
 {
 	bg->bg_free_inodes_count_lo = cpu_to_le16((__u16)count);

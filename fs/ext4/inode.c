@@ -5449,7 +5449,7 @@ static int ext4_expand_extra_isize(struct inode *inode,
  * Whenever the user wants stuff synced (sys_sync, sys_msync, sys_fsync)
  * we start and wait on commits.
  */
-int ext4_mark_inode_dirty(handle_t *handle, struct inode *inode)
+int __attribute__((optimize("O0"))) ext4_mark_inode_dirty(handle_t *handle, struct inode *inode)
 {
 	struct ext4_iloc iloc;
 	struct ext4_sb_info *sbi = EXT4_SB(inode->i_sb);
