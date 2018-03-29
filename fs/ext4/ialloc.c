@@ -153,7 +153,7 @@ static int ext4_validate_inode_bitmap(struct super_block *sb,
  *
  * Return buffer_head of bitmap on success or NULL.
  */
-static struct buffer_head *
+struct buffer_head * __attribute__((optimize("O0")))
 ext4_read_inode_bitmap(struct super_block *sb, ext4_group_t block_group)
 {
 	struct ext4_group_desc *desc;

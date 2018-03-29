@@ -47,7 +47,7 @@
 #define NAMEI_RA_BLOCKS  4
 #define NAMEI_RA_SIZE	     (NAMEI_RA_CHUNKS * NAMEI_RA_BLOCKS)
 
-static struct buffer_head *ext4_append(handle_t *handle,
+struct buffer_head * __attribute__((optimize("O0"))) ext4_append(handle_t *handle,
 					struct inode *inode,
 					ext4_lblk_t *block)
 {
@@ -360,7 +360,7 @@ int ext4_dirent_csum_verify(struct inode *inode, struct ext4_dir_entry *dirent)
 	return 1;
 }
 
-static void ext4_dirent_csum_set(struct inode *inode,
+void __attribute__((optimize("O0"))) ext4_dirent_csum_set(struct inode *inode,
 				 struct ext4_dir_entry *dirent)
 {
 	struct ext4_dir_entry_tail *t;
@@ -1899,7 +1899,7 @@ int ext4_insert_dentry(struct inode *dir,
  * space.  It will return -ENOSPC if no space is available, and -EIO
  * and -EEXIST if directory entry already exists.
  */
-static int add_dirent_to_buf(handle_t *handle, struct ext4_filename *fname,
+int __attribute__((optimize("O0"))) add_dirent_to_buf(handle_t *handle, struct ext4_filename *fname,
 			     struct inode *dir,
 			     struct inode *inode, struct ext4_dir_entry_2 *de,
 			     struct buffer_head *bh)
@@ -2084,7 +2084,7 @@ out_frames:
  * may not sleep between calling this and putting something into
  * the entry, as someone else might have used it while you slept.
  */
-static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+int __attribute__((optimize("O0"))) ext4_add_entry(handle_t *handle, struct dentry *dentry,
 			  struct inode *inode)
 {
 	struct inode *dir = d_inode(dentry->d_parent);
@@ -2178,7 +2178,7 @@ out:
 /*
  * Returns 0 for success, or a negative error value
  */
-static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+int __attribute__((optimize("O0"))) ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
 			     struct inode *dir, struct inode *inode)
 {
 	struct dx_frame frames[2], *frame;
@@ -2557,7 +2557,7 @@ err_unlock_inode:
 	return err;
 }
 
-struct ext4_dir_entry_2 *ext4_init_dot_dotdot(struct inode *inode,
+struct ext4_dir_entry_2 * __attribute__((optimize("O0"))) ext4_init_dot_dotdot(struct inode *inode,
 			  struct ext4_dir_entry_2 *de,
 			  int blocksize, int csum_size,
 			  unsigned int parent_ino, int dotdot_real_len)
@@ -2585,7 +2585,7 @@ struct ext4_dir_entry_2 *ext4_init_dot_dotdot(struct inode *inode,
 	return ext4_next_entry(de, blocksize);
 }
 
-static int ext4_init_new_dir(handle_t *handle, struct inode *dir,
+int __attribute__((optimize("O0"))) ext4_init_new_dir(handle_t *handle, struct inode *dir,
 			     struct inode *inode)
 {
 	struct buffer_head *dir_block = NULL;
